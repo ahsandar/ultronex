@@ -1,0 +1,16 @@
+.git
+.dockerignore
+.byebug_history
+log/*
+tmp/*
+env.list*
+.gitignore
+.tool-version
+.DS_Store
+_build/
+deps/
+.git/
+Dockerfile
+Makefile
+README*
+test/

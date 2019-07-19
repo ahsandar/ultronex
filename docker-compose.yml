@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    container_name: ultronx_bot
+    env_file: ./env.list
+    stdin_open: true
+    tty: true
