@@ -32,12 +32,16 @@ defmodule Ultron.Command.Help do
 
     -> help <command>
     command(s)
-      --> greet
+      --> hi
+      --> hello
       --> cloudwatch
       --> mute/unmute
       --> xkcd
       --> gif
+      --> giphy
       --> quote
+      --> fwd
+      --> stop
       --> try you best
 
     """

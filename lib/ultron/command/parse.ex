@@ -1,5 +1,5 @@
 defmodule Ultron.Command.Parse do
-  def msg(slack_message, slack_state, msg_list) do
+  def msg(slack_message, slack_state, _msg_list) do
     IO.puts("Ultron.Command.Parse.msg")
     pattern_list = :ets.lookup(:track, "pattern")
 
