@@ -44,7 +44,7 @@ defmodule Ultron.BotX do
     send_message(message, channel, slack)
   end
 
-  def post_msg_to_slack(message, payload, channel, _slack) do
+  def post_msg_to_slack(message, payload, channel) do
     url = "https://slack.com/api/files.upload"
 
     encoded_payload =
@@ -56,17 +56,14 @@ defmodule Ultron.BotX do
       }
       |> URI.encode_query()
 
-    response =
-      HTTPoison.post(
-        url,
-        encoded_payload,
-        [
-          {"content-type", "application/x-www-form-urlencoded"},
-          {"Authorization", "Bearer #{slack_bot_ultron_token()}"}
-        ]
-      )
-
-    IO.inspect(response)
+    HTTPoison.post(
+      url,
+      encoded_payload,
+      [
+        {"content-type", "application/x-www-form-urlencoded"},
+        {"Authorization", "Bearer #{slack_bot_ultron_token()}"}
+      ]
+    )
   end
 
   def slack_bot_ultron_token do

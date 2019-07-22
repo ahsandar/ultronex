@@ -24,7 +24,7 @@ defmodule Ultron.Realtime.Msg do
     Ultron.BotX.send_msg_to_slack(msg, slack_channel, slack_state)
   end
 
-  def post(msg, payload, channel, slack_state) do
-    Ultron.BotX.post_msg_to_slack(msg, payload, channel, slack_state)
+  def post(msg, payload, channel) do
+    Ultron.BotX.post_msg_to_slack(msg, payload, channel)
   end
 end

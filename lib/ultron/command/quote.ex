@@ -1,7 +1,7 @@
 defmodule Ultron.Command.Quote do
   def random(slack_message, slack_state, _msg_list) do
     IO.puts("Ultron.Command.Quote.random")
-    quote = "<@#{slack_message.user}>!, `I, UltronX chose this for you` #{get_quote_to_send()}" 
+    quote = "<@#{slack_message.user}>!, `I, UltronX chose this for you` #{get_quote_to_send()}"
     Ultron.Realtime.Msg.send(quote, slack_message.channel, slack_state)
   end
 

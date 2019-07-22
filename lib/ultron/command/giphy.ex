@@ -19,8 +19,7 @@ defmodule Ultron.Command.Giphy do
         giphy_response = Poison.Parser.parse!(response.body, %{})
 
         selected_gif =
-          List.pop_at(giphy_response["data"], random_selection(giphy_response["data"]))|>elem(0)
-          
+          List.pop_at(giphy_response["data"], random_selection(giphy_response["data"])) |> elem(0)
 
         selected_gif["url"]
 
@@ -34,6 +33,6 @@ defmodule Ultron.Command.Giphy do
   end
 
   def random_selection(list) do
-    Enum.random(1..(Kernel.length(list)-1)) 
+    Enum.random(1..(Kernel.length(list) - 1))
   end
 end
