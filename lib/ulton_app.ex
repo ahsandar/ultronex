@@ -5,17 +5,20 @@ defmodule UltronApp do
     HTTPoison.start()
   end
 
+  def slack_bot_ultron_token do
+    System.get_env("SLACK_BOT_ULTRON")
+  end
 
   def start(_type, _args) do
-    UltronX.heartbeat()
-    UltronApp.start_http_poison()
+    start_http_poison()
+    Ultron.BotX.heartbeat()
 
     children = [
       %{
         id: Slack.Bot,
         start:
-          { Slack.Bot, :start_link,
-           [UltronX, [], System.get_env("SLACK_BOT_ULTRON"), %{name: :ultronx_bot}] }
+          {Slack.Bot, :start_link,
+           [Ultron.BotX, [], slack_bot_ultron_token(), %{name: :ultronx_bot}]}
       }
     ]
 

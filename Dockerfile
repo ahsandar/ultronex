@@ -1,5 +1,9 @@
 FROM elixir:1.9.0-slim AS base
 
+RUN apt-get -qq update && \
+    apt-get -qq -y install build-essential --fix-missing --no-install-recommends
+
+
 ENV PROJECT_ROOT /src/ultronx
 
 ENV PATH ${PROJECT_ROOT}/bin:$PATH
@@ -7,8 +11,15 @@ ENV PATH ${PROJECT_ROOT}/bin:$PATH
 WORKDIR ${PROJECT_ROOT}
 
 COPY . .
+
+# Install Hex+Rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
 RUN export MIX_ENV=prod && \
-    mix escript.build
+    mix deps.get && \
+    mix deps.compile && \
+    mix compile
 
 LABEL maintainer="ahsan.dar@live.com"
 
@@ -22,4 +33,4 @@ LABEL org.label-schema.url="https://github.com/ahsan/ultronx"
 
 
 
-ENTRYPOINT ["./ultronx"]
+ENTRYPOINT ["mix", "run", "--no-halt"]
