@@ -23,7 +23,7 @@ defmodule Ultron.Command.Forward do
         stop_all_forwarding(slack_message, slack_state)
 
       true ->
-        msg = "<@#{slack_message.user}>! you sure? no forwarding found for `#{ets_key}` `"
+        msg = "<@#{slack_message.user}>! you sure? no forwarding found for `#{ets_key}`"
         Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
     end
   end

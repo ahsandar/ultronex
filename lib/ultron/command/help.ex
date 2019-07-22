@@ -29,20 +29,18 @@ defmodule Ultron.Command.Help do
 
   def man_page do
     """
-
-    -> help <command>
     command(s)
-      --> hi
-      --> hello
-      --> cloudwatch
-      --> mute/unmute
-      --> xkcd
-      --> gif
-      --> giphy
-      --> quote
-      --> fwd
-      --> stop
-      --> try you best
+      --> help #list the command list
+      --> hi/hello #responds with a quote
+      --> mute/unmute #TODO implement later
+      --> xkcd #shows a random xkcd comic
+      --> xkcd <comic no> #shows xkcd comic no
+      --> gif/giphy #shows random gif
+      --> gif/giphy <category> #show a random gif from the category
+      --> quote #shares a quote
+      --> fwd <term> #sets up msg forwarding for the term from SLACK_CHANNEL_LIST
+      --> stop <term> #stops msg forwarding for the term SLACK_CHANNEL_LIST
+      --> stop #stops all msg forwarding set for SLACK_CHANNEL_LIST
 
     """
     |> Ultron.Realtime.Msg.format_block()
