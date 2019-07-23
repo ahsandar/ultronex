@@ -16,7 +16,12 @@ defmodule Ultron.Command.Forward do
       :ets.member(:track, ets_key) ->
         :ets.delete_object(:track, {ets_key, slack_message.user})
         pattern_msg = remove_pattern_match(ets_key)
-        msg = "<@#{slack_message.user}>! your forwarding is stopped for `#{ets_key}` \n `#{pattern_msg}`"
+
+        msg =
+          "<@#{slack_message.user}>! your forwarding is stopped for `#{ets_key}` \n `#{
+            pattern_msg
+          }`"
+
         Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
 
       ets_key |> String.first() |> is_nil() ->
@@ -28,11 +33,10 @@ defmodule Ultron.Command.Forward do
     end
   end
 
-  def remove_pattern_match(ets_key) do 
+  def remove_pattern_match(ets_key) do
     cond do
       :ets.member(:track, ets_key) ->
         "Other users are still subscribed to this pattern"
-       
 
       true ->
         :ets.delete_object(:track, {"pattern", ets_key})
@@ -45,15 +49,10 @@ defmodule Ultron.Command.Forward do
 
     Enum.each(pattern_list, fn pattern ->
       match = pattern |> elem(1)
-      user_list = :ets.lookup(:track, match)
-
-      Enum.each(user_list, fn user_map ->
-        user = user_map |> elem(1)
-        :ets.delete_object(:track, {match, user})
-        pattern_msg = remove_pattern_match(match)
-        msg = "<@#{user}>! your forwarding is stopped for `#{match}` , `#{pattern_msg}`"
-        Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
-      end)
+      :ets.delete_object(:track, {match, slack_message.user})
+      pattern_msg = remove_pattern_match(match)
+      msg = "<@#{slack_message.user}>! your forwarding is stopped for `#{match}` , `#{pattern_msg}`"
+      Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
     end)
   end
 
