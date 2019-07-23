@@ -2,23 +2,6 @@
 
 **TODO: Add description**
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ultronx` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:ultronx, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ultronx](https://hexdocs.pm/ultronx).
-
 
 ## Requirements 
 * Docker
@@ -33,11 +16,6 @@ ENV=<environment>
 SLACK_BOT_ULTRON=x<SLACK BOT ID>
 SLACK_CHANNEL_LIST=<CHANNEL ID>
 ULTRON_BOT_ID=<ULTRON SLACK ID>
-IRONMAN_USER_ID=<SLACK USER ID>
-AWS_REGION=<AWS_REGION>
-AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
-AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
-SENTRY_DNS=<SENTRY DNS URL>
 GIPHY_API_KEY=<GIPHY APP API KEY> 
 ```
 
