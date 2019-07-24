@@ -2,7 +2,7 @@
 
 **TODO: Add description**
 
-
+Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. Blog post coming soon showcasing the results but for now as an update `elixir` is outperforming `ruby` by 100%
 ## Requirements 
 * Docker
 * Elixir 1.9.0
