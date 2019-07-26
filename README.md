@@ -1,29 +1,13 @@
 # UltronX
 
-**TODO: Add description**
+Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. Blog post coming soon showcasing the results but for now as an update `elixir` is outperforming `ruby` by 100%
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ultronx` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:ultronx, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ultronx](https://hexdocs.pm/ultronx).
-
+**TODO: Move duplicated code to a common utility module**
 
 ## Requirements 
-* Docker
-* Elixir 1.9.0
-* Erlang/OTP 22
+* `Docker`
+* `Elixir 1.9.0`
+* `Erlang/OTP 22`
 
 ### SECRETS AND KEYS
 * Set values in env.list file for docker or set those as ENV variables if running without docker.
@@ -33,11 +17,6 @@ ENV=<environment>
 SLACK_BOT_ULTRON=x<SLACK BOT ID>
 SLACK_CHANNEL_LIST=<CHANNEL ID>
 ULTRON_BOT_ID=<ULTRON SLACK ID>
-IRONMAN_USER_ID=<SLACK USER ID>
-AWS_REGION=<AWS_REGION>
-AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
-AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
-SENTRY_DNS=<SENTRY DNS URL>
 GIPHY_API_KEY=<GIPHY APP API KEY> 
 ```
 
