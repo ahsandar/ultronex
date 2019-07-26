@@ -16,10 +16,11 @@ COPY . .
 RUN mix local.hex --force && \
     mix local.rebar --force
 
-RUN export MIX_ENV=prod && \
-    mix deps.get && \
-    mix deps.compile && \
-    mix compile
+RUN MIX_ENV=prod mix deps.get && \
+    MIX_ENV=prod mix deps.compile
+
+RUN MIX_ENV=prod mix compile 
+RUN MIX_ENV=prod mix release
 
 LABEL maintainer="ahsan.dar@live.com"
 
@@ -33,4 +34,4 @@ LABEL org.label-schema.url="https://github.com/ahsan/ultronx"
 
 
 
-ENTRYPOINT ["mix", "run", "--no-halt"]
+ENTRYPOINT ["_build/prod/rel/ultronx/bin/ultronx", "start"]

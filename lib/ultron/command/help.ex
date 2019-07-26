@@ -39,7 +39,7 @@ defmodule Ultron.Command.Help do
       --> gif/giphy <category> #show a random gif from the category
       --> quote #shares a quote
       --> fwd <term> #sets up msg forwarding for the term from SLACK_CHANNEL_LIST
-      --> stop <term> #stops msg forwarding for the term SLACK_CHANNEL_LIST
+      --> stop <term> #stops msg forwarding for the term from SLACK_CHANNEL_LIST
       --> stop #stops all msg forwarding set for SLACK_CHANNEL_LIST
 
     """
