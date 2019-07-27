@@ -14,7 +14,7 @@ defmodule Ultron.Command.Quote do
   end
 
   def randon_quote_index do
-    Enum.random(0..Kernel.length(quotes()))
+    Ultron.Utility.random(Kernel.length(quotes()))
   end
 
   def quotes do

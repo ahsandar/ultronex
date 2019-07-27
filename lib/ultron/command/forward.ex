@@ -51,7 +51,10 @@ defmodule Ultron.Command.Forward do
       match = pattern |> elem(1)
       :ets.delete_object(:track, {match, slack_message.user})
       pattern_msg = remove_pattern_match(match)
-      msg = "<@#{slack_message.user}>! your forwarding is stopped for `#{match}` , `#{pattern_msg}`"
+
+      msg =
+        "<@#{slack_message.user}>! your forwarding is stopped for `#{match}` , `#{pattern_msg}`"
+
       Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
     end)
   end

@@ -51,19 +51,7 @@ defmodule Ultron.Command.Parse do
     end
   end
 
-  def slack_bot_ultron_token do
-    System.get_env("SLACK_BOT_ULTRON")
-  end
-
   def get_request(url) do
-    Tesla.get(tesla_client(), url)
-  end
-
-  def tesla_client do
-    middleware = [
-      {Tesla.Middleware.Headers, [{"Authorization", "Bearer #{slack_bot_ultron_token()}"}]}
-    ]
-
-    Tesla.client(middleware)
+    Tesla.get(Ultron.Utility.tesla_get_authorized_client(), url)
   end
 end

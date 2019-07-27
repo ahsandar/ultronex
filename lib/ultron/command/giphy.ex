@@ -14,6 +14,10 @@ defmodule Ultron.Command.Giphy do
 
     {:ok, response} = URI.encode(url) |> Tesla.get()
 
+    get_giphy_url(response)
+  end
+
+  def get_giphy_url(response) do
     cond do
       response.status == 200 ->
         giphy_response = Poison.Parser.parse!(response.body, %{})

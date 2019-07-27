@@ -17,10 +17,7 @@ defmodule Ultron.BotX do
   end
 
   def handle_event(message = %{type: "message"}, slack, state) do
-    # IO.inspect(message)
-    # IO.inspect(slack)
     Ultron.Realtime.Respose.event(message, slack)
-    # send_message("I got a message!", message.channel, slack)
     {:ok, state}
   end
 
@@ -61,28 +58,8 @@ defmodule Ultron.BotX do
       encoded_payload,
       [
         {"content-type", "application/x-www-form-urlencoded"},
-        {"Authorization", "Bearer #{slack_bot_ultron_token()}"}
+        {"Authorization", Ultron.Utility.authorization_token()}
       ]
     )
-  end
-
-  def slack_bot_ultron_token do
-    System.get_env("SLACK_BOT_ULTRON")
-  end
-
-  def encode_payload(attachment) do
-    attachment |> Poison.encode!()
-  end
-
-  def tesla_client do
-    middleware = [
-      {Tesla.Middleware.Headers,
-       [
-         {"Content-type", "application/json"},
-         {"Authorization", "Bearer #{slack_bot_ultron_token()}"}
-       ]}
-    ]
-
-    Tesla.client(middleware)
   end
 end
