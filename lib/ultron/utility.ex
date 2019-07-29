@@ -7,8 +7,6 @@ defmodule Ultron.Utility do
     HTTPoison.start()
   end
 
-  
-
   def encode_payload(attachment) do
     attachment |> Poison.encode!()
   end
@@ -29,7 +27,7 @@ defmodule Ultron.Utility do
     Tesla.client(middleware)
   end
 
-  def tesla_get_authrorized_client do
+  def tesla_get_authorized_client do
     middleware = [
       {Tesla.Middleware.Headers, [{"Authorization", authorization_token}]}
     ]
