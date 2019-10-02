@@ -15,9 +15,13 @@ defmodule UltronApp do
       Plug.Cowboy.child_spec(scheme: :https, plug: Ultron.Server.Router, options: [
         port: 8443,
         cipher_suite: :strong,
-        certfile: "/etc/letsencrypt/live/ultronx.mooo.com/fullchain.pem",
-        keyfile: "/etc/letsencrypt/live/ultronx.mooo.com/privkey.pem"
+        certfile: "/src/ultronx/cert/cert.pem",
+        keyfile: "/src/ultronx/cert/privkey.pem",
+        cacertfile: "/src/ultronx/cert/chain.pem",
+        reuse_sessions: true,
+        secure_renegotiate: true
       ])
+
     ]
 
     opts = [strategy: :one_for_one, name: UltonApp]
