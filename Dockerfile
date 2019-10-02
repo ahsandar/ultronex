@@ -32,6 +32,6 @@ LABEL org.label-schema.description="Slack Bot - ULTRONX"
 LABEL org.label-schema.url="https://github.com/ahsan/ultronx"
 
 
-EXPOSE 8085
+EXPOSE 8443
 
 ENTRYPOINT ["_build/prod/rel/ultronx/bin/ultronx", "start"]
