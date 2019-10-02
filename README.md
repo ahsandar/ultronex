@@ -1,6 +1,8 @@
+On Github its a `mirror` from private Gitlab repo
+
 # UltronX
 
-Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. Blog post coming soon showcasing the results but for now as an update `elixir` is outperforming `ruby` by 100%
+Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. [Blog post](https://medium.com/@hsan_nabi_dar/ruby-vs-elixir-performance-ultron-is-dead-long-live-ultronx-f24e40a4c4d4) showcasing the results `elixir`  outperforming `ruby` by 100%
 
 **TODO: make it more elixir-ish**
 
