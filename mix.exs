@@ -19,7 +19,7 @@ defmodule UltronX.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :cowboy, :plug, :poison],
       mod: {UltronApp, []}
     ]
   end
@@ -33,6 +33,8 @@ defmodule UltronX.MixProject do
       {:tesla, "~> 1.2.1"},
       {:poison, "~> 3.1"},
       {:new_relic_agent, "~> 1.0"},
+      {:cowboy, "~> 2.6.3"},
+      {:plug, "~> 1.8.3"},
       {:dialyxir, "~> 0.4", only: [:dev]}
     ]
   end
