@@ -8,5 +8,5 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - "8080:8085"
+      - "80:8085"
 
