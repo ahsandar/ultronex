@@ -1,8 +1,8 @@
-defmodule Ultron.BotX do
+defmodule Ultronx.BotX do
   use Slack
 
   @moduledoc """
-  Documentation for Ultron.BotX.
+  Documentation for Ultronx.BotX.
   """
 
   def initialize_ets do
@@ -17,7 +17,7 @@ defmodule Ultron.BotX do
   end
 
   def handle_event(message = %{type: "message"}, slack, state) do
-    Ultron.Realtime.Respose.event(message, slack)
+    Ultronx.Realtime.Respose.event(message, slack)
     {:ok, state}
   end
 
@@ -58,7 +58,7 @@ defmodule Ultron.BotX do
       encoded_payload,
       [
         {"content-type", "application/x-www-form-urlencoded"},
-        {"Authorization", Ultron.Utility.authorization_token()}
+        {"Authorization", Ultronx.Utility.authorization_token()}
       ]
     )
   end

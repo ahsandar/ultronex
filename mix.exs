@@ -13,14 +13,14 @@ defmodule UltronX.MixProject do
   end
 
   def escript do
-    [main_module: UltronApp]
+    [main_module: UltronxApp]
   end
 
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger, :cowboy, :plug, :plug_cowboy, :poison],
-      mod: {UltronApp, []}
+      mod: {UltronxApp, []}
     ]
   end
 

@@ -1,6 +1,6 @@
-defmodule Ultron.Command.Parse do
+defmodule Ultronx.Command.Parse do
   def msg(slack_message, _slack_state, _msg_list) do
-    IO.puts("Ultron.Command.Parse.msg")
+    IO.puts("Ultronx.Command.Parse.msg")
     pattern_list = :ets.lookup(:track, "pattern")
 
     Enum.each(pattern_list, fn pattern ->
@@ -17,7 +17,7 @@ defmodule Ultron.Command.Parse do
         Enum.each(user_list, fn user_map ->
           user = user_map |> elem(1)
 
-          Ultron.Realtime.Msg.post(
+          Ultronx.Realtime.Msg.post(
             " `UltronX` found a match for `#{match}`\n #{text}",
             attachment,
             "#{user}"
@@ -28,7 +28,7 @@ defmodule Ultron.Command.Parse do
   end
 
   def payload(slack_message) do
-    IO.puts("Ultron.Command.Parse.payload")
+    IO.puts("Ultronx.Command.Parse.payload")
     files = slack_message |> Map.get(:files)
 
     if files && files |> List.last() do
@@ -52,6 +52,6 @@ defmodule Ultron.Command.Parse do
   end
 
   def get_request(url) do
-    Tesla.get(Ultron.Utility.tesla_get_authorized_client(), url)
+    Tesla.get(Ultronx.Utility.tesla_get_authorized_client(), url)
   end
 end

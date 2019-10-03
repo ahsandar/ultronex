@@ -1,8 +1,8 @@
-defmodule Ultron.Command.Help do
+defmodule Ultronx.Command.Help do
   def output(slack_message, slack_state, _msg_list) do
-    IO.puts("Ultron.Command.Help.output")
+    IO.puts("Ultronx.Command.Help.output")
     msg = output_msg(slack_message.user)
-    Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def output_msg(user) do
@@ -12,9 +12,9 @@ defmodule Ultron.Command.Help do
   end
 
   def unknown(slack_message, slack_state, _msg_list) do
-    IO.puts("Ultron.Command.Help.unknown")
+    IO.puts("Ultronx.Command.Help.unknown")
     msg = unknown_msg(slack_message.user)
-    Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def unknown_msg(user) do
@@ -24,7 +24,7 @@ defmodule Ultron.Command.Help do
   end
 
   def get_random_quote do
-    Ultron.Command.Quote.get_quote_to_send()
+    Ultronx.Command.Quote.get_quote_to_send()
   end
 
   def man_page do
@@ -43,6 +43,6 @@ defmodule Ultron.Command.Help do
       --> stop #stops all msg forwarding set for SLACK_CHANNEL_LIST
 
     """
-    |> Ultron.Realtime.Msg.format_block()
+    |> Ultronx.Realtime.Msg.format_block()
   end
 end

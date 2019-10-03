@@ -1,4 +1,4 @@
-defmodule Ultron.Utility do
+defmodule Ultronx.Utility do
   def authorization_token do
     "Bearer #{slack_bot_ultron_token()}"
   end
@@ -13,6 +13,31 @@ defmodule Ultron.Utility do
 
   def slack_bot_ultron_token do
     System.get_env("SLACK_BOT_ULTRON")
+  end
+
+  def http_scheme do
+    case System.get_env("HTTP_SCHEME") do
+      "https" -> :https
+      _ -> :http
+    end
+  end
+
+  def http_options do
+    case http_scheme() do
+      :https ->
+        [
+          port: 8443,
+          cipher_suite: :strong,
+          certfile: "/src/ultronx/cert/cert.pem",
+          keyfile: "/src/ultronx/cert/privkey.pem",
+          cacertfile: "/src/ultronx/cert/chain.pem",
+          reuse_sessions: true,
+          secure_renegotiate: true
+        ]
+
+      _ ->
+        [port: 8443]
+    end
   end
 
   def tesla_json_authorized_client do

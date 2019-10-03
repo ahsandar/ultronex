@@ -1,8 +1,8 @@
-defmodule Ultron.Command.Quote do
+defmodule Ultronx.Command.Quote do
   def random(slack_message, slack_state, _msg_list) do
-    IO.puts("Ultron.Command.Quote.random")
+    IO.puts("Ultronx.Command.Quote.random")
     quote = "<@#{slack_message.user}>!, `I, UltronX chose this for you` #{get_quote_to_send()}"
-    Ultron.Realtime.Msg.send(quote, slack_message.channel, slack_state)
+    Ultronx.Realtime.Msg.send(quote, slack_message.channel, slack_state)
   end
 
   def get_quote_to_send do
@@ -10,11 +10,11 @@ defmodule Ultron.Command.Quote do
   end
 
   def format(quote) do
-    quote |> Ultron.Realtime.Msg.format_block()
+    quote |> Ultronx.Realtime.Msg.format_block()
   end
 
   def randon_quote_index do
-    Ultron.Utility.random(Kernel.length(quotes()))
+    Ultronx.Utility.random(Kernel.length(quotes()))
   end
 
   def quotes do

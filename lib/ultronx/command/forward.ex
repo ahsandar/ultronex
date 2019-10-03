@@ -1,15 +1,15 @@
-defmodule Ultron.Command.Forward do
+defmodule Ultronx.Command.Forward do
   def fwd(slack_message, slack_state, msg_list) do
-    IO.puts("Ultron.Command.Forward.fwd")
+    IO.puts("Ultronx.Command.Forward.fwd")
     ets_key = msg_list |> List.first() |> sanitize_quotes()
     :ets.insert(:track, {"pattern", ets_key})
     :ets.insert(:track, {ets_key, slack_message.user})
     msg = "<@#{slack_message.user}>! your forwarding is set for `#{ets_key}` "
-    Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def stop(slack_message, slack_state, msg_list) do
-    IO.puts("Ultron.Command.Forward.stop")
+    IO.puts("Ultronx.Command.Forward.stop")
     ets_key = msg_list |> List.first() |> sanitize_quotes()
 
     cond do
@@ -22,14 +22,14 @@ defmodule Ultron.Command.Forward do
             pattern_msg
           }`"
 
-        Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+        Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
 
       ets_key |> String.first() |> is_nil() ->
         stop_all_forwarding(slack_message, slack_state)
 
       true ->
         msg = "<@#{slack_message.user}>! you sure? no forwarding found for `#{ets_key}`"
-        Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+        Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
     end
   end
 
@@ -55,7 +55,7 @@ defmodule Ultron.Command.Forward do
       msg =
         "<@#{slack_message.user}>! your forwarding is stopped for `#{match}` , `#{pattern_msg}`"
 
-      Ultron.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+      Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
     end)
   end
 
