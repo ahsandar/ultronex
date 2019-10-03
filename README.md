@@ -20,6 +20,7 @@ SLACK_BOT_ULTRON=x<SLACK BOT ID>
 SLACK_CHANNEL_LIST=<CHANNEL ID>
 ULTRON_BOT_ID=<ULTRON SLACK ID>
 GIPHY_API_KEY=<GIPHY APP API KEY> 
+HTTP_SCHEME=<http or https>
 ```
 
 `CAUTION: Running msg forwarder in memory`
@@ -38,3 +39,19 @@ GIPHY_API_KEY=<GIPHY APP API KEY>
 
 > `docker exec -it ultronx_bot sh` #only if you need to go in to the container
 
+## UltronX web server
+
+A small webserver is now running in this app to check fo `heartbeat`. You can run it in `HTTP` or `HTTPS` mode. Set the `HTTP_SCHEME` environment variable and set the right values in docker-compose.yml for mapping of ports and certs.
+
+```
+Request: curl -v http://localhost:8080/heartbeat
+
+Response: I don't have a heart but I am alive!
+```
+
+```
+Request: curl -v http://localhost:8080/unknown
+
+Response: You have entered an abyss
+
+```
