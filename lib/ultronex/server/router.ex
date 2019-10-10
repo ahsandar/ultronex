@@ -1,4 +1,4 @@
-defmodule Ultronx.Server.Router do
+defmodule Ultronex.Server.Router do
   use Plug.Router
   use Plug.Debugger
   require Logger

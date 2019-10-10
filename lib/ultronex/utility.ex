@@ -1,4 +1,4 @@
-defmodule Ultronx.Utility do
+defmodule Ultronex.Utility do
   def authorization_token do
     "Bearer #{slack_bot_ultron_token()}"
   end
@@ -28,9 +28,9 @@ defmodule Ultronx.Utility do
         [
           port: 8443,
           cipher_suite: :strong,
-          certfile: "/src/ultronx/cert/cert.pem",
-          keyfile: "/src/ultronx/cert/privkey.pem",
-          cacertfile: "/src/ultronx/cert/chain.pem",
+          certfile: "/src/ultronex/cert/cert.pem",
+          keyfile: "/src/ultronex/cert/privkey.pem",
+          cacertfile: "/src/ultronex/cert/chain.pem",
           reuse_sessions: true,
           secure_renegotiate: true
         ]

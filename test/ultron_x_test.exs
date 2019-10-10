@@ -1,8 +1,8 @@
-defmodule UltronXTest do
+defmodule UltronExTest do
   use ExUnit.Case
-  doctest UltronX
+  doctest UltronEx
 
   test "greets the world" do
-    assert UltronX.hello() == :world
+    assert UltronEx.hello() == :world
   end
 end

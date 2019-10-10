@@ -1,30 +1,30 @@
-defmodule Ultronx.Command.Help do
+defmodule Ultronex.Command.Help do
   def output(slack_message, slack_state, _msg_list) do
-    IO.puts("Ultronx.Command.Help.output")
+    IO.puts("Ultronex.Command.Help.output")
     msg = output_msg(slack_message.user)
-    Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def output_msg(user) do
-    " <@#{user}>! , `Avengers` have let you down , no doubt ini't you came to UltronX, #{
+    " <@#{user}>! , `Avengers` have let you down , no doubt ini't you came to UltronEx, #{
       man_page()
     }"
   end
 
   def unknown(slack_message, slack_state, _msg_list) do
-    IO.puts("Ultronx.Command.Help.unknown")
+    IO.puts("Ultronex.Command.Help.unknown")
     msg = unknown_msg(slack_message.user)
-    Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def unknown_msg(user) do
-    " <@#{user}>! `You talk'in to UltronX` , `You talk'in to UltronX` ?  try `@ultron help` #{
+    " <@#{user}>! `You talk'in to UltronEx` , `You talk'in to UltronEx` ?  try `@ultron help` #{
       get_random_quote()
     }"
   end
 
   def get_random_quote do
-    Ultronx.Command.Quote.get_quote_to_send()
+    Ultronex.Command.Quote.get_quote_to_send()
   end
 
   def man_page do
@@ -43,6 +43,6 @@ defmodule Ultronx.Command.Help do
       --> stop #stops all msg forwarding set for SLACK_CHANNEL_LIST
 
     """
-    |> Ultronx.Realtime.Msg.format_block()
+    |> Ultronex.Realtime.Msg.format_block()
   end
 end

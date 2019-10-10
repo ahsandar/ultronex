@@ -1,11 +1,11 @@
-defmodule Ultronx.Command.Giphy do
+defmodule Ultronex.Command.Giphy do
   def gif(slack_message, slack_state, msg_list) do
-    IO.puts("Ultronx.Command.Giphy.gif")
+    IO.puts("Ultronex.Command.Giphy.gif")
     category_chosen = msg_list |> List.first() |> String.first()
     category = if is_nil(category_chosen), do: "random", else: msg_list |> List.first()
     url = random_gif_from_giphy(category)
-    msg = " <@#{slack_message.user}>! I, `UltronX` have selected a #{category} gif for you #{url}"
-    Ultronx.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    msg = " <@#{slack_message.user}>! I, `UltronEx` have selected a #{category} gif for you #{url}"
+    Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def random_gif_from_giphy(tag) do

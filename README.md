@@ -1,8 +1,8 @@
 On Github its a `mirror` from private Gitlab repo
 
-# UltronX
+# UltronEx
 
-Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. [Blog post](https://medium.com/@hsan_nabi_dar/ruby-vs-elixir-performance-ultron-is-dead-long-live-ultronx-f24e40a4c4d4) showcasing the results `elixir`  outperforming `ruby` by 100%
+Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. [Blog post](https://medium.com/@hsan_nabi_dar/ruby-vs-elixir-performance-ultron-is-dead-long-live-ultronex-f24e40a4c4d4) showcasing the results `elixir`  outperforming `ruby` by 100%
 
 **TODO: make it more elixir-ish**
 
@@ -28,18 +28,18 @@ HTTP_SCHEME=<http or https>
 `should run single instance as reads all messages by the bot for every instance.`
 
 ## Docker
-> `docker build --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t darahsan/ultronx:latest .`
+> `docker build --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t darahsan/ultronex:latest .`
 
-> `docker run --env-file ./env.list -t darahsan/ultronx:latest`
+> `docker run --env-file ./env.list -t darahsan/ultronex:latest`
 
 ## Docker Compose 
 > `docker-compose build`
 
 > `docker-compose up`
 
-> `docker exec -it ultronx_bot sh` #only if you need to go in to the container
+> `docker exec -it ultronex_bot sh` #only if you need to go in to the container
 
-## UltronX web server
+## UltronEx web server
 
 A small webserver is now running in this app to check fo `heartbeat`. You can run it in `HTTP` or `HTTPS` mode. Set the `HTTP_SCHEME` environment variable and set the right values in docker-compose.yml for mapping of ports and certs.
 

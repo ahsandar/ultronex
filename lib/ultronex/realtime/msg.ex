@@ -1,4 +1,4 @@
-defmodule Ultronx.Realtime.Msg do
+defmodule Ultronex.Realtime.Msg do
   def parse(msg_text) do
     parsed_msg = Regex.run(~r/^<@U1KH8H9FW>\s*(\w*)\s*(.*)$/i, msg_text)
 
@@ -21,10 +21,10 @@ defmodule Ultronx.Realtime.Msg do
   end
 
   def send(msg, slack_channel, slack_state) do
-    Ultronx.BotX.send_msg_to_slack(msg, slack_channel, slack_state)
+    Ultronex.BotX.send_msg_to_slack(msg, slack_channel, slack_state)
   end
 
   def post(msg, payload, channel) do
-    Ultronx.BotX.post_msg_to_slack(msg, payload, channel)
+    Ultronex.BotX.post_msg_to_slack(msg, payload, channel)
   end
 end

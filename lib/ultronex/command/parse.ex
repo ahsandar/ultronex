@@ -1,6 +1,6 @@
-defmodule Ultronx.Command.Parse do
+defmodule Ultronex.Command.Parse do
   def msg(slack_message, _slack_state, _msg_list) do
-    IO.puts("Ultronx.Command.Parse.msg")
+    IO.puts("Ultronex.Command.Parse.msg")
     pattern_list = :ets.lookup(:track, "pattern")
 
     Enum.each(pattern_list, fn pattern ->
@@ -17,8 +17,8 @@ defmodule Ultronx.Command.Parse do
         Enum.each(user_list, fn user_map ->
           user = user_map |> elem(1)
 
-          Ultronx.Realtime.Msg.post(
-            " `UltronX` found a match for `#{match}`\n #{text}",
+          Ultronex.Realtime.Msg.post(
+            " `UltronEx` found a match for `#{match}`\n #{text}",
             attachment,
             "#{user}"
           )
@@ -28,14 +28,14 @@ defmodule Ultronx.Command.Parse do
   end
 
   def payload(slack_message) do
-    IO.puts("Ultronx.Command.Parse.payload")
+    IO.puts("Ultronex.Command.Parse.payload")
     files = slack_message |> Map.get(:files)
 
     if files && files |> List.last() do
       url = files |> List.last() |> Map.get(:url_private_download)
       get_attachment(url)
     else
-      "No files attachemnt to download by UltronX"
+      "No files attachemnt to download by UltronEx"
     end
   end
 
@@ -52,6 +52,6 @@ defmodule Ultronx.Command.Parse do
   end
 
   def get_request(url) do
-    Tesla.get(Ultronx.Utility.tesla_get_authorized_client(), url)
+    Tesla.get(Ultronex.Utility.tesla_get_authorized_client(), url)
   end
 end

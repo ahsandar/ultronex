@@ -1,9 +1,9 @@
-defmodule UltronX.MixProject do
+defmodule UltronEx.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :ultronx,
+      app: :ultronex,
       version: "0.1.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
@@ -13,14 +13,14 @@ defmodule UltronX.MixProject do
   end
 
   def escript do
-    [main_module: UltronxApp]
+    [main_module: UltronexApp]
   end
 
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger, :cowboy, :plug, :plug_cowboy, :poison],
-      mod: {UltronxApp, []}
+      mod: {UltronexApp, []}
     ]
   end
 

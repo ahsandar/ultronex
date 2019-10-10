@@ -1,8 +1,8 @@
-defmodule Ultronx.BotX do
+defmodule Ultronex.BotX do
   use Slack
 
   @moduledoc """
-  Documentation for Ultronx.BotX.
+  Documentation for Ultronex.BotX.
   """
 
   def initialize_ets do
@@ -17,7 +17,7 @@ defmodule Ultronx.BotX do
   end
 
   def handle_event(message = %{type: "message"}, slack, state) do
-    Ultronx.Realtime.Respose.event(message, slack)
+    Ultronex.Realtime.Respose.event(message, slack)
     {:ok, state}
   end
 
@@ -49,7 +49,7 @@ defmodule Ultronx.BotX do
         channels: channel,
         initial_comment: message,
         content: payload,
-        title: "UltronX FWD msg"
+        title: "UltronEx FWD msg"
       }
       |> URI.encode_query()
 
@@ -58,7 +58,7 @@ defmodule Ultronx.BotX do
       encoded_payload,
       [
         {"content-type", "application/x-www-form-urlencoded"},
-        {"Authorization", Ultronx.Utility.authorization_token()}
+        {"Authorization", Ultronex.Utility.authorization_token()}
       ]
     )
   end
