@@ -12,7 +12,7 @@ defmodule Ultronex.BotX do
   end
 
   def dets_initialize(table \\ :slack_count) do
-    :dets.insert(table, {:uptime, DateTime.utc_now()|> DateTime.to_string})
+    :dets.insert(table, {:uptime, DateTime.utc_now() |> DateTime.to_string()})
     :dets.insert(table, {:total_msg_count, 0})
     :dets.insert(table, {:replied_msg_count, 0})
     :dets.insert(table, {:forwarded_msg_count, 0})
@@ -77,8 +77,8 @@ defmodule Ultronex.BotX do
   end
 
   def terminate(_reason, _state) do
-    IO.puts("Terminating slack bot") 
+    IO.puts("Terminating slack bot")
     Ultronex.Realtime.TermStorage.dets_close()
-    IO.puts(":dets closed") 
+    IO.puts(":dets closed")
   end
 end

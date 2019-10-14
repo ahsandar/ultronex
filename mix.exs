@@ -36,7 +36,8 @@ defmodule UltronEx.MixProject do
       {:cowboy, "~> 2.6.3"},
       {:plug, "~> 1.8.3"},
       {:plug_cowboy, "~> 2.1.0"},
-      {:dialyxir, "~> 0.4", only: [:dev]}
+      {:dialyxir, "~> 0.4", only: [:dev]},
+      {:basic_auth, "~> 2.2.2"}
     ]
   end
 end
