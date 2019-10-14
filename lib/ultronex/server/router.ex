@@ -18,6 +18,10 @@ defmodule Ultronex.Server.Router do
     send_resp(conn, 200, Ultronex.Server.List.fwd())
   end
 
+  get "/count" do
+    send_resp(conn, 200, Ultronex.Server.Count.total())
+  end
+
   match _ do
     send_resp(conn, 404, "You have entered an abyss")
   end
