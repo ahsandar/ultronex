@@ -6,6 +6,8 @@ defmodule Ultronex.Server.Router do
 
   plug(Plug.Logger, log: :debug)
 
+  plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
+
   plug(:match)
 
   plug(:dispatch)
