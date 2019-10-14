@@ -8,6 +8,7 @@ defmodule Ultronex.BotX do
   def initialize_ets do
     IO.puts(":ets track created")
     :ets.new(:track, [:bag, :protected, :named_table, read_concurrency: true])
+    :ets.insert(:track, {"slack_msg_count", 0})
   end
 
   def handle_connect(slack, state) do
@@ -18,6 +19,7 @@ defmodule Ultronex.BotX do
 
   def handle_event(message = %{type: "message"}, slack, state) do
     Ultronex.Realtime.Respose.event(message, slack)
+    :ets.update_counter(:track, "slack_msg_count", {2, 1})
     {:ok, state}
   end
 
