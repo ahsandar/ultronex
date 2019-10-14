@@ -1,14 +1,14 @@
 defmodule Ultronex.Server.Router do
   use Plug.Router
   use Plug.Debugger
+  use NewRelic.Transaction
   require Logger
+
   plug(Plug.Logger, log: :debug)
 
   plug(:match)
 
   plug(:dispatch)
-
-  # TODO: add routes!
 
   get "/heartbeat" do
     send_resp(conn, 200, "I don't have a heart but I am alive!")
