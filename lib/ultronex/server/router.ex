@@ -10,9 +10,12 @@ defmodule Ultronex.Server.Router do
 
   # TODO: add routes!
 
-  # Simple GET Request handler for path /hello
   get "/heartbeat" do
     send_resp(conn, 200, "I don't have a heart but I am alive!")
+  end
+
+  get "/list" do
+    send_resp(conn, 200, Ultronex.Server.List.fwd())
   end
 
   match _ do

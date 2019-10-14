@@ -41,7 +41,11 @@ HTTP_SCHEME=<http or https>
 
 ## UltronEx web server
 
-A small webserver is now running in this app to check fo `heartbeat`. You can run it in `HTTP` or `HTTPS` mode. Set the `HTTP_SCHEME` environment variable and set the right values in docker-compose.yml for mapping of ports and certs.
+A small webserver is now running in this app to check fo `heartbeat`. You can run it in `HTTP` or `HTTPS` mode. Set the `HTTP_SCHEME` environment variable and set the right docker-compose file  
+
+> `docker-compose -f docker-compose.yml up` #HTTPS
+
+> `docker-compose -f docker-compose-http.yml up` #HTTP
 
 ```
 Request: curl -v http://localhost:8080/heartbeat

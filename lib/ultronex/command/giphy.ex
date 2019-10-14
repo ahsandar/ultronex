@@ -4,7 +4,10 @@ defmodule Ultronex.Command.Giphy do
     category_chosen = msg_list |> List.first() |> String.first()
     category = if is_nil(category_chosen), do: "random", else: msg_list |> List.first()
     url = random_gif_from_giphy(category)
-    msg = " <@#{slack_message.user}>! I, `UltronEx` have selected a #{category} gif for you #{url}"
+
+    msg =
+      " <@#{slack_message.user}>! I, `UltronEx` have selected a #{category} gif for you #{url}"
+
     Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 

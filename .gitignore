@@ -28,3 +28,4 @@ lib/img/graph/*
 env.list
 .DS_Store
 .elixir_ls
+tmp/*

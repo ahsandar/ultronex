@@ -9,7 +9,6 @@ services:
     tty: true
     ports:
       - "443:8443"
-      # - "8080:8443"
     # map certs when using HTTPS
     volumes: 
       - /etc/letsencrypt/live/ultronex.mooo.com/privkey.pem:/src/ultronex/cert/privkey.pem
