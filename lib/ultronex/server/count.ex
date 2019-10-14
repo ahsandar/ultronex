@@ -13,14 +13,14 @@ defmodule Ultronex.Server.Count do
 
   def counters do
     %{
-      uptime: Ultronex.Realtime.TermStorage.dets_lookup(:slack_count, :uptime),
-      total_msg_count: Ultronex.Realtime.TermStorage.dets_lookup(:slack_count, :total_msg_count),
+      uptime: Ultronex.Realtime.TermStorage.ets_lookup(:slack_count, :uptime),
+      total_msg_count: Ultronex.Realtime.TermStorage.ets_lookup(:slack_count, :total_msg_count),
       replied_msg_count:
-        Ultronex.Realtime.TermStorage.dets_lookup(:slack_count, :replied_msg_count),
+        Ultronex.Realtime.TermStorage.ets_lookup(:slack_count, :replied_msg_count),
       forwarded_msg_count:
-        Ultronex.Realtime.TermStorage.dets_lookup(:slack_count, :forwarded_msg_count),
+        Ultronex.Realtime.TermStorage.ets_lookup(:slack_count, :forwarded_msg_count),
       total_attachments_downloaded:
-        Ultronex.Realtime.TermStorage.dets_lookup(:slack_count, :total_attachments_downloaded)
+        Ultronex.Realtime.TermStorage.ets_lookup(:slack_count, :total_attachments_downloaded)
     }
   end
 end

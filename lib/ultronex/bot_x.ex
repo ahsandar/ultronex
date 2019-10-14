@@ -8,15 +8,15 @@ defmodule Ultronex.BotX do
   def initialize_term_storage do
     IO.puts("Creating Term Storage ...")
     Ultronex.Realtime.TermStorage.initialize()
-    dets_initialize()
+    ets_initialize()
   end
 
-  def dets_initialize(table \\ :slack_count) do
-    :dets.insert(table, {:uptime, DateTime.utc_now() |> DateTime.to_string()})
-    :dets.insert(table, {:total_msg_count, 0})
-    :dets.insert(table, {:replied_msg_count, 0})
-    :dets.insert(table, {:forwarded_msg_count, 0})
-    :dets.insert(table, {:total_attachments_downloaded, 0})
+  def ets_initialize(table \\ :slack_count) do
+    :ets.insert(table, {:uptime, DateTime.utc_now() |> DateTime.to_string()})
+    :ets.insert(table, {:total_msg_count, 0})
+    :ets.insert(table, {:replied_msg_count, 0})
+    :ets.insert(table, {:forwarded_msg_count, 0})
+    :ets.insert(table, {:total_attachments_downloaded, 0})
   end
 
   def handle_connect(slack, state) do
@@ -27,7 +27,7 @@ defmodule Ultronex.BotX do
 
   def handle_event(message = %{type: "message"}, slack, state) do
     Ultronex.Realtime.Respose.event(message, slack)
-    Ultronex.Realtime.TermStorage.dets_incr()
+    Ultronex.Realtime.TermStorage.ets_incr()
     {:ok, state}
   end
 
@@ -36,7 +36,7 @@ defmodule Ultronex.BotX do
   def handle_info({:message, text, channel}, slack, state) do
     IO.puts("Sending your message, captain!")
     send_message(text, channel, slack)
-    Ultronex.Realtime.TermStorage.dets_incr(:slack_count, :replied_msg_count)
+    Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :replied_msg_count)
     {:ok, state}
   end
 
@@ -48,7 +48,7 @@ defmodule Ultronex.BotX do
 
   def send_msg_to_slack(message, channel, slack) do
     send_message(message, channel, slack)
-    Ultronex.Realtime.TermStorage.dets_incr(:slack_count, :replied_msg_count)
+    Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :replied_msg_count)
   end
 
   def post_msg_to_slack(message, payload, channel) do
@@ -72,13 +72,7 @@ defmodule Ultronex.BotX do
       ]
     )
 
-    Ultronex.Realtime.TermStorage.dets_incr(:slack_count, :replied_msg_count)
-    Ultronex.Realtime.TermStorage.dets_incr(:slack_count, :forwarded_msg_count)
-  end
-
-  def terminate(_reason, _state) do
-    IO.puts("Terminating slack bot")
-    Ultronex.Realtime.TermStorage.dets_close()
-    IO.puts(":dets closed")
+    Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :replied_msg_count)
+    Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :forwarded_msg_count)
   end
 end

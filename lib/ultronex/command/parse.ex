@@ -44,7 +44,7 @@ defmodule Ultronex.Command.Parse do
 
     cond do
       response.status == 200 ->
-        Ultronex.Realtime.TermStorage.dets_incr(:slack_count, :total_attachments_downloaded)
+        Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :total_attachments_downloaded)
         response.body
 
       true ->
