@@ -19,7 +19,7 @@ defmodule Ultronex.Server.Router do
   end
 
   get "/count" do
-    send_resp(conn, 200, "Total count")
+    send_resp(conn, 200, Ultronex.Server.Count.total())
   end
 
   match _ do
