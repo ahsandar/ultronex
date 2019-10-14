@@ -1,6 +1,6 @@
 On Github its a `mirror` from private Gitlab repo
 
-# UltronEx
+# UltronEx - Ultron in Elixir
 
 Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. [Blog post](https://medium.com/@hsan_nabi_dar/ruby-vs-elixir-performance-ultron-is-dead-long-live-ultronex-f24e40a4c4d4) showcasing the results `elixir`  outperforming `ruby` by 100%
 
