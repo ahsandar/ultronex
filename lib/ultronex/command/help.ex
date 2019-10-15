@@ -1,7 +1,10 @@
+require Logger
+
 defmodule Ultronex.Command.Help do
   def output(slack_message, slack_state, _msg_list) do
-    IO.puts("Ultronex.Command.Help.output")
+    Logger.info("Ultronex.Command.Help.output")
     msg = output_msg(slack_message.user)
+    Logger.info(msg)
     Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 
@@ -12,8 +15,9 @@ defmodule Ultronex.Command.Help do
   end
 
   def unknown(slack_message, slack_state, _msg_list) do
-    IO.puts("Ultronex.Command.Help.unknown")
+    Logger.info("Ultronex.Command.Help.unknown")
     msg = unknown_msg(slack_message.user)
+    Logger.info(msg)
     Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 

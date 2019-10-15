@@ -19,7 +19,15 @@ defmodule UltronEx.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :cowboy, :plug, :plug_cowboy, :poison, :eex],
+      extra_applications: [
+        :logger,
+        :cowboy,
+        :plug,
+        :plug_cowboy,
+        :poison,
+        :eex,
+        :logger_file_backend
+      ],
       mod: {UltronexApp, []}
     ]
   end
@@ -37,7 +45,8 @@ defmodule UltronEx.MixProject do
       {:plug, "~> 1.8.3"},
       {:plug_cowboy, "~> 2.1.0"},
       {:dialyxir, "~> 0.4", only: [:dev]},
-      {:basic_auth, "~> 2.2.2"}
+      {:basic_auth, "~> 2.2.2"},
+      {:logger_file_backend, "~> 0.0.10"}
     ]
   end
 end

@@ -1,3 +1,5 @@
+require Logger
+
 defmodule UltronexApp do
   use Application
 
