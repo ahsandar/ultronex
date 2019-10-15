@@ -1,7 +1,10 @@
+require Logger
+
 defmodule Ultronex.Command.Quote do
   def random(slack_message, slack_state, _msg_list) do
-    IO.puts("Ultronex.Command.Quote.random")
+    Logger.info("Ultronex.Command.Quote.random")
     quote = "<@#{slack_message.user}>!, `I, UltronEx chose this for you` #{get_quote_to_send()}"
+    Logger.info(quote)
     Ultronex.Realtime.Msg.send(quote, slack_message.channel, slack_state)
   end
 

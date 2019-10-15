@@ -9,4 +9,6 @@ services:
     tty: true
     ports:
       - "8080:8443"
+    volumes: 
+      - ./log:/src/ultronex/log
 

@@ -1,3 +1,5 @@
+require Logger
+
 defmodule Ultronex.Realtime.Respose do
   def event(message, slack) do
     try do
@@ -48,7 +50,7 @@ defmodule Ultronex.Realtime.Respose do
           Ultronex.Command.Help.unknown(message, slack, list)
       end
     rescue
-      e in RuntimeError -> IO.puts("Wal lao eh - Slack \n" <> e.message)
+      e in RuntimeError -> Logger.info("Wal lao eh - Slack \n" <> e.message)
     end
   end
 

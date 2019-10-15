@@ -1,3 +1,5 @@
+require Logger
+
 defmodule Ultronex.BotX do
   use Slack
 
@@ -6,12 +8,13 @@ defmodule Ultronex.BotX do
   """
 
   def initialize_term_storage do
-    IO.puts("Creating Term Storage ...")
+    Logger.info("Creating Term Storage ...")
     Ultronex.Realtime.TermStorage.initialize()
     ets_initialize()
   end
 
   def ets_initialize(table \\ :slack_count) do
+    Logger.info('Initializing :ets : #{table}')
     :ets.insert(table, {:uptime, DateTime.utc_now() |> DateTime.to_string()})
     :ets.insert(table, {:total_msg_count, 0})
     :ets.insert(table, {:replied_msg_count, 0})
@@ -20,7 +23,7 @@ defmodule Ultronex.BotX do
   end
 
   def handle_connect(slack, state) do
-    IO.puts("Connected as #{slack.me.name}")
+    Logger.info("Connected as #{slack.me.name}")
     initialize_term_storage()
     {:ok, state}
   end
@@ -34,7 +37,7 @@ defmodule Ultronex.BotX do
   def handle_event(_message, _slack, state), do: {:ok, state}
 
   def handle_info({:message, text, channel}, slack, state) do
-    IO.puts("Sending your message, captain!")
+    Logger.info("Sending your message, captain!")
     send_message(text, channel, slack)
     Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :replied_msg_count)
     {:ok, state}
@@ -43,7 +46,7 @@ defmodule Ultronex.BotX do
   def handle_info(_, _, state), do: {:ok, state}
 
   def heartbeat do
-    IO.puts("I am alive got heartbeat")
+    Logger.info("I am alive got heartbeat")
   end
 
   def send_msg_to_slack(message, channel, slack) do

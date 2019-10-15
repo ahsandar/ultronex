@@ -1,15 +1,18 @@
+require Logger
+
 defmodule Ultronex.Command.Forward do
   def fwd(slack_message, slack_state, msg_list) do
-    IO.puts("Ultronex.Command.Forward.fwd")
+    Logger.info("Ultronex.Command.Forward.fwd")
     ets_key = msg_list |> List.first() |> sanitize_quotes()
     :ets.insert(:track, {"pattern", ets_key})
     :ets.insert(:track, {ets_key, slack_message.user})
     msg = "<@#{slack_message.user}>! your forwarding is set for `#{ets_key}` "
+    Logger.info(msg)
     Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def stop(slack_message, slack_state, msg_list) do
-    IO.puts("Ultronex.Command.Forward.stop")
+    Logger.info("Ultronex.Command.Forward.stop")
     ets_key = msg_list |> List.first() |> sanitize_quotes()
 
     cond do
@@ -22,6 +25,7 @@ defmodule Ultronex.Command.Forward do
             pattern_msg
           }`"
 
+        Logger.info(msg)
         Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
 
       ets_key |> String.first() |> is_nil() ->
@@ -29,6 +33,7 @@ defmodule Ultronex.Command.Forward do
 
       true ->
         msg = "<@#{slack_message.user}>! you sure? no forwarding found for `#{ets_key}`"
+        Logger.info(msg)
         Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
     end
   end
@@ -55,6 +60,7 @@ defmodule Ultronex.Command.Forward do
       msg =
         "<@#{slack_message.user}>! your forwarding is stopped for `#{match}` , `#{pattern_msg}`"
 
+      Logger.info(msg)
       Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
     end)
   end

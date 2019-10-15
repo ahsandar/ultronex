@@ -14,5 +14,6 @@ services:
       - /etc/letsencrypt/live/ultronex.mooo.com/privkey.pem:/src/ultronex/cert/privkey.pem
       - /etc/letsencrypt/live/ultronex.mooo.com/cert.pem:/src/ultronex/cert/cert.pem
       - /etc/letsencrypt/live/ultronex.mooo.com/chain.pem:/src/ultronex/cert/chain.pem
+      - ./log:/src/ultronex/log
   
 
