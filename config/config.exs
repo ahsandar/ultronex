@@ -8,15 +8,9 @@ config :ultronex,
   ]
 
 config :logger,
-  backends: [{LoggerFileBackend, :info}, {LoggerFileBackend, :error}],
+  backends: [{LoggerFileBackend, :debug}, {LoggerFileBackend, :error}],
   utc_log: true,
   handle_otp_reports: true
-
-config :logger, :info,
-  format: "\n##### $time $metadata[$level] $levelpad #####\n$message\n",
-  metadata: :all,
-  path: "log/ultronex.info.log",
-  level: :info
 
 config :logger, :error,
   format: "\n##### $time $metadata[$level] $levelpad #####\n$message\n",
