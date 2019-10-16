@@ -29,3 +29,4 @@ env.list
 .DS_Store
 .elixir_ls
 tmp/*
+tab/*.tab

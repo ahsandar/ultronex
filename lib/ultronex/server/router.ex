@@ -16,12 +16,12 @@ defmodule Ultronex.Server.Router do
     send_resp(conn, 200, "I don't have a heart but I am alive!")
   end
 
-  get "/list" do
-    send_resp(conn, 200, Ultronex.Server.List.fwd())
+  get "/track" do
+    send_resp(conn, 200, Ultronex.Server.Track.fwd())
   end
 
-  get "/count" do
-    send_resp(conn, 200, Ultronex.Server.Count.total())
+  get "/stats" do
+    send_resp(conn, 200, Ultronex.Server.Stats.total())
   end
 
   match _ do

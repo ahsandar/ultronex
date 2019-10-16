@@ -6,6 +6,7 @@ defmodule Ultronex.Command.Forward do
     ets_key = msg_list |> List.first() |> sanitize_quotes()
     :ets.insert(:track, {"pattern", ets_key})
     :ets.insert(:track, {ets_key, slack_message.user})
+    Ultronex.Realtime.TermStorage.ets_tab2file(:track)
     msg = "<@#{slack_message.user}>! your forwarding is set for `#{ets_key}` "
     Logger.info(msg)
     Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)

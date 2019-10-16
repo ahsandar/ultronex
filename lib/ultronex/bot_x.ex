@@ -10,10 +10,9 @@ defmodule Ultronex.BotX do
   def initialize_term_storage do
     Logger.info("Creating Term Storage ...")
     Ultronex.Realtime.TermStorage.initialize()
-    ets_initialize()
   end
 
-  def ets_initialize(table \\ :slack_count) do
+  def ets_initialize(table \\ :stats) do
     Logger.info('Initializing :ets : #{table}')
     :ets.insert(table, {:uptime, DateTime.utc_now() |> DateTime.to_string()})
     :ets.insert(table, {:total_msg_count, 0})
@@ -39,11 +38,20 @@ defmodule Ultronex.BotX do
   def handle_info({:message, text, channel}, slack, state) do
     Logger.info("Sending your message, captain!")
     send_message(text, channel, slack)
-    Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :replied_msg_count)
+    Ultronex.Realtime.TermStorage.ets_incr(:stats, :replied_msg_count)
     {:ok, state}
   end
 
   def handle_info(_, _, state), do: {:ok, state}
+
+  def handle_close(reason, _slack, _state) do
+    Ultronex.Realtime.TermStorage.ets_tab2file(:track)
+    Ultronex.Realtime.TermStorage.ets_tab2file(:stats)
+    IO.puts("###############################################")
+    IO.puts("############### Slack error reason ##################")
+    IO.inspect(reason |> elem(1))
+    IO.puts("###############################################")
+  end
 
   def heartbeat do
     Logger.info("I am alive got heartbeat")
@@ -51,7 +59,7 @@ defmodule Ultronex.BotX do
 
   def send_msg_to_slack(message, channel, slack) do
     send_message(message, channel, slack)
-    Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :replied_msg_count)
+    Ultronex.Realtime.TermStorage.ets_incr(:stats, :replied_msg_count)
   end
 
   def post_msg_to_slack(message, payload, channel) do
@@ -75,7 +83,7 @@ defmodule Ultronex.BotX do
       ]
     )
 
-    Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :replied_msg_count)
-    Ultronex.Realtime.TermStorage.ets_incr(:slack_count, :forwarded_msg_count)
+    Ultronex.Realtime.TermStorage.ets_incr(:stats, :replied_msg_count)
+    Ultronex.Realtime.TermStorage.ets_incr(:stats, :forwarded_msg_count)
   end
 end
