@@ -20,7 +20,7 @@ defmodule Ultronex.Command.Forward do
       :ets.member(:track, ets_key) ->
         :ets.delete_object(:track, {ets_key, slack_message.user})
         pattern_msg = remove_pattern_match(ets_key)
-
+        Ultronex.Realtime.TermStorage.ets_tab2file(:track)
         msg =
           "<@#{slack_message.user}>! your forwarding is stopped for `#{ets_key}` \n `#{
             pattern_msg
