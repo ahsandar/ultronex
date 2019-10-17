@@ -22,7 +22,6 @@ defmodule Ultronex.Realtime.TermStorage do
     Logger.info("Creating :ets : #{table} , type : #{data_type}")
 
     output = :ets.file2tab('tab/#{table}.tab')
-    IO.inspect(output)
 
     case output |> elem(0) do
       :error ->

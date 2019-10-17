@@ -1,63 +1,73 @@
 require Logger
 
-defmodule Ultronex.Realtime.Respose do
+defmodule Ultronex.Realtime.Response do
+  @moduledoc """
+  Documentation for Ultronex.Command.Forward
+  """
+  alias Ultronex.Command.Forward, as: Forward
+  alias Ultronex.Command.Giphy, as: Giphy
+  alias Ultronex.Command.Greet, as: Greet
+  alias Ultronex.Command.Talk, as: Talk
+  alias Ultronex.Command.Quote, as: Quote
+  alias Ultronex.Command.Xkcd, as: Xkcd
+  alias Ultronex.Command.Parse, as: Parse
+  alias Ultronex.Command.Help, as: Help
+  alias Ultronex.Realtime.Msg, as: Msg
+  alias Ultronex.Realtime.TermStorage, as: TermStorage
+
   def event(message, slack) do
-    cmd = Ultronex.Realtime.Msg.parse(message |> Map.get(:text) || "")
+    cmd = Msg.parse(message |> Map.get(:text) || "")
 
     try do
       case cmd do
         {"fwd", list} ->
-          Ultronex.Command.Forward.fwd(message, slack, list)
+          Forward.fwd(message, slack, list)
 
         {"stop", list} ->
-          Ultronex.Command.Forward.stop(message, slack, list)
+          Forward.stop(message, slack, list)
 
         {"giphy", list} ->
-          Ultronex.Command.Giphy.gif(message, slack, list)
+          Giphy.gif(message, slack, list)
 
         {"gif", list} ->
-          Ultronex.Command.Giphy.gif(message, slack, list)
+          Giphy.gif(message, slack, list)
 
         {"hi", list} ->
-          Ultronex.Command.Greet.hi(message, slack, list)
+          Greet.hi(message, slack, list)
 
         {"hello", list} ->
-          Ultronex.Command.Greet.hello(message, slack, list)
+          Greet.hello(message, slack, list)
 
         {"mute", list} ->
-          Ultronex.Command.Talk.mute(message, slack, list)
+          Talk.mute(message, slack, list)
 
         {"unmute", list} ->
-          Ultronex.Command.Talk.unmute(message, slack, list)
+          Talk.unmute(message, slack, list)
 
         {"quote", list} ->
-          Ultronex.Command.Quote.random(message, slack, list)
+          Quote.random(message, slack, list)
 
         {"xkcd", list} ->
-          Ultronex.Command.Xkcd.comic(message, slack, list)
+          Xkcd.comic(message, slack, list)
 
         {"help", list} ->
-          Ultronex.Command.Help.output(message, slack, list)
+          Help.output(message, slack, list)
 
         {nil, list} ->
-          cond do
-            Enum.member?(get_channel_list_to_monitor(), message.channel) ->
-              Ultronex.Command.Parse.msg(message, slack, list)
-
-            true ->
-              {:ok, []}
+          if Enum.member?(get_channel_list_to_monitor(), message.channel) do
+            Parse.msg(message, slack, list)
+          else
+            {:ok, []}
           end
 
         {_, list} ->
           secret_cmd = cmd |> elem(0)
           secret_weapon = System.get_env("SECRET_WEAPON")
 
-          cond do
-            secret_cmd == secret_weapon ->
-              secret_activated(message, slack)
-
-            true ->
-              Ultronex.Command.Help.unknown(message, slack, list)
+          if secret_cmd == secret_weapon do
+            secret_activated(message, slack)
+          else
+            Help.unknown(message, slack, list)
           end
       end
     rescue
@@ -70,9 +80,9 @@ defmodule Ultronex.Realtime.Respose do
   end
 
   def secret_activated(message, slack) do
-    Ultronex.Realtime.TermStorage.ets_tab2file(:track)
-    Ultronex.Realtime.TermStorage.ets_tab2file(:stats)
+    TermStorage.ets_tab2file(:track)
+    TermStorage.ets_tab2file(:stats)
     msg = " <@#{message.user}>! Activated, you came for help to `UltronEx`"
-    Ultronex.Realtime.Msg.send(msg, message.channel, slack)
+    Msg.send(msg, message.channel, slack)
   end
 end

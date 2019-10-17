@@ -4,9 +4,10 @@ defmodule Ultronex.Server.Stats do
   end
 
   def response(map_ets) do
-    cond do
-      Map.equal?(map_ets, %{}) -> %{msg: "No data available"}
-      true -> map_ets
+    if Map.equal?(map_ets, %{}) do
+      %{msg: "No data available"}
+    else
+      map_ets
     end
     |> Poison.encode!()
   end

@@ -1,11 +1,18 @@
 require Logger
 
 defmodule Ultronex.Command.Quote do
+  @moduledoc """
+  Documentation for Ultronex.Command.Quote
+  """
+
+  alias Ultronex.Utility, as: Utility
+  alias Ultronex.Realtime.Msg, as: Msg
+
   def random(slack_message, slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Quote.random")
     quote = "<@#{slack_message.user}>!, `I, UltronEx chose this for you` #{get_quote_to_send()}"
     Logger.info(quote)
-    Ultronex.Realtime.Msg.send(quote, slack_message.channel, slack_state)
+    Msg.send(quote, slack_message.channel, slack_state)
   end
 
   def get_quote_to_send do
@@ -13,11 +20,11 @@ defmodule Ultronex.Command.Quote do
   end
 
   def format(quote) do
-    quote |> Ultronex.Realtime.Msg.format_block()
+    quote |> Msg.format_block()
   end
 
   def randon_quote_index do
-    Ultronex.Utility.random(Kernel.length(quotes()))
+    Utility.random(Kernel.length(quotes()))
   end
 
   def quotes do

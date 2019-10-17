@@ -1,6 +1,14 @@
 require Logger
 
 defmodule Ultronex.Command.Parse do
+  @moduledoc """
+  Documentation for Ultronex.Command.Parse
+  """
+
+  alias Ultronex.Utility, as: Utility
+  alias Ultronex.Realtime.Msg, as: Msg
+  alias Ultronex.Realtime.TermStorage, as: TermStorage
+
   def msg(slack_message, _slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Parse.msg")
     pattern_list = :ets.lookup(:track, "pattern")
@@ -22,7 +30,7 @@ defmodule Ultronex.Command.Parse do
           msg = " `UltronEx` found a match for `#{match}`\n #{text}"
           Logger.info(msg)
 
-          Ultronex.Realtime.Msg.post(
+          Msg.post(
             msg,
             attachment,
             "#{user}"
@@ -47,17 +55,15 @@ defmodule Ultronex.Command.Parse do
   def get_attachment(url) do
     {:ok, response} = get_request(url)
 
-    cond do
-      response.status == 200 ->
-        Ultronex.Realtime.TermStorage.ets_incr(:stats, :total_attachments_downloaded)
-        response.body
-
-      true ->
-        raise("Download failed")
+    if response.status == 200 do
+      TermStorage.ets_incr(:stats, :total_attachments_downloaded)
+      response.body
+    else
+      raise("Download failed")
     end
   end
 
   def get_request(url) do
-    Tesla.get(Ultronex.Utility.tesla_get_authorized_client(), url)
+    Tesla.get(Utility.tesla_get_authorized_client(), url)
   end
 end

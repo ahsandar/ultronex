@@ -1,4 +1,7 @@
 defmodule Ultronex.Utility do
+  @moduledoc """
+  Documentation for Ultronex.Utility
+  """
   def authorization_token do
     "Bearer #{slack_bot_ultron_token()}"
   end
@@ -32,7 +35,14 @@ defmodule Ultronex.Utility do
           keyfile: "/src/ultronex/cert/privkey.pem",
           cacertfile: "/src/ultronex/cert/chain.pem",
           reuse_sessions: true,
-          secure_renegotiate: true
+          secure_renegotiate: true,
+          dispatch: [
+            {:_,
+             [
+               {"/wobserver/ws", Wobserver.Web.Client, []},
+               {:_, Cowboy.Handler, {MyApp.MyRouter, []}}
+             ]}
+          ]
         ]
 
       _ ->

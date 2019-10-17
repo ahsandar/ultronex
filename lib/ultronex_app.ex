@@ -3,21 +3,28 @@ require Logger
 defmodule UltronexApp do
   use Application
 
+  @moduledoc """
+  Documentation for UltronexApp
+  """
+  alias Ultronex.Utility, as: Utility
+  alias Ultronex.BotX, as: BotX
+  alias Ultronex.Server.Router, as: Router
+
   def start(_type, _args) do
-    Ultronex.Utility.start_http_poison()
-    Ultronex.BotX.heartbeat()
+    Utility.start_http_poison()
+    BotX.heartbeat()
 
     children = [
       %{
         id: Slack.Bot,
         start:
           {Slack.Bot, :start_link,
-           [Ultronex.BotX, [], Ultronex.Utility.slack_bot_ultron_token(), %{name: :ultronex_bot}]}
+           [BotX, [], Utility.slack_bot_ultron_token(), %{name: :ultronex_bot}]}
       },
       Plug.Cowboy.child_spec(
-        scheme: Ultronex.Utility.http_scheme(),
-        plug: Ultronex.Server.Router,
-        options: Ultronex.Utility.http_options()
+        scheme: Utility.http_scheme(),
+        plug: Router,
+        options: Utility.http_options()
       )
     ]
 
