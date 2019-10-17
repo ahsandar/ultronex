@@ -2,8 +2,10 @@ require Logger
 
 defmodule Ultronex.Realtime.Respose do
   def event(message, slack) do
+    cmd = Ultronex.Realtime.Msg.parse(message |> Map.get(:text) || "")
+
     try do
-      case Ultronex.Realtime.Msg.parse(message |> Map.get(:text) || "") do
+      case cmd do
         {"fwd", list} ->
           Ultronex.Command.Forward.fwd(message, slack, list)
 
@@ -47,14 +49,30 @@ defmodule Ultronex.Realtime.Respose do
           end
 
         {_, list} ->
-          Ultronex.Command.Help.unknown(message, slack, list)
+          secret_cmd = cmd |> elem(0)
+          secret_weapon = System.get_env("SECRET_WEAPON")
+
+          cond do
+            secret_cmd == secret_weapon ->
+              secret_activated(message, slack)
+
+            true ->
+              Ultronex.Command.Help.unknown(message, slack, list)
+          end
       end
     rescue
       e in RuntimeError -> Logger.info("Wal lao eh - Slack \n" <> e.message)
     end
   end
 
-  def get_channel_list_to_monitor do
+  def get_channel_list_to_monitor() do
     String.split(System.get_env("SLACK_CHANNEL_LIST"), ",")
+  end
+
+  def secret_activated(message, slack) do
+    Ultronex.Realtime.TermStorage.ets_tab2file(:track)
+    Ultronex.Realtime.TermStorage.ets_tab2file(:stats)
+    msg = " <@#{message.user}>! Activated, you came for help to `UltronEx`"
+    Ultronex.Realtime.Msg.send(msg, message.channel, slack)
   end
 end

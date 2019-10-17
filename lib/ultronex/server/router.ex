@@ -25,6 +25,6 @@ defmodule Ultronex.Server.Router do
   end
 
   match _ do
-    send_resp(conn, 404, "You have entered an abyss")
+    send_resp(conn, 404, Ultronex.Server.Error.status_404())
   end
 end
