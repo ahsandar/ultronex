@@ -1,14 +1,18 @@
 defmodule Ultronex.Realtime.Msg do
+  @moduledoc """
+  Documentation for Ultronex.Realtime.Msg
+  """
+
+  alias Ultronex.BotX, as: BotX
+
   def parse(msg_text) do
     parsed_msg = Regex.run(~r/^<@U1KH8H9FW>\s*(\w*)\s*(.*)$/i, msg_text)
 
-    cond do
-      is_nil(parsed_msg) ->
-        {nil, []}
-
-      true ->
-        [command | list] = List.delete_at(parsed_msg, 0)
-        {command, list}
+    if is_nil(parsed_msg) do
+      {nil, []}
+    else
+      [command | list] = List.delete_at(parsed_msg, 0)
+      {command, list}
     end
   end
 
@@ -21,10 +25,10 @@ defmodule Ultronex.Realtime.Msg do
   end
 
   def send(msg, slack_channel, slack_state) do
-    Ultronex.BotX.send_msg_to_slack(msg, slack_channel, slack_state)
+    BotX.send_msg_to_slack(msg, slack_channel, slack_state)
   end
 
   def post(msg, payload, channel) do
-    Ultronex.BotX.post_msg_to_slack(msg, payload, channel)
+    BotX.post_msg_to_slack(msg, payload, channel)
   end
 end

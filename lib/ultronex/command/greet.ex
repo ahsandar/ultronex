@@ -1,6 +1,13 @@
 require Logger
 
 defmodule Ultronex.Command.Greet do
+  @moduledoc """
+  Documentation for Ultronex.Command.Greet
+  """
+
+  alias Ultronex.Realtime.Msg, as: Msg
+  alias Ultronex.Command.Quote, as: Quote
+
   def hello(slack_message, slack_state, msg_list) do
     Logger.info("Ultronex.Command.Greet.hello")
     hi(slack_message, slack_state, msg_list)
@@ -10,7 +17,7 @@ defmodule Ultronex.Command.Greet do
     Logger.info("Ultronex.Command.Greet.hi")
     greeting = salutation(slack_message.user)
     Logger.info(greeting)
-    Ultronex.Realtime.Msg.send(greeting, slack_message.channel, slack_state)
+    Msg.send(greeting, slack_message.channel, slack_state)
   end
 
   def salutation(user) do
@@ -18,6 +25,6 @@ defmodule Ultronex.Command.Greet do
   end
 
   def get_random_quote do
-    Ultronex.Command.Quote.get_quote_to_send()
+    Quote.get_quote_to_send()
   end
 end

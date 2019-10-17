@@ -4,9 +4,10 @@ defmodule Ultronex.Server.Track do
   end
 
   def response(map_ets) do
-    cond do
-      Map.equal?(map_ets, %{}) -> %{msg: "No pattern set for match"}
-      true -> map_ets
+    if Map.equal?(map_ets, %{}) do
+      %{msg: "No pattern set for match"}
+    else
+      map_ets
     end
     |> Poison.encode!()
   end

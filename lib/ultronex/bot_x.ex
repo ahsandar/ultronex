@@ -4,12 +4,16 @@ defmodule Ultronex.BotX do
   use Slack
 
   @moduledoc """
-  Documentation for Ultronex.BotX.
+  Documentation for Ultronex.BotX
   """
+
+  alias Ultronex.Utility, as: Utility
+  alias Ultronex.Realtime.Response, as: Response
+  alias Ultronex.Realtime.TermStorage, as: TermStorage
 
   def initialize_term_storage do
     Logger.info("Creating Term Storage ...")
-    Ultronex.Realtime.TermStorage.initialize()
+    TermStorage.initialize()
   end
 
   def ets_initialize(table \\ :stats) do
@@ -28,8 +32,8 @@ defmodule Ultronex.BotX do
   end
 
   def handle_event(message = %{type: "message"}, slack, state) do
-    Ultronex.Realtime.Respose.event(message, slack)
-    Ultronex.Realtime.TermStorage.ets_incr()
+    Response.event(message, slack)
+    TermStorage.ets_incr()
     {:ok, state}
   end
 
@@ -38,15 +42,15 @@ defmodule Ultronex.BotX do
   def handle_info({:message, text, channel}, slack, state) do
     Logger.info("Sending your message, captain!")
     send_message(text, channel, slack)
-    Ultronex.Realtime.TermStorage.ets_incr(:stats, :replied_msg_count)
+    TermStorage.ets_incr(:stats, :replied_msg_count)
     {:ok, state}
   end
 
   def handle_info(_, _, state), do: {:ok, state}
 
   def handle_close(reason, _slack, _state) do
-    Ultronex.Realtime.TermStorage.ets_tab2file(:track)
-    Ultronex.Realtime.TermStorage.ets_tab2file(:stats)
+    TermStorage.ets_tab2file(:track)
+    TermStorage.ets_tab2file(:stats)
     IO.puts("###############################################")
     IO.puts("############### Slack error reason ##################")
     IO.inspect(reason |> elem(1))
@@ -59,7 +63,7 @@ defmodule Ultronex.BotX do
 
   def send_msg_to_slack(message, channel, slack) do
     send_message(message, channel, slack)
-    Ultronex.Realtime.TermStorage.ets_incr(:stats, :replied_msg_count)
+    TermStorage.ets_incr(:stats, :replied_msg_count)
   end
 
   def post_msg_to_slack(message, payload, channel) do
@@ -79,11 +83,11 @@ defmodule Ultronex.BotX do
       encoded_payload,
       [
         {"content-type", "application/x-www-form-urlencoded"},
-        {"Authorization", Ultronex.Utility.authorization_token()}
+        {"Authorization", Utility.authorization_token()}
       ]
     )
 
-    Ultronex.Realtime.TermStorage.ets_incr(:stats, :replied_msg_count)
-    Ultronex.Realtime.TermStorage.ets_incr(:stats, :forwarded_msg_count)
+    TermStorage.ets_incr(:stats, :replied_msg_count)
+    TermStorage.ets_incr(:stats, :forwarded_msg_count)
   end
 end

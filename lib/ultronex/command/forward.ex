@@ -1,15 +1,22 @@
 require Logger
 
 defmodule Ultronex.Command.Forward do
+  @moduledoc """
+  Documentation for Ultronex.Command.Forward
+  """
+
+  alias Ultronex.Realtime.TermStorage, as: TermStorage
+  alias Ultronex.Realtime.Msg, as: Msg
+
   def fwd(slack_message, slack_state, msg_list) do
     Logger.info("Ultronex.Command.Forward.fwd")
     ets_key = msg_list |> List.first() |> sanitize_quotes()
     :ets.insert(:track, {"pattern", ets_key})
     :ets.insert(:track, {ets_key, slack_message.user})
-    Ultronex.Realtime.TermStorage.ets_tab2file(:track)
+    TermStorage.ets_tab2file(:track)
     msg = "<@#{slack_message.user}>! your forwarding is set for `#{ets_key}` "
     Logger.info(msg)
-    Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def stop(slack_message, slack_state, msg_list) do
@@ -20,7 +27,7 @@ defmodule Ultronex.Command.Forward do
       :ets.member(:track, ets_key) ->
         :ets.delete_object(:track, {ets_key, slack_message.user})
         pattern_msg = remove_pattern_match(ets_key)
-        Ultronex.Realtime.TermStorage.ets_tab2file(:track)
+        TermStorage.ets_tab2file(:track)
 
         msg =
           "<@#{slack_message.user}>! your forwarding is stopped for `#{ets_key}` \n `#{
@@ -28,7 +35,7 @@ defmodule Ultronex.Command.Forward do
           }`"
 
         Logger.info(msg)
-        Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+        Msg.send(msg, slack_message.channel, slack_state)
 
       ets_key |> String.first() |> is_nil() ->
         stop_all_forwarding(slack_message, slack_state)
@@ -36,18 +43,16 @@ defmodule Ultronex.Command.Forward do
       true ->
         msg = "<@#{slack_message.user}>! you sure? no forwarding found for `#{ets_key}`"
         Logger.info(msg)
-        Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+        Msg.send(msg, slack_message.channel, slack_state)
     end
   end
 
   def remove_pattern_match(ets_key) do
-    cond do
-      :ets.member(:track, ets_key) ->
-        "Other users are still subscribed to this pattern"
-
-      true ->
-        :ets.delete_object(:track, {"pattern", ets_key})
-        "No one else is subscribed to this pattern"
+    if :ets.member(:track, ets_key) do
+      "Other users are still subscribed to this pattern"
+    else
+      :ets.delete_object(:track, {"pattern", ets_key})
+      "No one else is subscribed to this pattern"
     end
   end
 

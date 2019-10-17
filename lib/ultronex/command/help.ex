@@ -1,11 +1,18 @@
 require Logger
 
 defmodule Ultronex.Command.Help do
+  @moduledoc """
+  Documentation for Ultronex.Command.Help
+  """
+
+  alias Ultronex.Realtime.Msg, as: Msg
+  alias Ultronex.Command.Quote, as: Quote
+
   def output(slack_message, slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Help.output")
     msg = output_msg(slack_message.user)
     Logger.info(msg)
-    Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def output_msg(user) do
@@ -18,7 +25,7 @@ defmodule Ultronex.Command.Help do
     Logger.info("Ultronex.Command.Help.unknown")
     msg = unknown_msg(slack_message.user)
     Logger.info(msg)
-    Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def unknown_msg(user) do
@@ -28,7 +35,7 @@ defmodule Ultronex.Command.Help do
   end
 
   def get_random_quote do
-    Ultronex.Command.Quote.get_quote_to_send()
+    Quote.get_quote_to_send()
   end
 
   def man_page do
@@ -47,6 +54,6 @@ defmodule Ultronex.Command.Help do
       --> stop #stops all msg forwarding set for SLACK_CHANNEL_LIST
 
     """
-    |> Ultronex.Realtime.Msg.format_block()
+    |> Msg.format_block()
   end
 end

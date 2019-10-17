@@ -1,6 +1,11 @@
 require Logger
 
 defmodule Ultronex.Command.Giphy do
+  @moduledoc """
+  Documentation for Ultronex.Command.Giphy
+  """
+  alias Ultronex.Realtime.Msg, as: Msg
+
   def gif(slack_message, slack_state, msg_list) do
     Logger.info("Ultronex.Command.Giphy.gif")
     category_chosen = msg_list |> List.first() |> String.first()
@@ -11,7 +16,7 @@ defmodule Ultronex.Command.Giphy do
       " <@#{slack_message.user}>! I, `UltronEx` have selected a #{category} gif for you #{url}"
 
     Logger.info(msg)
-    Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+    Msg.send(msg, slack_message.channel, slack_state)
   end
 
   def random_gif_from_giphy(tag) do
@@ -24,17 +29,15 @@ defmodule Ultronex.Command.Giphy do
   end
 
   def get_giphy_url(response) do
-    cond do
-      response.status == 200 ->
-        giphy_response = Poison.Parser.parse!(response.body, %{})
+    if response.status == 200 do
+      giphy_response = Poison.Parser.parse!(response.body, %{})
 
-        selected_gif =
-          List.pop_at(giphy_response["data"], random_selection(giphy_response["data"])) |> elem(0)
+      selected_gif =
+        List.pop_at(giphy_response["data"], random_selection(giphy_response["data"])) |> elem(0)
 
-        selected_gif["url"]
-
-      true ->
-        "Error #{response.status} from Giphy"
+      selected_gif["url"]
+    else
+      "Error #{response.status} from Giphy"
     end
   end
 
