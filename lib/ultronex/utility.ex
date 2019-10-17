@@ -35,14 +35,7 @@ defmodule Ultronex.Utility do
           keyfile: "/src/ultronex/cert/privkey.pem",
           cacertfile: "/src/ultronex/cert/chain.pem",
           reuse_sessions: true,
-          secure_renegotiate: true,
-          dispatch: [
-            {:_,
-             [
-               {"/wobserver/ws", Wobserver.Web.Client, []},
-               {:_, Cowboy.Handler, {MyApp.MyRouter, []}}
-             ]}
-          ]
+          secure_renegotiate: true
         ]
 
       _ ->
