@@ -6,9 +6,9 @@ defmodule UltronexApp do
   @moduledoc """
   Documentation for UltronexApp
   """
-  alias Ultronex.Utility, as: Utility
   alias Ultronex.BotX, as: BotX
   alias Ultronex.Server.Router, as: Router
+  alias Ultronex.Utility, as: Utility
 
   def start(_type, _args) do
     Utility.start_http_poison()

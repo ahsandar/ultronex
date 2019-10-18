@@ -5,9 +5,9 @@ defmodule Ultronex.Command.Parse do
   Documentation for Ultronex.Command.Parse
   """
 
-  alias Ultronex.Utility, as: Utility
   alias Ultronex.Realtime.Msg, as: Msg
   alias Ultronex.Realtime.TermStorage, as: TermStorage
+  alias Ultronex.Utility, as: Utility
 
   def msg(slack_message, _slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Parse.msg")

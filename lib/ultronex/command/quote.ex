@@ -4,9 +4,8 @@ defmodule Ultronex.Command.Quote do
   @moduledoc """
   Documentation for Ultronex.Command.Quote
   """
-
-  alias Ultronex.Utility, as: Utility
   alias Ultronex.Realtime.Msg, as: Msg
+  alias Ultronex.Utility, as: Utility
 
   def random(slack_message, slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Quote.random")

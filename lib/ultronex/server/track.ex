@@ -1,4 +1,8 @@
 defmodule Ultronex.Server.Track do
+  @moduledoc """
+  Documentation for Ultronex.Server.Track
+  """
+
   def fwd do
     ets_map() |> response
   end
@@ -12,7 +16,7 @@ defmodule Ultronex.Server.Track do
     |> Poison.encode!()
   end
 
-  def ets_map() do
+  def ets_map do
     pattern_list = :ets.lookup(:track, "pattern")
 
     Enum.map(pattern_list, fn pattern ->

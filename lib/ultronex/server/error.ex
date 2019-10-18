@@ -1,9 +1,12 @@
 defmodule Ultronex.Server.Error do
-  def status_404() do
+  @moduledoc """
+  Documentation for Ultronex.Server.Error
+  """
+  def status_404 do
     html_404()
   end
 
-  def html_404() do
+  def html_404 do
     ~s"""
         <HTML>
     <HEAD> <TITLE>You have entered an abyss</TITLE> </HEAD>

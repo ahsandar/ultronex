@@ -1,12 +1,15 @@
 require Logger
 
 defmodule Ultronex.Realtime.TermStorage do
+  @moduledoc """
+  Documentation for Ultronex.RealtimeTermStorage
+  """
   def initialize do
     ets_initialize()
     initialize_stats()
   end
 
-  def initialize_stats() do
+  def initialize_stats do
     output = ets_initialize(:stats, :set)
 
     case output |> elem(0) do

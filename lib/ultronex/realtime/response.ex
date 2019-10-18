@@ -2,16 +2,16 @@ require Logger
 
 defmodule Ultronex.Realtime.Response do
   @moduledoc """
-  Documentation for Ultronex.Command.Forward
+  Documentation for Ultronex.Realtime.Response
   """
   alias Ultronex.Command.Forward, as: Forward
   alias Ultronex.Command.Giphy, as: Giphy
   alias Ultronex.Command.Greet, as: Greet
-  alias Ultronex.Command.Talk, as: Talk
-  alias Ultronex.Command.Quote, as: Quote
-  alias Ultronex.Command.Xkcd, as: Xkcd
-  alias Ultronex.Command.Parse, as: Parse
   alias Ultronex.Command.Help, as: Help
+  alias Ultronex.Command.Parse, as: Parse
+  alias Ultronex.Command.Quote, as: Quote
+  alias Ultronex.Command.Talk, as: Talk
+  alias Ultronex.Command.Xkcd, as: Xkcd
   alias Ultronex.Realtime.Msg, as: Msg
   alias Ultronex.Realtime.TermStorage, as: TermStorage
 
@@ -75,7 +75,7 @@ defmodule Ultronex.Realtime.Response do
     end
   end
 
-  def get_channel_list_to_monitor() do
+  def get_channel_list_to_monitor do
     String.split(System.get_env("SLACK_CHANNEL_LIST"), ",")
   end
 

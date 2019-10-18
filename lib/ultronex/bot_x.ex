@@ -7,9 +7,9 @@ defmodule Ultronex.BotX do
   Documentation for Ultronex.BotX
   """
 
-  alias Ultronex.Utility, as: Utility
   alias Ultronex.Realtime.Response, as: Response
   alias Ultronex.Realtime.TermStorage, as: TermStorage
+  alias Ultronex.Utility, as: Utility
 
   def initialize_term_storage do
     Logger.info("Creating Term Storage ...")

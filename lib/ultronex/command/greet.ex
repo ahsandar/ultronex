@@ -5,8 +5,8 @@ defmodule Ultronex.Command.Greet do
   Documentation for Ultronex.Command.Greet
   """
 
-  alias Ultronex.Realtime.Msg, as: Msg
   alias Ultronex.Command.Quote, as: Quote
+  alias Ultronex.Realtime.Msg, as: Msg
 
   def hello(slack_message, slack_state, msg_list) do
     Logger.info("Ultronex.Command.Greet.hello")

@@ -5,8 +5,8 @@ defmodule Ultronex.Command.Xkcd do
   Documentation for Ultronex.Command.Xkcd
   """
 
-  alias Ultronex.Utility, as: Utility
   alias Ultronex.Realtime.Msg, as: Msg
+  alias Ultronex.Utility, as: Utility
 
   def comic(slack_message, slack_state, msg_list) do
     Logger.info("Ultronex.Command.Xkcd.comic")

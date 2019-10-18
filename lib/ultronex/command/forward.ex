@@ -4,9 +4,8 @@ defmodule Ultronex.Command.Forward do
   @moduledoc """
   Documentation for Ultronex.Command.Forward
   """
-
-  alias Ultronex.Realtime.TermStorage, as: TermStorage
   alias Ultronex.Realtime.Msg, as: Msg
+  alias Ultronex.Realtime.TermStorage, as: TermStorage
 
   def fwd(slack_message, slack_state, msg_list) do
     Logger.info("Ultronex.Command.Forward.fwd")
@@ -68,7 +67,7 @@ defmodule Ultronex.Command.Forward do
         "<@#{slack_message.user}>! your forwarding is stopped for `#{match}` , `#{pattern_msg}`"
 
       Logger.info(msg)
-      Ultronex.Realtime.Msg.send(msg, slack_message.channel, slack_state)
+      Msg.send(msg, slack_message.channel, slack_state)
     end)
   end
 

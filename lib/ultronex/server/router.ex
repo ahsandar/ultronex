@@ -2,9 +2,14 @@ defmodule Ultronex.Server.Router do
   use Plug.Router
   use Plug.Debugger
   use NewRelic.Transaction
+  alias Ultronex.Server.Track, as: Track
+  alias Ultronex.Server.Stats, as: Stats
+  alias Ultronex.Server.Error, as: Error
   require Logger
 
   plug(Plug.Logger, log: :debug)
+
+  plug(Plug.Static, at: "/", from: :ultronex)
 
   plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
 
@@ -17,14 +22,14 @@ defmodule Ultronex.Server.Router do
   end
 
   get "/track" do
-    send_resp(conn, 200, Ultronex.Server.Track.fwd())
+    send_resp(conn, 200, Track.fwd())
   end
 
   get "/stats" do
-    send_resp(conn, 200, Ultronex.Server.Stats.total())
+    send_resp(conn, 200, Stats.total())
   end
 
   match _ do
-    send_resp(conn, 404, Ultronex.Server.Error.status_404())
+    send_resp(conn, 404, Error.status_404())
   end
 end

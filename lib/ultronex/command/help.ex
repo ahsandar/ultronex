@@ -4,9 +4,8 @@ defmodule Ultronex.Command.Help do
   @moduledoc """
   Documentation for Ultronex.Command.Help
   """
-
-  alias Ultronex.Realtime.Msg, as: Msg
   alias Ultronex.Command.Quote, as: Quote
+  alias Ultronex.Realtime.Msg, as: Msg
 
   def output(slack_message, slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Help.output")
