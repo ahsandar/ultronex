@@ -9,7 +9,7 @@ defmodule Ultronex.Server.Router do
 
   plug(Plug.Logger, log: :debug)
 
-  plug(Plug.Static, at: "/", from: :ultronex)
+  plug(Plug.Static, at: "/", from: :ultronex, only_matching: ["favicon"])
 
   plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
 
