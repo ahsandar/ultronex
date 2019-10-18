@@ -2,10 +2,13 @@ defmodule Ultronex.Server.Router do
   use Plug.Router
   use Plug.Debugger
   use NewRelic.Transaction
+
+  require Logger
+
+  alias Ultronex.Server.Heartbeat, as: Heartbeat
   alias Ultronex.Server.Track, as: Track
   alias Ultronex.Server.Stats, as: Stats
   alias Ultronex.Server.Error, as: Error
-  require Logger
 
   plug(Plug.Logger, log: :debug)
 
@@ -18,18 +21,24 @@ defmodule Ultronex.Server.Router do
   plug(:dispatch)
 
   get "/heartbeat" do
-    send_resp(conn, 200, "I don't have a heart but I am alive!")
+    conn |> response_encoder(200, Poison.encode!(Heartbeat.rythm()))
   end
 
   get "/track" do
-    send_resp(conn, 200, Track.fwd())
+    conn |> response_encoder(200, Poison.encode!(Track.fwd()))
   end
 
   get "/stats" do
-    send_resp(conn, 200, Stats.total())
+    conn |> response_encoder(200, Poison.encode!(Stats.total()))
   end
 
   match _ do
-    send_resp(conn, 404, Error.status_404())
+    conn |> response_encoder(404, Poison.encode!(Error.status_404()))
+  end
+
+  def response_encoder(conn, status, json) do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(status, json)
   end
 end

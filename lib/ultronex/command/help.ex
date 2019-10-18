@@ -34,7 +34,7 @@ defmodule Ultronex.Command.Help do
   end
 
   def get_random_quote do
-    Quote.get_quote_to_send()
+    Quote.get_quote_to_send() |> Quote.format()
   end
 
   def man_page do

@@ -3,18 +3,10 @@ defmodule Ultronex.Server.Stats do
   Documentation for Ultronex.Server.Stats
   """
   alias Ultronex.Realtime.TermStorage, as: TermStorage
+  alias Ultronex.Server.Helper, as: Helper
 
   def total do
-    counters() |> response
-  end
-
-  def response(map_ets) do
-    if Map.equal?(map_ets, %{}) do
-      %{msg: "No data available"}
-    else
-      map_ets
-    end
-    |> Poison.encode!()
+    counters() |> Helper.response("No data available")
   end
 
   def counters do

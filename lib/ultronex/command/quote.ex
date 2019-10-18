@@ -9,13 +9,18 @@ defmodule Ultronex.Command.Quote do
 
   def random(slack_message, slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Quote.random")
-    quote = "<@#{slack_message.user}>!, `I, UltronEx chose this for you` #{get_quote_to_send()}"
+
+    quote =
+      "<@#{slack_message.user}>!, `I, UltronEx chose this for you` #{
+        get_quote_to_send() |> format()
+      }"
+
     Logger.info(quote)
     Msg.send(quote, slack_message.channel, slack_state)
   end
 
   def get_quote_to_send do
-    List.pop_at(quotes(), randon_quote_index()) |> elem(0) |> format
+    List.pop_at(quotes(), randon_quote_index()) |> elem(0)
   end
 
   def format(quote) do

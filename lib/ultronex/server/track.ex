@@ -2,18 +2,10 @@ defmodule Ultronex.Server.Track do
   @moduledoc """
   Documentation for Ultronex.Server.Track
   """
+  alias Ultronex.Server.Helper, as: Helper
 
   def fwd do
-    ets_map() |> response
-  end
-
-  def response(map_ets) do
-    if Map.equal?(map_ets, %{}) do
-      %{msg: "No pattern set for match"}
-    else
-      map_ets
-    end
-    |> Poison.encode!()
+    ets_map() |> Helper.response("No pattern set for match")
   end
 
   def ets_map do

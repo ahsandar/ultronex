@@ -2,18 +2,17 @@ defmodule Ultronex.Server.Error do
   @moduledoc """
   Documentation for Ultronex.Server.Error
   """
+  alias Ultronex.Command.Quote, as: Quote
+  alias Ultronex.Server.Helper, as: Helper
+
   def status_404 do
-    html_404()
+    json_response() |> Helper.response()
   end
 
-  def html_404 do
-    ~s"""
-        <HTML>
-    <HEAD> <TITLE>You have entered an abyss</TITLE> </HEAD>
-    <BODY>
-      <IMG SRC=\"https://media.comicbook.com/uploads1/2014/10/ultron-annihilation-110473.png\">
-    </BODY>
-    </HTML>
-    """
+  def json_response do
+    %{
+      msg: "You have entered an Abyss",
+      quote: Quote.get_quote_to_send()
+    }
   end
 end
