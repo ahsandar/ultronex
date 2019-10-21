@@ -1,4 +1,4 @@
-FROM elixir:1.9.0-slim AS base
+FROM elixir:1.9.2-slim AS base
 
 RUN apt-get -qq update && \
     apt-get -qq -y install build-essential --fix-missing --no-install-recommends

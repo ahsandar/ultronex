@@ -37,7 +37,7 @@ defmodule UltronEx.MixProject do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
-      {:slack, "0.19.0"},
+      {:slack, "~> 0.19.0"},
       {:tesla, "~> 1.2.1"},
       {:poison, "~> 3.1"},
       {:new_relic_agent, "~> 1.0"},
