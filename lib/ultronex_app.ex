@@ -28,7 +28,7 @@ defmodule UltronexApp do
       )
     ]
 
-    opts = [strategy: :one_for_one, name: UltonApp]
+    opts = [strategy: :one_for_one, name: UltronexApp]
     Supervisor.start_link(children, opts)
   end
 end
