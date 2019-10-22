@@ -3,10 +3,9 @@ defmodule Ultronex.Server.Error do
   Documentation for Ultronex.Server.Error
   """
   alias Ultronex.Command.Quote, as: Quote
-  alias Ultronex.Server.Helper, as: Helper
 
   def status_404 do
-    json_response() |> Helper.response()
+    json_response()
   end
 
   def json_response do
