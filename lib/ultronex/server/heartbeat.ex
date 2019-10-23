@@ -5,11 +5,6 @@ defmodule Ultronex.Server.Heartbeat do
 
   use Plug.Router
   use Plug.Debugger
-  use NewRelic.Transaction
-
-  require Logger
-
-  plug(Plug.Logger, log: :debug)
 
   plug(:match)
 

@@ -11,27 +11,13 @@ defmodule Ultronex.Server.Router do
 
   plug(Plug.Static, at: "/", from: :ultronex, only_matching: ["favicon"])
 
-  # plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
-
   plug(:match)
 
   plug(:dispatch)
 
   forward("/heartbeat", to: Ultronex.Server.Heartbeat)
   forward("/track", to: Ultronex.Server.Track)
-  forward("stats", to: Ultronex.Server.Stats)
-
-  # get "/heartbeat" do
-  #   conn |> response_encoder(200, Poison.encode!(Heartbeat.rythm()))
-  # end
-
-  # get "/track" do
-  #   conn |> response_encoder(200, Poison.encode!(Track.fwd()))
-  # end
-
-  # get "/stats" do
-  #   conn |> response_encoder(200, Poison.encode!(Stats.total()))
-  # end
+  forward("/stats", to: Ultronex.Server.Stats)
 
   match _ do
     conn |> response_encoder(404, Poison.encode!(Error.status_404()))

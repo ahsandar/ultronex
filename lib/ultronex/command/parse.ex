@@ -13,30 +13,34 @@ defmodule Ultronex.Command.Parse do
     Logger.info("Ultronex.Command.Parse.msg")
     pattern_list = :ets.lookup(:track, "pattern")
     text = slack_message |> Map.get(:text) |> to_string()
+    attachment = payload(slack_message)
     Logger.info("#{slack_message.user}: #{text}")
+    match_pattern_list(pattern_list, text, attachment)
+  end
 
+  def match_pattern_list(pattern_list, text, attachment) do
     Enum.each(pattern_list, fn pattern ->
       match = pattern |> elem(1)
-      text_match = text |> String.contains?(match)
-      attachment = payload(slack_message)
-      attachment_match = attachment |> String.contains?(match)
+      match_msg(match, text, attachment)
+    end)
+  end
 
-      if text_match || attachment_match do
-        Logger.info("Found a match to forward")
-        user_list = :ets.lookup(:track, match)
+  def match_msg(match, text, attachment) do
+    text_match = text |> String.contains?(match)
+    attachment_match = attachment |> String.contains?(match)
 
-        Enum.each(user_list, fn user_map ->
-          user = user_map |> elem(1)
-          msg = " `UltronEx` found a match for `#{match}`\n #{text}"
-          Logger.info(msg)
+    if text_match || attachment_match do
+      user_list = :ets.lookup(:track, match)
+      msg = " `UltronEx` found a match for `#{match}`\n #{text}"
+      Logger.info(msg)
+      match_user_list(user_list, msg, attachment)
+    end
+  end
 
-          Msg.post(
-            msg,
-            attachment,
-            "#{user}"
-          )
-        end)
-      end
+  def match_user_list(user_list, msg, attachment) do
+    Enum.each(user_list, fn user_map ->
+      user = user_map |> elem(1)
+      Msg.post(msg, attachment, "#{user}")
     end)
   end
 

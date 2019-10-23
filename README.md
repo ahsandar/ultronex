@@ -8,7 +8,7 @@ Its my first attempt at writing `elixir`, the code might not very elixirish. Thi
 
 ## Requirements 
 * `Docker`
-* `Elixir 1.9.0`
+* `Elixir 1.9.2`
 * `Erlang/OTP 22`
 
 ### SECRETS AND KEYS
@@ -21,6 +21,10 @@ SLACK_CHANNEL_LIST=<CHANNEL ID>
 ULTRON_BOT_ID=<ULTRON SLACK ID>
 GIPHY_API_KEY=<GIPHY APP API KEY> 
 HTTP_SCHEME=<http or https>
+BASIC_AUTH_USERNAME=<username>
+BASIC_AUTH_PASSWORD=<password>
+BASIC_AUTH_REALM=<realm>
+SECRET_WEAPON=<your secret command>
 ```
 
 `CAUTION: Running msg forwarder in memory`
@@ -41,7 +45,7 @@ HTTP_SCHEME=<http or https>
 
 ## UltronEx web server
 
-A small webserver is now running in this app to check fo `heartbeat`. You can run it in `HTTP` or `HTTPS` mode. Set the `HTTP_SCHEME` environment variable and set the right docker-compose file  
+A small webserver is now running in this app to check for `heartbeat`, `stats` and `track`. You can run it in `HTTP` or `HTTPS` mode. Set the `HTTP_SCHEME` environment variable and set the right docker-compose file  
 
 > `docker-compose -f docker-compose.yml up` #HTTPS
 
@@ -50,12 +54,39 @@ A small webserver is now running in this app to check fo `heartbeat`. You can ru
 ```
 Request: curl -v http://localhost:8080/heartbeat
 
-Response: I don't have a heart but I am alive!
+Response: {"msg":"I don't have a heart but I am alive!"}
+
+status: 200
 ```
+
+
+```
+Password protected endpoint
+
+Request: curl -v http://localhost:8080/stats
+
+Response: {"uptime":"2019-10-16 16:01:05.571045Z","total_msg_count":90075,"total_attachments_downloaded":64992,"replied_msg_count":32,"forwarded_msg_count":14}
+
+status: 200
+```
+
+
+```
+Password protected endpoint
+
+Request: curl -v http://localhost:8080/track
+
+Response: {"stark":"U08MG273O"}
+
+status: 200
+```
+
 
 ```
 Request: curl -v http://localhost:8080/unknown
 
-Response: You have entered an abyss
+Response: {"quote":"“Alright, alright alright.” – Wooderson, Dazed and Confused","msg":"You have entered an Abyss"}
+
+status: 404
 
 ```
