@@ -2,7 +2,28 @@ defmodule Ultronex.Server.Track do
   @moduledoc """
   Documentation for Ultronex.Server.Track
   """
+
+  use Plug.Router
+  use Plug.Debugger
+  use NewRelic.Transaction
+
+  require Logger
+
   alias Ultronex.Server.Helper, as: Helper
+
+  plug(Plug.Logger, log: :debug)
+
+  plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
+
+  plug(:match)
+
+  plug(:dispatch)
+
+  get "/" do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(fwd()))
+  end
 
   def fwd do
     ets_map() |> Helper.response("No pattern set for match")

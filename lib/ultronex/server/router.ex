@@ -5,32 +5,33 @@ defmodule Ultronex.Server.Router do
 
   require Logger
 
-  alias Ultronex.Server.Heartbeat, as: Heartbeat
-  alias Ultronex.Server.Track, as: Track
-  alias Ultronex.Server.Stats, as: Stats
   alias Ultronex.Server.Error, as: Error
 
   plug(Plug.Logger, log: :debug)
 
   plug(Plug.Static, at: "/", from: :ultronex, only_matching: ["favicon"])
 
-  plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
+  # plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
 
   plug(:match)
 
   plug(:dispatch)
 
-  get "/heartbeat" do
-    conn |> response_encoder(200, Poison.encode!(Heartbeat.rythm()))
-  end
+  forward("/heartbeat", to: Ultronex.Server.Heartbeat)
+  forward("/track", to: Ultronex.Server.Track)
+  forward("stats", to: Ultronex.Server.Stats)
 
-  get "/track" do
-    conn |> response_encoder(200, Poison.encode!(Track.fwd()))
-  end
+  # get "/heartbeat" do
+  #   conn |> response_encoder(200, Poison.encode!(Heartbeat.rythm()))
+  # end
 
-  get "/stats" do
-    conn |> response_encoder(200, Poison.encode!(Stats.total()))
-  end
+  # get "/track" do
+  #   conn |> response_encoder(200, Poison.encode!(Track.fwd()))
+  # end
+
+  # get "/stats" do
+  #   conn |> response_encoder(200, Poison.encode!(Stats.total()))
+  # end
 
   match _ do
     conn |> response_encoder(404, Poison.encode!(Error.status_404()))

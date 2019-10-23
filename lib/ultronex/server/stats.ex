@@ -2,8 +2,28 @@ defmodule Ultronex.Server.Stats do
   @moduledoc """
   Documentation for Ultronex.Server.Stats
   """
+  use Plug.Router
+  use Plug.Debugger
+  use NewRelic.Transaction
+
+  require Logger
+
   alias Ultronex.Realtime.TermStorage, as: TermStorage
   alias Ultronex.Server.Helper, as: Helper
+
+  plug(Plug.Logger, log: :debug)
+
+  plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
+
+  plug(:match)
+
+  plug(:dispatch)
+
+  get "/" do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(total()))
+  end
 
   def total do
     counters() |> Helper.response("No data available")

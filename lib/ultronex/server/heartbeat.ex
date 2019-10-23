@@ -3,6 +3,24 @@ defmodule Ultronex.Server.Heartbeat do
   Documentation for Ultronex.Server.Heartbeat
   """
 
+  use Plug.Router
+  use Plug.Debugger
+  use NewRelic.Transaction
+
+  require Logger
+
+  plug(Plug.Logger, log: :debug)
+
+  plug(:match)
+
+  plug(:dispatch)
+
+  get "/" do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(rythm()))
+  end
+
   def rythm do
     json_response()
   end
