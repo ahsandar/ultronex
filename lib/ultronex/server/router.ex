@@ -15,9 +15,10 @@ defmodule Ultronex.Server.Router do
 
   plug(:dispatch)
 
-  forward("/heartbeat", to: Ultronex.Server.Heartbeat)
-  forward("/track", to: Ultronex.Server.Track)
-  forward("/stats", to: Ultronex.Server.Stats)
+  forward("/ultronex/heartbeat", to: Ultronex.Server.Heartbeat)
+  forward("/ultronex/track", to: Ultronex.Server.Track)
+  forward("/ultronex/stats", to: Ultronex.Server.Stats)
+  forward("/ultronex/slack", to: Ultronex.Server.Slack)
 
   match _ do
     conn |> response_encoder(404, Poison.encode!(Error.status_404()))

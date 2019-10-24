@@ -10,4 +10,8 @@ defmodule Ultronex.Server.Helper do
       response_map
     end
   end
+
+  def unprocessable_body() do
+    {422, %{msg: "Unprocessable request body"}}
+  end
 end

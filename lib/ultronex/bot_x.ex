@@ -67,6 +67,13 @@ defmodule Ultronex.BotX do
   end
 
   def post_msg_to_slack(message, payload, channel) do
+    response = send_payload_to_slack(message, payload, channel)
+    TermStorage.ets_incr(:stats, :replied_msg_count)
+    TermStorage.ets_incr(:stats, :forwarded_msg_count)
+    response
+  end
+
+  def send_payload_to_slack(message, payload, channel) do
     url = "https://slack.com/api/files.upload"
 
     encoded_payload =
@@ -86,8 +93,5 @@ defmodule Ultronex.BotX do
         {"Authorization", Utility.authorization_token()}
       ]
     )
-
-    TermStorage.ets_incr(:stats, :replied_msg_count)
-    TermStorage.ets_incr(:stats, :forwarded_msg_count)
   end
 end

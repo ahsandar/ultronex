@@ -52,7 +52,7 @@ A small webserver is now running in this app to check for `heartbeat`, `stats` a
 > `docker-compose -f docker-compose-http.yml up` #HTTP
 
 ```
-Request: curl -v http://localhost:8080/heartbeat
+Request: curl -v http://localhost:8080/ultronex/heartbeat
 
 Response: {"msg":"I don't have a heart but I am alive!"}
 
@@ -63,7 +63,7 @@ status: 200
 ```
 Password protected endpoint
 
-Request: curl -v http://localhost:8080/stats
+Request: curl -v -H"Authorization: Basic username:password" http://localhost:8080/ultronex/stats
 
 Response: {"uptime":"2019-10-16 16:01:05.571045Z","total_msg_count":90075,"total_attachments_downloaded":64992,"replied_msg_count":32,"forwarded_msg_count":14}
 
@@ -74,7 +74,7 @@ status: 200
 ```
 Password protected endpoint
 
-Request: curl -v http://localhost:8080/track
+Request: curl -v -H"Authorization: Basic username:password" http://localhost:8080/ultronex/track
 
 Response: {"stark":"U08MG273O"}
 
@@ -83,7 +83,36 @@ status: 200
 
 
 ```
-Request: curl -v http://localhost:8080/unknown
+Password protected endpoint
+
+Request: curl --request POST \
+  --url http://localhost:8080/ultronex/msg \
+  --header 'Accept: */*' \
+  --header 'Accept-Encoding: gzip, deflate' \
+  --header 'Authorization: Basic username:password' \
+  --header 'Cache-Control: no-cache' \
+  --header 'Connection: keep-alive' \
+  --header 'Content-Length: 81' \
+  --header 'Content-Type: application/json' \
+  --header 'Host: localhost:8080' 
+  --header 'cache-control: no-cache' \
+  --data '{"msg": {\n	"channel": "U08MG2700",\n	"text": "test",\n	"payload": "testing"\n	\n}\n	\n}'
+
+Response: {
+    "status": "triggered",
+    "msg": {
+        "text": "test",
+        "payload": "testing",
+        "channel": "U08MG2700"
+    }
+}
+
+status: 200
+```
+
+
+```
+Request: curl -v http://localhost:8080/ultronex/unknown
 
 Response: {"quote":"“Alright, alright alright.” – Wooderson, Dazed and Confused","msg":"You have entered an Abyss"}
 
