@@ -1,0 +1,7 @@
+#!/bin/bash
+sh /opt/scripts/ultronex_heartbeat > /dev/null 2>&1 &
+sh /opt/scripts/ultronex_stats > /dev/null 2>&1 &
+sh /opt/scripts/ultronex_track > /dev/null 2>&1 &
+sh /opt/scripts/ultronex_favicon > /dev/null 2>&1 &
+sh /opt/scripts/ultronex_unknown > /dev/null 2>&1 &
+sh /opt/scripts/ultronex_slack > /dev/null 2>&1 &

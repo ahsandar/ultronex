@@ -1,0 +1,2 @@
+#!/bin/bash
+while sleep 1; do curl -H"Authorization: Basic username:password" https://ultronex/ultronex/stats; done

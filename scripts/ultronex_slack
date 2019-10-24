@@ -1,0 +1,2 @@
+#!/bin/bash
+while sleep 1; do curl -X POST -H"Authorization: Basic username:password" -H"Content-Type: application/json" https://ultronex/ultronex/slack -d '{"msg": {"channel": "testing", "text": "`'"$(hostname)"'`", "payload": "'"$(date)"'"}}'; done

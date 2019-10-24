@@ -14,3 +14,5 @@ Dockerfile
 Makefile
 README*
 test/
+scripts/
+tabs/
