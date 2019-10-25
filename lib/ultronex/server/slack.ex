@@ -13,7 +13,7 @@ defmodule Ultronex.Server.Slack do
 
   plug(:match)
 
-  plug(Plug.Parsers, parsers: [:json], pass: ["application/json"], json_decoder: Poison)
+  plug(Plug.Parsers, parsers: [:json], pass: ["application/json"], json_decoder: Jason)
 
   plug(:dispatch)
 
@@ -29,7 +29,7 @@ defmodule Ultronex.Server.Slack do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(status, Poison.encode!(body))
+    |> send_resp(status, Jason.encode!(body))
   end
 
   def process_msg(channel, text, payload) do

@@ -85,13 +85,27 @@ defmodule Ultronex.BotX do
       }
       |> URI.encode_query()
 
-    HTTPoison.post(
-      url,
-      encoded_payload,
-      [
-        {"content-type", "application/x-www-form-urlencoded"},
-        {"Authorization", Utility.authorization_token()}
-      ]
-    )
+    response =
+      HTTPoison.post(
+        url,
+        encoded_payload,
+        [
+          {"content-type", "application/x-www-form-urlencoded"},
+          {"Authorization", Utility.authorization_token()}
+        ]
+      )
+
+    spawn(BotX, :check_slack_response, [response])
+    response
+  end
+
+  def check_slack_response(response) do
+    case response do
+      {:ok, %HTTPoison.Response{status_code: 429, body: body}} ->
+        Sentry.capture_exception("Ultronex Rate Limited", extra: %{extra: body})
+
+      _ ->
+        response
+    end
   end
 end

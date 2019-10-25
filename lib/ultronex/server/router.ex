@@ -21,7 +21,7 @@ defmodule Ultronex.Server.Router do
   forward("/ultronex/slack", to: Ultronex.Server.Slack)
 
   match _ do
-    conn |> response_encoder(404, Poison.encode!(Error.status_404()))
+    conn |> response_encoder(404, Jason.encode!(Error.status_404()))
   end
 
   def response_encoder(conn, status, json) do

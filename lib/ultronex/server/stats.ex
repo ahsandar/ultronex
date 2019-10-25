@@ -17,7 +17,7 @@ defmodule Ultronex.Server.Stats do
   get "/" do
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Poison.encode!(total()))
+    |> send_resp(200, Jason.encode!(total()))
   end
 
   def total do

@@ -17,7 +17,7 @@ defmodule Ultronex.Server.Track do
   get "/" do
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Poison.encode!(fwd()))
+    |> send_resp(200, Jason.encode!(fwd()))
   end
 
   def fwd do

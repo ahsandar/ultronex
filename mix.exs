@@ -47,7 +47,9 @@ defmodule UltronEx.MixProject do
       {:dialyxir, "~> 0.4", only: [:dev]},
       {:basic_auth, "~> 2.2.2"},
       {:logger_file_backend, "~> 0.0.10"},
-      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
+      {:sentry, "~> 7.0"},
+      {:jason, "~> 1.1"}
     ]
   end
 end
