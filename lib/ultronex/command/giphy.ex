@@ -13,7 +13,7 @@ defmodule Ultronex.Command.Giphy do
     url = random_gif_from_giphy(category)
 
     msg =
-      " <@#{slack_message.user}>! I, `UltronEx` have selected a #{category} gif for you #{url}"
+      " <@#{slack_message.user}>! I, `UltronEx` has selected a #{category} gif for you #{url}"
 
     Logger.info(msg)
     Msg.send(msg, slack_message.channel, slack_state)
@@ -30,7 +30,7 @@ defmodule Ultronex.Command.Giphy do
 
   def get_giphy_url(response) do
     if response.status == 200 do
-      giphy_response = Poison.Parser.parse!(response.body, %{})
+      giphy_response = Jason.decode!(response.body)
 
       selected_gif =
         List.pop_at(giphy_response["data"], random_selection(giphy_response["data"])) |> elem(0)
