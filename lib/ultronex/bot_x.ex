@@ -102,9 +102,9 @@ defmodule Ultronex.BotX do
   def check_slack_response(response) do
     case response do
       {:ok, %HTTPoison.Response{status_code: 429, body: body}} ->
-        Logger.info(body)
+        Logger.error(body)
         sentry = Sentry.capture_exception("Ultronex Rate Limited ", extra: %{extra: body})
-        Logger.info(sentry)
+        Logger.error(sentry)
       _ ->
         response
     end

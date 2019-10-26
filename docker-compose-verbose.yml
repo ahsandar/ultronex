@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-verbose
+    container_name: ultronex_bot_verbose
+    env_file: ./env.list
+    stdin_open: true
+    tty: true
+    ports:
+      - "4433:8443"
+    # map certs when using HTTPS
+    volumes:
+      - ./log:/src/ultronex/log
+      - ./tab:/src/ultronex/tab
+      - /etc/letsencrypt/live/ultronex.mooo.com/privkey.pem:/src/ultronex/cert/privkey.pem
+      - /etc/letsencrypt/live/ultronex.mooo.com/cert.pem:/src/ultronex/cert/cert.pem
+      - /etc/letsencrypt/live/ultronex.mooo.com/chain.pem:/src/ultronex/cert/chain.pem
