@@ -6,13 +6,13 @@ defmodule UltronexApp do
   @moduledoc """
   Documentation for UltronexApp
   """
+
   alias Ultronex.BotX, as: BotX
   alias Ultronex.Server.Router, as: Router
   alias Ultronex.Utility, as: Utility
 
   def start(_type, _args) do
-    Utility.start_http_poison()
-    BotX.heartbeat()
+    initialize()
 
     children = [
       %{
@@ -31,5 +31,11 @@ defmodule UltronexApp do
     opts = [strategy: :one_for_one, name: UltronexApp]
     {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
     Supervisor.start_link(children, opts)
+  end
+
+  def initialize do
+    Utility.load_application_env()
+    Utility.start_http_poison()
+    BotX.heartbeat()
   end
 end

@@ -6,13 +6,15 @@ services:
       context: .
       dockerfile: ./Dockerfile-verbose
     container_name: ultronex_bot_verbose
-    env_file: ./env.list
+    env_file:
+      - ./env.list
     stdin_open: true
     tty: true
     ports:
       - "4433:8443"
     # map certs when using HTTPS
     volumes:
+      - ./app:/src/ultronex/app
       - ./log:/src/ultronex/log
       - ./tab:/src/ultronex/tab
       - /etc/letsencrypt/live/ultronex.mooo.com/privkey.pem:/src/ultronex/cert/privkey.pem

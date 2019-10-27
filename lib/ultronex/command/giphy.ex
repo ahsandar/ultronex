@@ -12,8 +12,7 @@ defmodule Ultronex.Command.Giphy do
     category = if is_nil(category_chosen), do: "random", else: msg_list |> List.first()
     url = random_gif_from_giphy(category)
 
-    msg =
-      " <@#{slack_message.user}>! I, `UltronEx` has selected a #{category} gif for you #{url}"
+    msg = " <@#{slack_message.user}>! I, `UltronEx` has selected a #{category} gif for you #{url}"
 
     Logger.info(msg)
     Msg.send(msg, slack_message.channel, slack_state)
@@ -42,7 +41,7 @@ defmodule Ultronex.Command.Giphy do
   end
 
   def get_giphy_api_key do
-    System.get_env("GIPHY_API_KEY")
+    Application.fetch_env!(:ultronex, :giphy_api_key)
   end
 
   def random_selection(list) do

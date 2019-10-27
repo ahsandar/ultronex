@@ -51,9 +51,11 @@ defmodule Ultronex.BotX do
   def handle_close(reason, _slack, _state) do
     TermStorage.ets_tab2file(:track)
     TermStorage.ets_tab2file(:stats)
+    extra = reason |> elem(1)
+    Utility.send_error_to_sentry("Slack error", extra)
     IO.puts("###############################################")
     IO.puts("############### Slack error reason ##################")
-    IO.inspect(reason |> elem(1))
+    IO.inspect(extra)
     IO.puts("###############################################")
   end
 
@@ -102,9 +104,8 @@ defmodule Ultronex.BotX do
   def check_slack_response(response) do
     case response do
       {:ok, %HTTPoison.Response{status_code: 429, body: body}} ->
-        Logger.error(body)
-        sentry = Sentry.capture_exception("Ultronex Rate Limited ", extra: %{extra: body})
-        Logger.error(sentry)
+        Utility.send_error_to_sentry("Ultronex Rate Limited ", body)
+
       _ ->
         response
     end

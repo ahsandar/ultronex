@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/stylesheets/error.css">
+</head>
+    <body>
+        <div class="noise"></div>
+        <div class="overlay"></div>
+        <div class="terminal">
+            <h1>UltronEx <span class="errorcode">404</span></h1>
+            <p class="output"><%= var.msg %></p>
+            <p class="output"><%= var.quote %></p>
+        </div>
+    </body>
+</html>

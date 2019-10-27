@@ -11,6 +11,7 @@ services:
       - "443:8443"
     # map certs when using HTTPS
     volumes:
+      - ./app:/src/ultronex/app
       - ./log:/src/ultronex/log
       - ./tab:/src/ultronex/tab
       - /etc/letsencrypt/live/ultronex.mooo.com/privkey.pem:/src/ultronex/cert/privkey.pem

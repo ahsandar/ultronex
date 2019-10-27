@@ -6,7 +6,11 @@ defmodule Ultronex.Realtime.Msg do
   alias Ultronex.BotX, as: BotX
 
   def parse(msg_text) do
-    parsed_msg = Regex.run(~r/^<@U1KH8H9FW>\s*(\w*)\s*(.*)$/i, msg_text)
+    parsed_msg =
+      Regex.run(
+        ~r/^<@#{Application.fetch_env!(:ultronex, :ultronex_bot_id)}>\s*(\w*)\s*(.*)$/i,
+        msg_text
+      )
 
     if is_nil(parsed_msg) do
       {nil, []}

@@ -62,7 +62,7 @@ defmodule Ultronex.Realtime.Response do
 
         {_, list} ->
           secret_cmd = cmd |> elem(0)
-          secret_weapon = System.get_env("SECRET_WEAPON")
+          secret_weapon = Application.fetch_env!(:ultronex, :secret_weapon)
 
           if secret_cmd == secret_weapon do
             secret_activated(message, slack)
@@ -76,7 +76,7 @@ defmodule Ultronex.Realtime.Response do
   end
 
   def get_channel_list_to_monitor do
-    String.split(System.get_env("SLACK_CHANNEL_LIST"), ",")
+    Application.fetch_env!(:ultronex, :slack_channel_list) |> String.split(",")
   end
 
   def secret_activated(message, slack) do

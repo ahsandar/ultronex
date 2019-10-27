@@ -1,13 +1,18 @@
-defmodule Ultronex.Server.Slack do
+defmodule Ultronex.Server.Controller.Slack do
   @moduledoc """
-  Documentation for Ultronex.Server.Slack
+  Documentation for Ultronex.Server.Controller.Slack
   """
 
   use Plug.Router
-  use Plug.Debugger
+
+  if Mix.env() == :dev do
+    use Plug.Debugger
+  end
+
+  use Plug.ErrorHandler
 
   alias Ultronex.BotX, as: BotX
-  alias Ultronex.Server.Helper, as: Helper
+  alias Ultronex.Server.Helper.App, as: Helper
 
   plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
 

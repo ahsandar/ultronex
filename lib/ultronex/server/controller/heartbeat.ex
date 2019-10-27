@@ -1,10 +1,15 @@
-defmodule Ultronex.Server.Heartbeat do
+defmodule Ultronex.Server.Controller.Heartbeat do
   @moduledoc """
-  Documentation for Ultronex.Server.Heartbeat
+  Documentation for Ultronex.Server.Controller.Heartbeat
   """
 
   use Plug.Router
-  use Plug.Debugger
+
+  if Mix.env() == :dev do
+    use Plug.Debugger
+  end
+
+  use Plug.ErrorHandler
 
   plug(:match)
 

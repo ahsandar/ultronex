@@ -16,3 +16,4 @@ README*
 test/
 scripts/
 tabs/
+.env
