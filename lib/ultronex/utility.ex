@@ -71,8 +71,7 @@ defmodule Ultronex.Utility do
 
   def send_error_to_sentry(msg, extra) do
     Logger.error("#{msg} : #{extra}")
-    sentry = Sentry.capture_exception(msg, extra: %{extra: extra})
-    Logger.error(sentry)
+    Sentry.capture_exception(msg, extra: %{extra: extra})
   end
 
   def load_application_env do

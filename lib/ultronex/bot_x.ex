@@ -53,10 +53,6 @@ defmodule Ultronex.BotX do
     TermStorage.ets_tab2file(:stats)
     extra = reason |> elem(1)
     Utility.send_error_to_sentry("Slack error", extra)
-    IO.puts("###############################################")
-    IO.puts("############### Slack error reason ##################")
-    IO.inspect(extra)
-    IO.puts("###############################################")
   end
 
   def heartbeat do
