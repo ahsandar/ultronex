@@ -20,7 +20,7 @@ defmodule Ultronex.Command.Quote do
   end
 
   def get_quote_to_send do
-    List.pop_at(quotes(), randon_quote_index()) |> elem(0)
+    quotes() |> List.pop_at(randon_quote_index()) |> elem(0)
   end
 
   def format(quote) do
@@ -28,7 +28,7 @@ defmodule Ultronex.Command.Quote do
   end
 
   def randon_quote_index do
-    Utility.random(Kernel.length(quotes()))
+    quotes() |> Kernel.length() |> Utility.random()
   end
 
   def quotes do

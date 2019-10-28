@@ -28,7 +28,7 @@ defmodule Ultronex.Command.Help do
   end
 
   def unknown_msg(user) do
-    " <@#{user}>! `You talk'in to UltronEx` , `You talk'in to UltronEx` ?  try `@ultron help` #{
+    " <@#{user}>! `You talk'in to UltronEx` , `You talk'in to UltronEx` ?  try `@ultronex help` #{
       get_random_quote()
     }"
   end

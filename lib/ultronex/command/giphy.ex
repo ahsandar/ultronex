@@ -32,7 +32,7 @@ defmodule Ultronex.Command.Giphy do
       giphy_response = Jason.decode!(response.body)
 
       selected_gif =
-        List.pop_at(giphy_response["data"], random_selection(giphy_response["data"])) |> elem(0)
+        giphy_response["data"] |> List.pop_at(random_selection(giphy_response["data"])) |> elem(0)
 
       selected_gif["url"]
     else

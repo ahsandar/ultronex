@@ -52,6 +52,7 @@ defmodule Ultronex.BotX do
     TermStorage.ets_tab2file(:track)
     TermStorage.ets_tab2file(:stats)
     extra = reason |> elem(1)
+    IO.inspect(extra)
     Utility.send_error_to_sentry("Slack error", extra)
   end
 

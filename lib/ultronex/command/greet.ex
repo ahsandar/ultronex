@@ -21,7 +21,7 @@ defmodule Ultronex.Command.Greet do
   end
 
   def salutation(user) do
-    "Hi <@#{user}>! you distub my slumber, try `@ultron help` #{get_random_quote()}"
+    "Hi <@#{user}>! you distub my slumber, try `@ultronex help` #{get_random_quote()}"
   end
 
   def get_random_quote do
