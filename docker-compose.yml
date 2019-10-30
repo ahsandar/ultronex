@@ -2,7 +2,22 @@ version: "3.7"
 
 services:
   app:
-    build: .
+    build: 
+      args:
+        ENV: ${ENV}
+        SLACK_BOT_ULTRON: ${SLACK_BOT_ULTRON}
+        SLACK_CHANNEL_LIST: ${SLACK_CHANNEL_LIST}
+        ULTRONEX_BOT_ID: ${ULTRONEX_BOT_ID}
+        IRONMAN_USER_ID: ${IRONMAN_USER_ID}
+        GIPHY_API_KEY: ${GIPHY_API_KEY}
+        NEW_RELIC_APP_NAME: ${NEW_RELIC_APP_NAME}
+        NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+        HTTP_SCHEME: ${HTTP_SCHEME}
+        BASIC_AUTH_USERNAME: ${BASIC_AUTH_USERNAME}
+        BASIC_AUTH_PASSWORD: ${BASIC_AUTH_PASSWORD}
+        BASIC_AUTH_REALM: ${BASIC_AUTH_REALM}
+        SECRET_WEAPON: ${SECRET_WEAPON}
+        SENTRY_DSN: ${SENTRY_DSN}
     container_name: ultronex_bot
     env_file: ./env.list
     stdin_open: true

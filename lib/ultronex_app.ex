@@ -34,7 +34,6 @@ defmodule UltronexApp do
   end
 
   def initialize do
-    Utility.load_application_env()
     Utility.start_http_poison()
     BotX.heartbeat()
   end

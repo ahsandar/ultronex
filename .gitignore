@@ -30,5 +30,5 @@ env.list
 .elixir_ls
 tmp/*
 tab/*.tab
-env.sh
+env.*
 .env

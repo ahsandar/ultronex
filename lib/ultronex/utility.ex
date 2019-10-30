@@ -74,20 +74,4 @@ defmodule Ultronex.Utility do
     Sentry.capture_exception(msg, extra: %{extra: extra})
   end
 
-  def load_application_env do
-    Application.put_all_env([
-      {
-        :ultronex,
-        [
-          {:slack_bot_ultron, System.get_env("SLACK_BOT_ULTRON")},
-          {:slack_channel_list, System.get_env("SLACK_CHANNEL_LIST")},
-          {:http_scheme, System.get_env("HTTP_SCHEME")},
-          {:secret_weapon, System.get_env("SECRET_WEAPON")},
-          {:giphy_api_key, System.get_env("GIPHY_API_KEY")},
-          {:ultronex_bot_id, System.get_env("ULTRONEX_BOT_ID")}
-        ]
-      },
-      {:sentry, [{:dsn, System.get_env("SENTRY_DSN")}]}
-    ])
-  end
 end
