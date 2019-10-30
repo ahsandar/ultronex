@@ -12,7 +12,7 @@ Its my first attempt at writing `elixir`, the code might not very elixirish. Thi
 * `Erlang/OTP 22`
 
 ### SECRETS AND KEYS
-* Set values in env.list file for docker or set those as ENV variables if running without docker.
+* Set values as `ENV` variables and in `env.list` file for docker or set those as `ENV` variables if running without docker.
 
 ```
 ENV=<environment>
