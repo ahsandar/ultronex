@@ -3,6 +3,7 @@ version: "3.7"
 services:
   app:
     build: 
+      context: .
       args:
         ENV: ${ENV}
         SLACK_BOT_ULTRON: ${SLACK_BOT_ULTRON}
