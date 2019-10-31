@@ -73,4 +73,26 @@ defmodule Ultronex.Utility do
     Logger.error("#{msg} : #{extra}")
     Sentry.capture_exception(msg, extra: %{extra: extra})
   end
+
+  def get_module_atom(module) do
+    module_cmd = "Elixir.Ultronex.Command.#{String.capitalize(module)}"
+
+    try do
+      Logger.info("Creating existing atom : #{module_cmd}")
+      String.to_existing_atom(module_cmd)
+    rescue
+      e in ArgumentError ->
+        Logger.debug("atom not exist : #{module_cmd}" <> e.message)
+        Logger.info("Creating a new atom : #{module_cmd}")
+        String.to_atom(module_cmd)
+    end
+  end
+
+  def get_channel_list_to_monitor do
+    Application.fetch_env!(:ultronex, :slack_channel_list) |> String.split(",")
+  end
+
+  def sanitize_quotes(msg) do
+    String.replace(msg, ~r/“|”/, ~s("))
+  end
 end

@@ -7,8 +7,8 @@ defmodule Ultronex.Command.Help do
   alias Ultronex.Command.Quote, as: Quote
   alias Ultronex.Realtime.Msg, as: Msg
 
-  def output(slack_message, slack_state, _msg_list) do
-    Logger.info("Ultronex.Command.Help.output")
+  def execute(slack_message, slack_state, _msg_list) do
+    Logger.info("Ultronex.Command.Help")
     msg = output_msg(slack_message.user)
     Logger.info(msg)
     Msg.send(msg, slack_message.channel, slack_state)
@@ -41,16 +41,16 @@ defmodule Ultronex.Command.Help do
     """
     command(s)
       --> help #list the command list
-      --> hi/hello #responds with a quote
-      --> mute/unmute #TODO implement later
+      --> mute/talk #TODO implement later
       --> xkcd #shows a random xkcd comic
       --> xkcd <comic no> #shows xkcd comic no
-      --> gif/giphy #shows random gif
-      --> gif/giphy <category> #show a random gif from the category
+      --> gif #shows random gif
+      --> gif <category> #show a random gif from the category
       --> quote #shares a quote
-      --> fwd <term> #sets up msg forwarding for the term from SLACK_CHANNEL_LIST
+      --> forward <term> #sets up msg forwarding for the term from SLACK_CHANNEL_LIST
       --> stop <term> #stops msg forwarding for the term from SLACK_CHANNEL_LIST
       --> stop #stops all msg forwarding set for SLACK_CHANNEL_LIST
+      --> any msg # responds with a quote
 
     """
     |> Msg.format_block()

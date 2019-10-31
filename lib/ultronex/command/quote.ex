@@ -7,6 +7,11 @@ defmodule Ultronex.Command.Quote do
   alias Ultronex.Realtime.Msg, as: Msg
   alias Ultronex.Utility, as: Utility
 
+  def execute(slack_message, slack_state, msg_list) do
+    Logger.info("Ultronex.Command.Quote")
+    random(slack_message, slack_state, msg_list)
+  end
+
   def random(slack_message, slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Quote.random")
 

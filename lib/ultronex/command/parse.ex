@@ -9,6 +9,11 @@ defmodule Ultronex.Command.Parse do
   alias Ultronex.Realtime.TermStorage, as: TermStorage
   alias Ultronex.Utility, as: Utility
 
+  def execute(slack_message, slack_state, msg_list) do
+    Logger.info("Ultronex.Command.Parse")
+    msg(slack_message, slack_state, msg_list)
+  end
+
   def msg(slack_message, _slack_state, _msg_list) do
     Logger.info("Ultronex.Command.Parse.msg")
     pattern_list = :ets.lookup(:track, "pattern")

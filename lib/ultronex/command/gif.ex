@@ -1,13 +1,13 @@
 require Logger
 
-defmodule Ultronex.Command.Giphy do
+defmodule Ultronex.Command.Gif do
   @moduledoc """
-  Documentation for Ultronex.Command.Giphy
+  Documentation for Ultronex.Command.Gif
   """
   alias Ultronex.Realtime.Msg, as: Msg
 
-  def gif(slack_message, slack_state, msg_list) do
-    Logger.info("Ultronex.Command.Giphy.gif")
+  def execute(slack_message, slack_state, msg_list) do
+    Logger.info("Ultronex.Command.Giphy")
     category_chosen = msg_list |> List.first() |> String.first()
     category = if is_nil(category_chosen), do: "random", else: msg_list |> List.first()
     url = random_gif_from_giphy(category)
