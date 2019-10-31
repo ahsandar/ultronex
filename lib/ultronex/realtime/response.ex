@@ -4,79 +4,73 @@ defmodule Ultronex.Realtime.Response do
   @moduledoc """
   Documentation for Ultronex.Realtime.Response
   """
-  alias Ultronex.Command.Forward, as: Forward
-  alias Ultronex.Command.Giphy, as: Giphy
-  alias Ultronex.Command.Greet, as: Greet
-  alias Ultronex.Command.Help, as: Help
-  alias Ultronex.Command.Parse, as: Parse
-  alias Ultronex.Command.Quote, as: Quote
-  alias Ultronex.Command.Talk, as: Talk
-  alias Ultronex.Command.Xkcd, as: Xkcd
+
   alias Ultronex.Realtime.Msg, as: Msg
   alias Ultronex.Realtime.TermStorage, as: TermStorage
+
+  @response_map %{
+    "fwd" => %{:module => Ultronex.Command.Forward, :method => :fwd},
+    "stop" => %{:module => Ultronex.Command.Forward, :method => :stop},
+    "giphy" => %{:module => Ultronex.Command.Giphy, :method => :gif},
+    "gif" => %{:module => Ultronex.Command.Giphy, :method => :gif},
+    "hi" => %{:module => Ultronex.Command.Greet, :method => :hi},
+    "hello" => %{:module => Ultronex.Command.Greet, :method => :hello},
+    "quote" => %{:module => Ultronex.Command.Quote, :method => :random},
+    "xkcd" => %{:module => Ultronex.Command.Xkcd, :method => :comic},
+    "help" => %{:module => Ultronex.Command.Help, :method => :output}
+  }
 
   def event(message, slack) do
     cmd = Msg.parse(message |> Map.get(:text) || "")
 
     try do
       case cmd do
-        {"fwd", list} ->
-          Forward.fwd(message, slack, list)
-
-        {"stop", list} ->
-          Forward.stop(message, slack, list)
-
-        {"giphy", list} ->
-          Giphy.gif(message, slack, list)
-
-        {"gif", list} ->
-          Giphy.gif(message, slack, list)
-
-        {"hi", list} ->
-          Greet.hi(message, slack, list)
-
-        {"hello", list} ->
-          Greet.hello(message, slack, list)
-
-        {"mute", list} ->
-          Talk.mute(message, slack, list)
-
-        {"unmute", list} ->
-          Talk.unmute(message, slack, list)
-
-        {"quote", list} ->
-          Quote.random(message, slack, list)
-
-        {"xkcd", list} ->
-          Xkcd.comic(message, slack, list)
-
-        {"help", list} ->
-          Help.output(message, slack, list)
-
-        {nil, list} ->
-          if Enum.member?(get_channel_list_to_monitor(), message.channel) do
-            Parse.msg(message, slack, list)
+        {op, list} ->
+          if is_nil(op) do
+            silence_is_deafening(message, slack, list)
           else
-            {:ok, []}
-          end
-
-        {_, list} ->
-          secret_cmd = cmd |> elem(0)
-          secret_weapon = Application.fetch_env!(:ultronex, :secret_weapon)
-
-          if secret_cmd == secret_weapon do
-            secret_activated(message, slack)
-          else
-            Help.unknown(message, slack, list)
+            fulfill_that_imperative(cmd, message, slack)
           end
       end
     rescue
-      e in RuntimeError -> Logger.info("Wal lao eh - Slack \n" <> e.message)
+      e in RuntimeError -> Logger.error("Wal lao eh - Slack \n" <> e.message)
+    end
+  end
+
+  def fulfill_that_imperative(cmd, message, slack) do
+    op = cmd |> elem(0)
+    list = cmd |> elem(1)
+    module_method_map = @response_map[op]
+
+    if is_nil(module_method_map) do
+      avengers_assemble(cmd, message, slack)
+    else
+      apply(module_method_map[:module], module_method_map[:method], [message, slack, list])
     end
   end
 
   def get_channel_list_to_monitor do
     Application.fetch_env!(:ultronex, :slack_channel_list) |> String.split(",")
+  end
+
+  def silence_is_deafening(message, slack, list) do
+    if Enum.member?(get_channel_list_to_monitor(), message.channel) do
+      Ultronex.Command.Parse.msg(message, slack, list)
+    else
+      {:ok, []}
+    end
+  end
+
+  def avengers_assemble(cmd, message, slack) do
+    secret_cmd = cmd |> elem(0)
+    list = cmd |> elem(1)
+    secret_weapon = Application.fetch_env!(:ultronex, :secret_weapon)
+
+    if secret_cmd == secret_weapon do
+      secret_activated(message, slack)
+    else
+      Ultronex.Command.Help.unknown(message, slack, list)
+    end
   end
 
   def secret_activated(message, slack) do

@@ -73,5 +73,4 @@ defmodule Ultronex.Utility do
     Logger.error("#{msg} : #{extra}")
     Sentry.capture_exception(msg, extra: %{extra: extra})
   end
-
 end
