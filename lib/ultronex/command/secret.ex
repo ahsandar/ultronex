@@ -7,14 +7,13 @@ defmodule Ultronex.Command.Secret do
   alias Ultronex.Realtime.TermStorage, as: TermStorage
 
   def avengers_assemble(cmd, message, slack) do
-    secret_cmd = cmd |> elem(0)
-    list = cmd |> elem(1)
-    secret_weapon = Application.fetch_env!(:ultronex, :secret_weapon)
+    case cmd do
+      {secret_cmd, list} ->
+        secret_weapon = Application.fetch_env!(:ultronex, :secret_weapon)
 
-    if secret_cmd == secret_weapon do
-      secret_activated(message, slack)
-    else
-      Help.unknown(message, slack, list)
+        if secret_cmd == secret_weapon,
+          do: secret_activated(message, slack),
+          else: Help.unknown(message, slack, list)
     end
   end
 
