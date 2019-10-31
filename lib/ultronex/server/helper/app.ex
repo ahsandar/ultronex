@@ -13,7 +13,7 @@ defmodule Ultronex.Server.Helper.App do
     end
   end
 
-  def unprocessable_body() do
+  def unprocessable_body do
     {422, %{msg: "Unprocessable request body"}}
   end
 

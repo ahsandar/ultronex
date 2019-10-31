@@ -5,6 +5,8 @@ defmodule Ultronex.Realtime.Response do
   Documentation for Ultronex.Realtime.Response
   """
 
+  alias Ultronex.Command.Help, as: Help
+  alias Ultronex.Command.Parse, as: Parse
   alias Ultronex.Realtime.Msg, as: Msg
   alias Ultronex.Realtime.TermStorage, as: TermStorage
 
@@ -55,7 +57,7 @@ defmodule Ultronex.Realtime.Response do
 
   def silence_is_deafening(message, slack, list) do
     if Enum.member?(get_channel_list_to_monitor(), message.channel) do
-      Ultronex.Command.Parse.msg(message, slack, list)
+      Parse.msg(message, slack, list)
     else
       {:ok, []}
     end
@@ -69,7 +71,7 @@ defmodule Ultronex.Realtime.Response do
     if secret_cmd == secret_weapon do
       secret_activated(message, slack)
     else
-      Ultronex.Command.Help.unknown(message, slack, list)
+      Help.unknown(message, slack, list)
     end
   end
 
