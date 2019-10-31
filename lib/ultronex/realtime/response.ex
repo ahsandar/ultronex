@@ -42,12 +42,13 @@ defmodule Ultronex.Realtime.Response do
   def fulfill_that_imperative(cmd, message, slack) do
     op = cmd |> elem(0)
     list = cmd |> elem(1)
-    module_method_map = @response_map[op]
 
-    if is_nil(module_method_map) do
-      avengers_assemble(cmd, message, slack)
-    else
-      apply(module_method_map[:module], module_method_map[:method], [message, slack, list])
+    case @response_map[op] do
+      %{:module => module, :method => method} ->
+        apply(module, method, [message, slack, list])
+
+      _ ->
+        avengers_assemble(cmd, message, slack)
     end
   end
 
