@@ -12,8 +12,8 @@ defmodule Ultronex.Realtime.TermStorage do
   def initialize_stats do
     output = ets_initialize(:stats, :set)
 
-    case output |> elem(0) do
-      :error ->
+    case output do
+      {:error, _} ->
         Ultronex.BotX.ets_initialize()
 
       _ ->
@@ -26,8 +26,8 @@ defmodule Ultronex.Realtime.TermStorage do
 
     output = :ets.file2tab('tab/#{table}.tab')
 
-    case output |> elem(0) do
-      :error ->
+    case output do
+      {:error, _} ->
         Logger.info(":ets : #{table} created from fresh")
 
         :ets.new(table, [
@@ -38,7 +38,7 @@ defmodule Ultronex.Realtime.TermStorage do
           write_concurrency: true
         ])
 
-      :ok ->
+      {:ok, _} ->
         Logger.info(":ets : #{table} created from file")
 
       _ ->

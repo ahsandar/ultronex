@@ -4,6 +4,24 @@ On Github its a `mirror` from private Gitlab repo
 
 Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. [Blog post](https://medium.com/@hsan_nabi_dar/ruby-vs-elixir-performance-ultron-is-dead-long-live-ultronex-f24e40a4c4d4) showcasing the results `elixir`  outperforming `ruby` by 100%
 
+![Image](/priv/ultronex.jpg)
+
+```
+command(s)
+      --> help #list the command list
+      --> mute/talk #TODO implement later
+      --> xkcd #shows a random xkcd comic
+      --> xkcd <comic no> #shows xkcd comic no
+      --> gif #shows random gif
+      --> gif <category> #show a random gif from the category
+      --> quote #shares a quote
+      --> forward <term> #sets up msg forwarding for the term from SLACK_CHANNEL_LIST
+      --> stop <term> #stops msg forwarding for the term from SLACK_CHANNEL_LIST
+      --> stop #stops all msg forwarding set for SLACK_CHANNEL_LIST
+      --> any msg # responds with a quote
+
+```
+
 **TODO: make it more elixir-ish**
 
 ## Requirements 
@@ -113,9 +131,6 @@ status: 200
 
 ```
 Request: curl -v http://localhost:8080/ultronex/unknown
-
-Response: {"quote":"“Alright, alright alright.” – Wooderson, Dazed and Confused","msg":"You have entered an Abyss"}
-
-status: 404
-
 ```
+![Image](/priv/404.png)
+
