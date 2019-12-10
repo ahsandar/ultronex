@@ -104,7 +104,7 @@ status: 200
 Password protected endpoint
 
 Request: curl --request POST \
-  --url http://localhost:8080/ultronex/msg \
+  --url http://localhost:8080/ultronex/slack \
   --header 'Accept: */*' \
   --header 'Accept-Encoding: gzip, deflate' \
   --header 'Authorization: Basic username:password' \
