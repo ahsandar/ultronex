@@ -31,4 +31,5 @@ env.list
 tmp/*
 tab/*.tab
 env.*
+!env.list.sample
 .env
