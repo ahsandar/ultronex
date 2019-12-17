@@ -1,8 +1,8 @@
 version: "3.7"
 
 services:
-  ultronex:
-    build:
+  app:
+    build: 
       context: .
       args:
         ENV: ${ENV}
@@ -23,39 +23,13 @@ services:
     env_file: ./env.list
     stdin_open: true
     tty: true
-    expose:
-      - 8443
-    networks:
-      ultronex:
-        aliases:
-          - ultronex_bot
+    ports:
+      - "443:8443"
+    # map certs when using HTTPS
     volumes:
       - ./app:/src/ultronex/app
       - ./log:/src/ultronex/log
       - ./tab:/src/ultronex/tab
-
-  haproxy:
-    build:
-      context: .
-      dockerfile: ./haproxy/Dockerfile
-      args:
-        HAPROXY_HTTP_SCHEME: ${HAPROXY_HTTP_SCHEME}
-    container_name: ultronex_haproxy
-    env_file:
-      - ./haproxy/env.list
-    networks:
-      ultronex:
-        aliases:
-          - ultronex_haproxy
-    ports:
-      - "80:80"
-      - "443:443"
-      - "18443:18443"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/letsencrypt/live/ultronex.mooo.com/haproxy.pem:/etc/ssl/cert/haproxy.pem
-    links:
-      - ultronex
-networks:
-  ultronex:
-    driver: bridge
+      - /etc/letsencrypt/live/ultronex.mooo.com/privkey.pem:/src/ultronex/cert/privkey.pem
+      - /etc/letsencrypt/live/ultronex.mooo.com/cert.pem:/src/ultronex/cert/cert.pem
+      - /etc/letsencrypt/live/ultronex.mooo.com/chain.pem:/src/ultronex/cert/chain.pem
