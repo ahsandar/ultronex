@@ -54,9 +54,12 @@ services:
       - "80:80"
       - "443:443"
       - "18443:18443"
+      - "18888:18888"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/letsencrypt/live/ultronx.mooo.com:/etc/letsencrypt/live/ultronx.mooo.com
       - /etc/letsencrypt/live/ultronex.mooo.com/haproxy.pem:/etc/ssl/cert/haproxy.pem
+      - /.well-known/acme-challenge:/.well-known/acme-challenge
     links:
       - ultronex
 networks:
