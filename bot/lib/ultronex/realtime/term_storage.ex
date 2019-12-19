@@ -11,6 +11,7 @@ defmodule Ultronex.Realtime.TermStorage do
 
   def initialize_stats do
     output = ets_initialize(:stats, :set)
+
     case output do
       {:error, _} ->
         Ultronex.BotX.ets_initialize()
@@ -39,6 +40,7 @@ defmodule Ultronex.Realtime.TermStorage do
 
       {:ok, _} ->
         Logger.info(":ets : #{table} created from file")
+
       _ ->
         Logger.debug(":ets : #{table} - WTF !!!!!!")
     end

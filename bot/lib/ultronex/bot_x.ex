@@ -78,7 +78,6 @@ defmodule Ultronex.BotX do
     response
   end
 
-
   def send_payload_to_slack(message, payload, channel, title \\ "UltronEx FWD msg") do
     url = "https://slack.com/api/files.upload"
 

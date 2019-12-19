@@ -25,7 +25,9 @@ defmodule Ultronex.Server.Controller.Slack do
   post "/" do
     {status, body} =
       case conn.body_params do
-        %{"msg" => %{"channel" => channel, "text" => text, "payload" => payload, "title" => title}} ->
+        %{
+          "msg" => %{"channel" => channel, "text" => text, "payload" => payload, "title" => title}
+        } ->
           {200, process_msg(channel, text, payload, title)}
 
         _ ->
@@ -39,6 +41,10 @@ defmodule Ultronex.Server.Controller.Slack do
 
   def process_msg(channel, text, payload, title) do
     spawn(BotX, :relay_msg_to_slack, [text, payload, channel, title])
-    %{status: "triggered", msg: %{"channel" => channel, "text" => text, "payload" => payload, "title" => title}}
+
+    %{
+      status: "triggered",
+      msg: %{"channel" => channel, "text" => text, "payload" => payload, "title" => title}
+    }
   end
 end
