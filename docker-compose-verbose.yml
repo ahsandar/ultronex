@@ -3,7 +3,8 @@ version: "3.7"
 services:
   app:
     build:
-      context: .
+      context: ./bot
+      dockerfile: ./Dockerfile-verbose
       args:
         ENV: ${ENV}
         SLACK_BOT_ULTRON: ${SLACK_BOT_ULTRON}
@@ -19,19 +20,18 @@ services:
         BASIC_AUTH_REALM: ${BASIC_AUTH_REALM}
         SECRET_WEAPON: ${SECRET_WEAPON}
         SENTRY_DSN: ${SENTRY_DSN}
-      dockerfile: ./Dockerfile-verbose
     container_name: ultronex_bot_verbose
     env_file:
-      - ./env.list
+      - ./bot/env.list
     stdin_open: true
     tty: true
     ports:
       - "4433:8443"
     # map certs when using HTTPS
     volumes:
-      - ./app:/src/ultronex/app
-      - ./log:/src/ultronex/log
-      - ./tab:/src/ultronex/tab
+      - ./bot/app:/src/ultronex/app
+      - ./bot/log:/src/ultronex/log
+      - ./bot/tab:/src/ultronex/tab
       - /etc/letsencrypt/live/ultronex.mooo.com/privkey.pem:/src/ultronex/cert/privkey.pem
       - /etc/letsencrypt/live/ultronex.mooo.com/cert.pem:/src/ultronex/cert/cert.pem
       - /etc/letsencrypt/live/ultronex.mooo.com/chain.pem:/src/ultronex/cert/chain.pem

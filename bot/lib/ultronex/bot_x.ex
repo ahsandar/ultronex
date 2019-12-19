@@ -23,6 +23,7 @@ defmodule Ultronex.BotX do
     :ets.insert(table, {:replied_msg_count, 0})
     :ets.insert(table, {:forwarded_msg_count, 0})
     :ets.insert(table, {:total_attachments_downloaded, 0})
+    :ets.insert(table, {:total_messages_slacked, 0})
   end
 
   def handle_connect(slack, state) do
@@ -70,6 +71,13 @@ defmodule Ultronex.BotX do
     TermStorage.ets_incr(:stats, :forwarded_msg_count)
     response
   end
+
+  def relay_msg_to_slack(message, payload, channel) do
+    response = send_payload_to_slack(message, payload, channel)
+    TermStorage.ets_incr(:stats, :total_messages_slacked)
+    response
+  end
+
 
   def send_payload_to_slack(message, payload, channel) do
     url = "https://slack.com/api/files.upload"
