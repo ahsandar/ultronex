@@ -3,7 +3,7 @@ version: "3.7"
 services:
   ultronex:
     build:
-      context: .
+      context: ./bot
       dockerfile: ./Dockerfile-local
       args:
         ENV: ${ENV}
@@ -22,7 +22,7 @@ services:
         SENTRY_DSN: ${SENTRY_DSN}
     container_name: ultronex_bot
     env_file:
-      - ./env.list
+      - ./bot/env.list
     stdin_open: true
     tty: true
     expose:
@@ -32,14 +32,14 @@ services:
         aliases:
           - ultronex_bot
     volumes:
-      - ./app:/src/ultronex/app
-      - ./log:/src/ultronex/log
-      - ./tab:/src/ultronex/tab
+      - ./bot/app:/src/ultronex/app
+      - ./bot/log:/src/ultronex/log
+      - ./bot/tab:/src/ultronex/tab
 
   haproxy:
     build:
-      context: .
-      dockerfile: ./haproxy/Dockerfile
+      context: ./haproxy
+      dockerfile: ./Dockerfile
       args:
         HAPROXY_HTTP_SCHEME: ${HAPROXY_HTTP_SCHEME}
     container_name: ultronex_haproxy

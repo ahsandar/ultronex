@@ -3,7 +3,7 @@ version: "3.7"
 services:
   app:
     build:
-      context: .
+      context: ./bot
       dockerfile: ./Dockerfile-local 
       args:
         ENV: ${ENV}
@@ -22,12 +22,12 @@ services:
         SENTRY_DSN: ${SENTRY_DSN}
     container_name: ultronex_bot
     env_file:
-      - ./env.list
+      - ./bot/env.list
     stdin_open: true
     tty: true
     ports:
       - "8080:8443"
     volumes:
-      - ./app:/src/ultronex/app
-      - ./log:/src/ultronex/log
-      - ./tab:/src/ultronex/tab
+      - ./bot/app:/src/ultronex/app
+      - ./bot/log:/src/ultronex/log
+      - ./bot/tab:/src/ultronex/tab

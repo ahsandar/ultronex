@@ -42,7 +42,8 @@ defmodule Ultronex.Server.Helper.App do
       total_msg_count: TermStorage.ets_lookup(:stats, :total_msg_count),
       replied_msg_count: TermStorage.ets_lookup(:stats, :replied_msg_count),
       forwarded_msg_count: TermStorage.ets_lookup(:stats, :forwarded_msg_count),
-      total_attachments_downloaded: TermStorage.ets_lookup(:stats, :total_attachments_downloaded)
+      total_attachments_downloaded: TermStorage.ets_lookup(:stats, :total_attachments_downloaded),
+      total_messages_slacked: TermStorage.ets_lookup(:stats, :total_messages_slacked)
     }
   end
 end

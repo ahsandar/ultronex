@@ -3,7 +3,8 @@ version: "3.7"
 services:
   ultronex:
     build:
-      context: .
+      context: ./bot
+      dockerfile: ./Dockerfile
       args:
         ENV: ${ENV}
         SLACK_BOT_ULTRON: ${SLACK_BOT_ULTRON}
@@ -20,7 +21,7 @@ services:
         SECRET_WEAPON: ${SECRET_WEAPON}
         SENTRY_DSN: ${SENTRY_DSN}
     container_name: ultronex_bot
-    env_file: ./env.list
+    env_file: ./bot/env.list
     stdin_open: true
     tty: true
     ports:
@@ -30,17 +31,17 @@ services:
         aliases:
           - ultronex_bot
     volumes:
-      - ./app:/src/ultronex/app
-      - ./log:/src/ultronex/log
-      - ./tab:/src/ultronex/tab
+      - ./bot/app:/src/ultronex/app
+      - ./bot/log:/src/ultronex/log
+      - ./bot/tab:/src/ultronex/tab
       - /etc/letsencrypt/live/ultronex.mooo.com/privkey.pem:/src/ultronex/cert/privkey.pem
       - /etc/letsencrypt/live/ultronex.mooo.com/cert.pem:/src/ultronex/cert/cert.pem
       - /etc/letsencrypt/live/ultronex.mooo.com/chain.pem:/src/ultronex/cert/chain.pem
 
   haproxy:
     build:
-      context: .
-      dockerfile: ./haproxy/Dockerfile
+      context: ./haproxy
+      dockerfile: ./Dockerfile
       args:
         HAPROXY_HTTP_SCHEME: ${HAPROXY_HTTP_SCHEME}
     container_name: ultronex_haproxy
