@@ -19,6 +19,8 @@ defmodule Ultronex.Scheduler do
 
   use GenServer
 
+  require Logger
+
   def init(init_arg) do
     {:ok, init_arg}
   end
