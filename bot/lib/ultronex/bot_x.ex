@@ -72,8 +72,8 @@ defmodule Ultronex.BotX do
     response
   end
 
-  def relay_msg_to_slack(message, payload, channel) do
-    response = send_payload_to_slack(message, payload, channel)
+  def relay_msg_to_slack(message, payload, channel, title) do
+    response = send_payload_to_slack(message, payload, channel, title)
     TermStorage.ets_incr(:stats, :total_messages_slacked)
     response
   end
