@@ -37,8 +37,8 @@ defmodule Ultronex.Server.Controller.Slack do
     |> send_resp(status, Jason.encode!(body))
   end
 
-  def process_msg(channel, text, payload) do
-    spawn(BotX, :relay_msg_to_slack, [text, payload, channel])
+  def process_msg(channel, text, payload, title) do
+    spawn(BotX, :relay_msg_to_slack, [text, payload, channel, title])
     %{status: "triggered", msg: %{"channel" => channel, "text" => text, "payload" => payload}}
   end
 end
