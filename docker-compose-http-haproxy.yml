@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  ultronex:
+  bot:
     build:
       context: ./bot
       dockerfile: ./Dockerfile-local
@@ -55,7 +55,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     links:
-      - ultronex
+      - bot
 networks:
   ultronex:
     driver: bridge

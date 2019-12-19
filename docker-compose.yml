@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  ultronex:
+  bot:
     build:
       context: ./bot
       dockerfile: ./Dockerfile
@@ -62,7 +62,7 @@ services:
       - /etc/letsencrypt/live/ultronex.mooo.com/haproxy.pem:/etc/ssl/cert/haproxy.pem
       - /.well-known/acme-challenge:/.well-known/acme-challenge
     links:
-      - ultronex
+      - bot
 networks:
   ultronex:
     driver: bridge
