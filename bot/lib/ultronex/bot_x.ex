@@ -79,7 +79,7 @@ defmodule Ultronex.BotX do
   end
 
 
-  def send_payload_to_slack(message, payload, channel) do
+  def send_payload_to_slack(message, payload, channel, title \\ "UltronEx FWD msg") do
     url = "https://slack.com/api/files.upload"
 
     encoded_payload =
@@ -87,7 +87,7 @@ defmodule Ultronex.BotX do
         channels: channel,
         initial_comment: message,
         content: payload,
-        title: "UltronEx FWD msg"
+        title: title
       }
       |> URI.encode_query()
 

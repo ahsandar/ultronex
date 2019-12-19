@@ -25,8 +25,8 @@ defmodule Ultronex.Server.Controller.Slack do
   post "/" do
     {status, body} =
       case conn.body_params do
-        %{"msg" => %{"channel" => channel, "text" => text, "payload" => payload}} ->
-          {200, process_msg(channel, text, payload)}
+        %{"msg" => %{"channel" => channel, "text" => text, "payload" => payload, "title" => title}} ->
+          {200, process_msg(channel, text, payload, title)}
 
         _ ->
           Helper.unprocessable_body()
