@@ -37,7 +37,7 @@ defmodule Ultronex.Scheduler do
 
   def handle_cast(:perform, opts) do
     snapshot_time = DateTime.utc_now() |> DateTime.to_string()
-    Logger.info(~s{Scheduler running Snapshot for ETS #{snapshot_time}})
+    IO.puts(~s{Scheduler running Snapshot for ETS #{snapshot_time}})
     Ultronex.Realtime.TermStorage.ets_tab2file(:track)
     Ultronex.Realtime.TermStorage.ets_tab2file(:stats)
     :ets.insert(:stats, {:snapshot, snapshot_time})
