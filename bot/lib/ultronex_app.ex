@@ -25,13 +25,17 @@ defmodule UltronexApp do
         scheme: Utility.http_scheme(),
         plug: Router,
         options: Utility.http_options()
-      )
+      ),
+      %{
+        id: Ultronex.Scheduler,
+        start:
+          {Ultronex.Scheduler, :start_link, [%{task: "snapshot", args: [], interval: 900_000}]}
+      }
     ]
 
     opts = [strategy: :one_for_one, name: UltronexApp]
     {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
     Supervisor.start_link(children, opts)
-    Ultronex.Scheduler.start_link(task: "ping", args: [], interval: 900_000)
   end
 
   def initialize do
