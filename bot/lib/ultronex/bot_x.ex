@@ -100,14 +100,14 @@ defmodule Ultronex.BotX do
         ]
       )
 
-    spawn(Ultronex.BotX, :check_slack_response, [response])
+    spawn(Ultronex.BotX, :check_slack_response, [response, title])
     response
   end
 
-  def check_slack_response(response) do
+  def check_slack_response(response, title) do
     case response do
       {:ok, %HTTPoison.Response{status_code: 429, body: body}} ->
-        Utility.send_error_to_sentry("Ultronex Rate Limited ", body)
+        Utility.send_error_to_sentry("Ultronex Rate Limited #{title}", body)
 
       _ ->
         response
