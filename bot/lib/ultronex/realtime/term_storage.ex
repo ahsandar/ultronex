@@ -49,7 +49,7 @@ defmodule Ultronex.Realtime.TermStorage do
   end
 
   def ets_incr(table \\ :stats, key \\ :total_msg_count) do
-    :ets.update_counter(table, key, 1, {2, 1})
+    :ets.update_counter(table, key, {2, 1})
   end
 
   def ets_lookup(table \\ :stats, key \\ :total_msg_count) do
