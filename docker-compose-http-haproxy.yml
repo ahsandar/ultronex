@@ -52,6 +52,7 @@ services:
     ports:
       - "8080:80"
       - "18080:18080"
+      - "8040:8040"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     links:

@@ -56,7 +56,7 @@ services:
       - "443:443"
       - "18443:18443"
       - "18888:18888"
-      - "84040:84040"
+      - "8040:8040"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/letsencrypt/live/ultronx.mooo.com:/etc/letsencrypt/live/ultronx.mooo.com
