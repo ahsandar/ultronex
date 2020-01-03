@@ -4,6 +4,8 @@ defmodule Ultronex.Realtime.TermStorage do
   @moduledoc """
   Documentation for Ultronex.RealtimeTermStorage
   """
+  alias Ultronex.Utility, as: Utility
+
   def initialize do
     ets_initialize()
     initialize_stats()
