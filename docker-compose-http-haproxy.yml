@@ -57,6 +57,29 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     links:
       - bot
+
+  scope:
+    image: weaveworks/scope:latest
+    container_name: ultronex_scope
+    env_file:
+      - ./scope/env.list
+    networks:
+      ultronex:
+        aliases:
+          - ultronex_scope
+    ports:
+      - "4040:4040"
+    pid: "host"
+    privileged: true
+    labels:
+      - "works.weave.role=system"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+    links:
+      - bot
+    command:
+      - "--probe.docker=true"
+
 networks:
   ultronex:
     driver: bridge
