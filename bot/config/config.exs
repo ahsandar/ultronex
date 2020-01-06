@@ -14,21 +14,24 @@ config :ultronex,
   ultronex_bot_id: System.get_env("ULTRONEX_BOT_ID")
 
 config :logger,
-  backends: [{LoggerFileBackend, :debug}, {LoggerFileBackend, :error}],
+  backends: [:console],
   utc_log: true,
   handle_otp_reports: true
 
-config :logger, :error,
+config :logger, :console,
   format: "\n##### $time $metadata[$level] $levelpad #####\n$message\n",
   metadata: :all,
-  path: "log/ultronex.error.log",
   level: :error
 
-config :logger, :debug,
+config :logger, :console,
   format: "\n##### $time $metadata[$level] $levelpad #####\n$message\n",
   metadata: :all,
-  path: "log/ultronex.debug.log",
   level: :debug
+
+config :logger, :console,
+  format: "\n##### $time $metadata[$level] $levelpad #####\n$message\n",
+  metadata: :all,
+  level: :info
 
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
