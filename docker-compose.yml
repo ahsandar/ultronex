@@ -27,7 +27,7 @@ services:
     ports:
       - "8443:8443"
     networks:
-      ultronex:
+      network:
         aliases:
           - ultronex_bot
     volumes:
@@ -48,7 +48,7 @@ services:
     env_file:
       - ./haproxy/env.list
     networks:
-      ultronex:
+      network:
         aliases:
           - ultronex_haproxy
     ports:
@@ -71,7 +71,7 @@ services:
     env_file:
       - ./scope/env.list
     networks:
-      ultronex:
+      network:
         aliases:
           - ultronex_scope
     ports:
@@ -86,5 +86,5 @@ services:
       - "--probe.docker=true"
 
 networks:
-  ultronex:
+  network:
     driver: bridge
