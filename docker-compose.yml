@@ -24,8 +24,8 @@ services:
     env_file: ./bot/env.list
     stdin_open: true
     tty: true
-    ports:
-      - "8443:8443"
+    expose:
+      - 8443
     networks:
       network:
         aliases:
@@ -74,8 +74,8 @@ services:
       network:
         aliases:
           - ultronex_scope
-    ports:
-      - "4040:4040"
+    expose:
+      - 4040
     pid: "host"
     privileged: true
     labels:

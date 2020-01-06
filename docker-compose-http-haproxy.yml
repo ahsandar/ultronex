@@ -67,8 +67,8 @@ services:
       network:
         aliases:
           - ultronex_scope
-    ports:
-      - "4040:4040"
+    expose:
+      - 4040
     pid: "host"
     privileged: true
     labels:
