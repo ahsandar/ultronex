@@ -79,6 +79,7 @@ services:
       - bot
     command:
       - "--probe.docker=true"
+      - "--weave=false"
 
 networks:
   network:
