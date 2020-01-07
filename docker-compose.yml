@@ -86,6 +86,39 @@ services:
       - "--probe.docker=true"
       - "--weave=false"
 
+  loki:
+    image: grafana/loki:latest
+    container_name: ultronex_loki
+    expose:
+      - "3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      network:
+        aliases:
+          - ultronex_loki
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: ultronex_promtail
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/docker-config.yaml
+    networks:
+      network:
+        aliases:
+          - ultronex_promtail
+  grafana:
+    image: grafana/grafana:master
+    container_name: ultronex_grafana
+    env_file:
+      - ./grafana_loki/env.list
+    expose:
+      - "3000"
+    networks:
+      network:
+        aliases:
+          - ultronex_grafana
+
 networks:
   network:
     driver: bridge
