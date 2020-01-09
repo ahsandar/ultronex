@@ -51,6 +51,8 @@ services:
       network:
         aliases:
           - ultronex_haproxy
+    expose:
+      - "18081"
     ports:
       - "80:80"
       - "443:443"
@@ -119,7 +121,17 @@ services:
       network:
         aliases:
           - ultronex_grafana
-
+          
+  prometheus:
+    build:
+      context: ./prometheus
+      dockerfile: ./Dockerfile
+    expose:
+    - "9090"
+    networks:
+      network:
+        aliases:
+          - ultronex_prometheus
 networks:
   network:
     driver: bridge
