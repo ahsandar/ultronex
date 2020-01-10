@@ -13,6 +13,10 @@ config :ultronex,
   giphy_api_key: System.get_env("GIPHY_API_KEY"),
   ultronex_bot_id: System.get_env("ULTRONEX_BOT_ID")
 
+config :new_relic_agent,
+  app_name: System.get_env("NEW_RELIC_APP_NAME"),
+  license_key: System.get_env("NEW_RELIC_LICENSE_KEY")
+
 config :logger,
   backends: [:console],
   utc_log: true,
