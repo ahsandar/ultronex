@@ -113,6 +113,8 @@ services:
   grafana:
     image: grafana/grafana:master
     container_name: ultronex_grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
     env_file:
       - ./grafana_loki/env.list
     expose:
@@ -126,6 +128,8 @@ services:
     build:
       context: ./prometheus
       dockerfile: ./Dockerfile
+    volumes:
+      - prometheus_data:/var/lib/prometheus
     expose:
     - "9090"
     networks:
@@ -135,3 +139,7 @@ services:
 networks:
   network:
     driver: bridge
+
+volumes:
+  grafana_data: {}
+  prometheus_data: {}
