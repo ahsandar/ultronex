@@ -1,0 +1,24 @@
+#common
+export BASIC_AUTH_USERNAME=<set value>
+export BASIC_AUTH_PASSWORD=<set value>
+export BASIC_AUTH_REALM=<set value>
+#scope
+export ENABLE_BASIC_AUTH=<set value>
+#haproxy
+export HAPROXY_STATS_URI=<set value>
+export HAPROXY_STATS_REFRESH=<set value>
+export HAPROXY_HTTP_SCHEME=<set value>
+#grafana
+export GF_SECURITY_ADMIN_PASSWORD=<set value>
+#bot 
+export ENVIRONMENT=<set value>
+export SLACK_BOT_ULTRON=<set value>
+export SLACK_CHANNEL_LIST=<set value>
+export ULTRONEX_BOT_ID=<set value>
+export IRONMAN_USER_ID=<set value>
+export GIPHY_API_KEY=<set value>
+export NEW_RELIC_APP_NAME=<set value>
+export NEW_RELIC_LICENSE_KEY=<set value>
+export HTTP_SCHEME=<set value>
+export SECRET_WEAPON=<set value>
+export SENTRY_DSN=<set value>

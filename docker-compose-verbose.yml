@@ -6,7 +6,7 @@ services:
       context: ./bot
       dockerfile: ./Dockerfile-verbose
       args:
-        ENV: ${ENV}
+        ENVIRONMENT: ${ENVIRONMENT}
         SLACK_BOT_ULTRON: ${SLACK_BOT_ULTRON}
         SLACK_CHANNEL_LIST: ${SLACK_CHANNEL_LIST}
         ULTRONEX_BOT_ID: ${ULTRONEX_BOT_ID}
@@ -21,8 +21,6 @@ services:
         SECRET_WEAPON: ${SECRET_WEAPON}
         SENTRY_DSN: ${SENTRY_DSN}
     container_name: ultronex_bot_verbose
-    env_file:
-      - ./bot/env.list
     stdin_open: true
     tty: true
     ports:
