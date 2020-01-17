@@ -63,7 +63,6 @@ services:
       - "8040:8040"
       - "13000:13000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - /etc/letsencrypt/live/ultronx.mooo.com:/etc/letsencrypt/live/ultronx.mooo.com
       - /etc/letsencrypt/live/ultronex.mooo.com/haproxy.pem:/etc/ssl/cert/haproxy.pem
       - /.well-known/acme-challenge:/.well-known/acme-challenge
@@ -79,8 +78,6 @@ services:
         BASIC_AUTH_USERNAME: ${BASIC_AUTH_USERNAME}
         BASIC_AUTH_PASSWORD: ${BASIC_AUTH_PASSWORD}
     container_name: ultronex_scope
-    env_file:
-      - ./scope/env.list
     networks:
       network:
         aliases:
@@ -127,8 +124,6 @@ services:
     container_name: ultronex_grafana
     volumes:
       - grafana_data:/var/lib/grafana
-    env_file:
-      - ./grafana_loki/env.list
     expose:
       - "3000"
     networks:
