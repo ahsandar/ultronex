@@ -26,7 +26,8 @@ defmodule UltronEx.MixProject do
         :plug_cowboy,
         :poison,
         :eex,
-        :logger_file_backend
+        :logger_file_backend,
+        :rollbax
       ],
       mod: {UltronexApp, []}
     ]
@@ -46,7 +47,7 @@ defmodule UltronEx.MixProject do
       {:basic_auth, "~> 2.2.2"},
       {:logger_file_backend, "~> 0.0.10"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:sentry, "~> 7.0"},
+      {:rollbax, ">= 0.0.0"},
       {:jason, "~> 1.1"}
     ]
   end

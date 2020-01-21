@@ -69,9 +69,9 @@ defmodule Ultronex.Utility do
     Enum.random(0..input)
   end
 
-  def send_error_to_sentry(msg, extra) do
+  def send_error_to_rollbar(msg, extra) do
     Logger.error("#{msg} : #{extra}")
-    Sentry.capture_exception(msg, extra: %{extra: extra})
+    Rollbax.report(:error, msg, extra)
   end
 
   def get_module_atom(module) do

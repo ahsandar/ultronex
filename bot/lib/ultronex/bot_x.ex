@@ -53,7 +53,7 @@ defmodule Ultronex.BotX do
     TermStorage.ets_tab2file(:track)
     TermStorage.ets_tab2file(:stats)
     extra = reason |> elem(1)
-    Utility.send_error_to_sentry("Slack error", extra)
+    Utility.send_error_to_rollbar("Slack error", extra)
   end
 
   def heartbeat do
@@ -107,7 +107,7 @@ defmodule Ultronex.BotX do
   def check_slack_response(response, title) do
     case response do
       {:ok, %HTTPoison.Response{status_code: 429, body: body}} ->
-        Utility.send_error_to_sentry("Ultronex Rate Limited #{title}", body)
+        Utility.send_error_to_rollbar("Ultronex Rate Limited #{title}", body)
 
       _ ->
         response
