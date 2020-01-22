@@ -19,7 +19,7 @@ services:
         BASIC_AUTH_PASSWORD: ${BASIC_AUTH_PASSWORD}
         BASIC_AUTH_REALM: ${BASIC_AUTH_REALM}
         SECRET_WEAPON: ${SECRET_WEAPON}
-        ROLLBAR_ACCESS_TOKEN: ${ROLLBAR_ACCESS_TOKEN}
+        SENTRY_DSN: ${SENTRY_DSN}
     container_name: ultronex_bot
     stdin_open: true
     tty: true
