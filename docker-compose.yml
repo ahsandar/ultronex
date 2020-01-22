@@ -148,5 +148,5 @@ networks:
     driver: bridge
 
 volumes:
-  grafana_data: {}
-  prometheus_data: {}
+  grafana_data:
+  prometheus_data:
