@@ -46,5 +46,4 @@ defmodule Ultronex.Server.Router do
 
     send_resp(conn, status, body)
   end
-
 end

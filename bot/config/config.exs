@@ -37,7 +37,7 @@ config :logger, :console,
   metadata: :all,
   level: :info
 
-config :rollbax,
-  access_token: System.get_env("ROLLBAR_ACCESS_TOKEN"),
-  enable_crash_reports: true,
-  environment: Mix.env()
+config :sentry,
+  dsn: System.get_env("SENTRY_DSN"),
+  included_environments: [:prod, :dev],
+  environment_name: Mix.env()
