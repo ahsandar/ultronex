@@ -116,7 +116,7 @@ services:
         GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD}
     container_name: ultronex_grafana
     volumes:
-      - grafana_data:/var/lib/grafana
+      - ultronex_grafana_data:/var/lib/grafana
     expose:
       - "3000"
     networks:
@@ -129,7 +129,7 @@ services:
       context: ./prometheus
       dockerfile: ./Dockerfile
     volumes:
-      - prometheus_data:/var/lib/prometheus
+      - ultronex_prometheus_data:/var/lib/prometheus
     expose:
     - "9090"
     networks:
