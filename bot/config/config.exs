@@ -40,4 +40,4 @@ config :logger, :console,
 config :rollbax,
   access_token: System.get_env("ROLLBAR_ACCESS_TOKEN"),
   enable_crash_reports: true,
-  environment: System.get_env("ENVIRONMENT")
+  environment: Mix.env()

@@ -26,7 +26,8 @@ defmodule UltronEx.MixProject do
         :plug_cowboy,
         :poison,
         :eex,
-        :logger_file_backend
+        :logger_file_backend,
+        :rollbax
       ],
       mod: {UltronexApp, []}
     ]
