@@ -34,7 +34,6 @@ defmodule UltronexApp do
     ]
 
     opts = [strategy: :one_for_one, name: UltronexApp]
-    {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
     Supervisor.start_link(children, opts)
   end
 

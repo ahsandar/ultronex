@@ -26,7 +26,8 @@ defmodule UltronEx.MixProject do
         :plug_cowboy,
         :poison,
         :eex,
-        :logger_file_backend
+        :logger_file_backend,
+        :honeybadger
       ],
       mod: {UltronexApp, []}
     ]
@@ -47,7 +48,8 @@ defmodule UltronEx.MixProject do
       {:logger_file_backend, "~> 0.0.10"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:sentry, "~> 7.0"},
-      {:jason, "~> 1.1"}
+      {:jason, "~> 1.1"},
+      {:honeybadger, "~> 0.13.0"}
     ]
   end
 end

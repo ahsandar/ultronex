@@ -6,6 +6,7 @@ defmodule Ultronex.Server.Router do
   end
 
   use Plug.ErrorHandler
+  use Honeybadger.Plug
   use NewRelic.Transaction
 
   require Logger

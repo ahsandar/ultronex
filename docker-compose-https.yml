@@ -19,7 +19,7 @@ services:
         BASIC_AUTH_PASSWORD: ${BASIC_AUTH_PASSWORD}
         BASIC_AUTH_REALM: ${BASIC_AUTH_REALM}
         SECRET_WEAPON: ${SECRET_WEAPON}
-        SENTRY_DSN: ${SENTRY_DSN}
+        HONEYBADGER_API_KEY: ${HONEYBADGER_API_KEY}
     container_name: ultronex_bot
     stdin_open: true
     tty: true
