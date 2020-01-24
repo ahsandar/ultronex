@@ -69,9 +69,9 @@ defmodule Ultronex.Utility do
     Enum.random(0..input)
   end
 
-  def send_error_to_sentry(msg, extra) do
+  def send_error_to_monitor(msg, extra) do
     Logger.error("#{msg} : #{extra}")
-    Sentry.capture_exception(msg, extra: %{extra: extra})
+    spawn(Honeybadger, :notify, [msg, %{extra: extra}])
   end
 
   def get_module_atom(module) do

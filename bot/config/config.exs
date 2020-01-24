@@ -37,7 +37,8 @@ config :logger, :console,
   metadata: :all,
   level: :info
 
-config :sentry,
-  dsn: System.get_env("SENTRY_DSN"),
-  included_environments: [:prod, :dev],
-  environment_name: Mix.env()
+config :honeybadger,
+  api_key: System.get_env("HONEYBADGER_API_KEY"),
+  environment_name: Mix.env(),
+  exclude_envs: [:test],
+  use_logger: true
