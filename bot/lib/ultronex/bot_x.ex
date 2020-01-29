@@ -85,7 +85,7 @@ defmodule Ultronex.BotX do
       %{
         channels: channel,
         initial_comment: message,
-        content: payload,
+        content: Kernel.inspect(payload),
         title: title
       }
       |> URI.encode_query()
