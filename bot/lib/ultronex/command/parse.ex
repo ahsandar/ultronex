@@ -31,8 +31,9 @@ defmodule Ultronex.Command.Parse do
   end
 
   def match_msg(match, text, attachment) do
-    text_match = text |> String.contains?(match)
-    attachment_match = attachment |> String.contains?(match)
+    regex_exp = ~r/.*#{match}.*/
+    text_match = text |> String.match?(regex_exp)
+    attachment_match = attachment |> String.match?(regex_exp)
 
     if text_match || attachment_match do
       user_list = :ets.lookup(:track, match)
