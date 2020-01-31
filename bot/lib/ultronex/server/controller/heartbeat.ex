@@ -4,6 +4,7 @@ defmodule Ultronex.Server.Controller.Heartbeat do
   """
 
   use Plug.Router
+  use Appsignal.Instrumentation.Decorators
 
   if Mix.env() == :dev do
     use Plug.Debugger
@@ -16,11 +17,14 @@ defmodule Ultronex.Server.Controller.Heartbeat do
   plug(:dispatch)
 
   get "/" do
+    Appsignal.Transaction.set_action("GET /ultronex/heartbeat")
+
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(200, Jason.encode!(rythm()))
   end
 
+  @decorate transaction_event()
   def rythm do
     json_response()
   end
