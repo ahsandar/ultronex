@@ -4,7 +4,6 @@ defmodule Ultronex.Server.Controller.Track do
   """
 
   use Plug.Router
-  use Appsignal.Instrumentation.Decorators
 
   if Mix.env() == :dev do
     use Plug.Debugger
@@ -21,14 +20,11 @@ defmodule Ultronex.Server.Controller.Track do
   plug(:dispatch)
 
   get "/" do
-    Appsignal.Transaction.set_action("GET /ultronex/track")
-
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(200, Jason.encode!(fwd()))
   end
 
-  @decorate transaction_event()
   def fwd do
     Helper.ets_map() |> Helper.response("No pattern set for match")
   end
