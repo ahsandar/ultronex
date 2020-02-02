@@ -20,7 +20,6 @@ services:
         BASIC_AUTH_REALM: ${BASIC_AUTH_REALM}
         SECRET_WEAPON: ${SECRET_WEAPON}
         HONEYBADGER_API_KEY: ${HONEYBADGER_API_KEY}
-        APPSIGNAL_PUSH_API_KEY: ${APPSIGNAL_PUSH_API_KEY}
     container_name: ultronex_bot
     stdin_open: true
     tty: true

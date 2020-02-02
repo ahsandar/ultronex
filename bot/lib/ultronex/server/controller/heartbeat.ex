@@ -16,9 +16,6 @@ defmodule Ultronex.Server.Controller.Heartbeat do
   plug(:dispatch)
 
   get "/" do
-    Appsignal.Transaction.set_namespace(:heartbeat)
-    Appsignal.Transaction.set_action("GET /ultronex/heartbeat")
-
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(200, Jason.encode!(rythm()))
