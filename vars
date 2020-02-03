@@ -22,3 +22,4 @@ export NEW_RELIC_LICENSE_KEY=<set value>
 export HTTP_SCHEME=<set value>
 export SECRET_WEAPON=<set value>
 export SENTRY_DSN=<set value>
+export HONEYBADGER_API_KEY=<set value>
