@@ -16,6 +16,8 @@ defmodule Ultronex.Server.Controller.Heartbeat do
   plug(:dispatch)
 
   get "/" do
+    NewRelic.ignore_transaction()
+
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(200, Jason.encode!(rythm()))

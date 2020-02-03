@@ -24,7 +24,6 @@ defmodule Ultronex.Server.Controller.Stats do
     |> send_resp(200, Jason.encode!(total()))
   end
 
-  
   def total do
     Helper.counters() |> Helper.response("No data available")
   end
