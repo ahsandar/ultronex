@@ -36,7 +36,7 @@ defmodule Ultronex.Server.Controller.Slack do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(status, Jason.encode!(body))
+    |> send_resp(status, Jason.encode_to_iodata!(body))
   end
 
   def process_msg(channel, text, payload, title) do

@@ -21,7 +21,7 @@ defmodule Ultronex.Server.Controller.Stats do
   get "/" do
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Jason.encode!(total()))
+    |> send_resp(200, Jason.encode_to_iodata!(total()))
   end
 
   def total do

@@ -40,7 +40,7 @@ defmodule UltronEx.MixProject do
       {:tesla, "~> 1.2.1"},
       {:poison, "~> 3.1"},
       {:new_relic_agent, "~> 1.0"},
-      {:cowboy, "~> 2.6.3"},
+      {:cowboy, "~> 2.7.0"},
       {:plug, "~> 1.8.3"},
       {:plug_cowboy, "~> 2.1.0"},
       {:dialyxir, "~> 0.4", only: [:dev]},
