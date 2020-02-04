@@ -16,6 +16,8 @@ defmodule Ultronex.Server.Controller.Heartbeat do
   plug(:dispatch)
 
   get "/" do
+    Appsignal.Transaction.set_namespace(:heartbeat)
+    Appsignal.Transaction.set_action("GET /ultronex/heartbeat")
     NewRelic.ignore_transaction()
 
     conn

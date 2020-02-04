@@ -6,6 +6,7 @@ defmodule Ultronex.Server.Router do
   end
 
   use Plug.ErrorHandler
+  use Appsignal.Plug
   use Honeybadger.Plug
   use NewRelic.Transaction
 
@@ -29,6 +30,7 @@ defmodule Ultronex.Server.Router do
   forward("/ultronex/slack", to: Ultronex.Server.Controller.Slack)
 
   match _ do
+    Appsignal.Transaction.set_action("GET /")
     conn |> render(404, "404.html", var: Error.status_404())
   end
 

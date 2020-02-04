@@ -27,7 +27,8 @@ defmodule UltronEx.MixProject do
         :poison,
         :eex,
         :logger_file_backend,
-        :honeybadger
+        :honeybadger,
+        :appsignal
       ],
       mod: {UltronexApp, []}
     ]
@@ -49,7 +50,8 @@ defmodule UltronEx.MixProject do
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:sentry, "~> 7.0"},
       {:jason, "~> 1.1"},
-      {:honeybadger, "~> 0.13.0"}
+      {:honeybadger, "~> 0.13.0"},
+      {:appsignal, "~> 1.0"}
     ]
   end
 end
