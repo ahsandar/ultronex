@@ -24,7 +24,7 @@ defmodule Ultronex.Server.Controller.Stats do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Jason.encode_to_iodata!(total()))
+    |> send_resp(200, Poison.encode!(total()))
   end
 
   @decorate transaction_event()

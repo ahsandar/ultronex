@@ -13,7 +13,7 @@ defmodule Ultronex.Utility do
   end
 
   def encode_payload(attachment) do
-    attachment |> Jason.encode_to_iodata!()
+    attachment |> Poison.encode!()
   end
 
   def slack_bot_ultron_token do

@@ -25,7 +25,7 @@ defmodule Ultronex.Server.Controller.Track do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Jason.encode_to_iodata!(fwd()))
+    |> send_resp(200, Poison.encode!(fwd()))
   end
 
   @decorate transaction_event()
