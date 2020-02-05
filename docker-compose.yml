@@ -1,4 +1,4 @@
-version: "3.7"
+version: "2.4"
 
 services:
   bot:
@@ -34,6 +34,10 @@ services:
       - ./bot/app:/src/ultronex/app
       - ./bot/log:/src/ultronex/log
       - ./bot/tab:/src/ultronex/tab
+    cpu_shares: 306
+    mem_reservation: 250m
+    mem_limit: 350m
+    restart: always
 
   haproxy:
     build:
@@ -66,6 +70,10 @@ services:
       - /.well-known/acme-challenge:/.well-known/acme-challenge
     links:
       - bot
+    cpu_shares: 104
+    mem_reservation: 50m
+    mem_limit: 75m
+    restart: always
 
   scope:
     build:
@@ -91,6 +99,10 @@ services:
     command:
       - "--probe.docker=true"
       - "--weave=false"
+    cpu_shares: 104
+    mem_reservation: 150m
+    mem_limit: 200m
+    restart: always
 
   loki:
     image: grafana/loki:latest
@@ -102,7 +114,10 @@ services:
       network:
         aliases:
           - ultronex_loki
-
+    cpu_shares: 104
+    mem_reservation: 150m
+    mem_limit: 200m
+    
   promtail:
     image: grafana/promtail:latest
     container_name: ultronex_promtail
@@ -113,6 +128,11 @@ services:
       network:
         aliases:
           - ultronex_promtail
+    cpu_shares: 104
+    mem_reservation: 50m
+    mem_limit: 75m
+    restart: always
+
   grafana:
     build:
       context: ./grafana
@@ -128,6 +148,10 @@ services:
       network:
         aliases:
           - ultronex_grafana
+    cpu_shares: 104
+    mem_reservation: 50m
+    mem_limit: 75m
+    restart: always
           
   prometheus:
     build:
@@ -141,6 +165,11 @@ services:
       network:
         aliases:
           - ultronex_prometheus
+    cpu_shares: 104
+    mem_reservation: 50m
+    mem_limit: 75m
+    restart: always
+
 networks:
   network:
     driver: bridge
