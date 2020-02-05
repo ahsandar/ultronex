@@ -39,7 +39,7 @@ defmodule Ultronex.Server.Controller.Slack do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(status, Poison.encode!(body))
+    |> send_resp(status, JiffyEx.encode!(body))
   end
 
   @decorate transaction_event()

@@ -13,7 +13,7 @@ defmodule Ultronex.Utility do
   end
 
   def encode_payload(attachment) do
-    attachment |> Poison.encode!()
+    attachment |> JiffyEx.encode!()
   end
 
   def slack_bot_ultron_token do
@@ -45,24 +45,12 @@ defmodule Ultronex.Utility do
     end
   end
 
-  def tesla_json_authorized_client do
-    middleware = [
-      {Tesla.Middleware.Headers,
-       [
-         {"Content-type", "application/json"},
-         {"Authorization", authorization_token()}
-       ]}
-    ]
-
-    Tesla.client(middleware)
+  def header_json_authorized_client do
+    [Authorization: authorization_token(), "Content-type": "application/json"]
   end
 
-  def tesla_get_authorized_client do
-    middleware = [
-      {Tesla.Middleware.Headers, [{"Authorization", authorization_token()}]}
-    ]
-
-    Tesla.client(middleware)
+  def header_get_authorized_client do
+    [Authorization: authorization_token()]
   end
 
   def random(input \\ 999) do

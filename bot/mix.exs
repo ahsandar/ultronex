@@ -24,7 +24,6 @@ defmodule UltronEx.MixProject do
         :cowboy,
         :plug,
         :plug_cowboy,
-        :poison,
         :eex,
         :logger_file_backend,
         :honeybadger,
@@ -37,9 +36,7 @@ defmodule UltronEx.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:slack, "~> 0.19.0"},
-      {:tesla, "~> 1.2.1"},
-      {:poison, "~> 3.1"},
+      {:slack, "~> 0.20.0"},
       {:new_relic_agent, "~> 1.0"},
       {:cowboy, "~> 2.7.0"},
       {:plug, "~> 1.8.3"},
@@ -51,7 +48,8 @@ defmodule UltronEx.MixProject do
       {:sentry, "~> 7.0"},
       {:jason, "~> 1.1"},
       {:honeybadger, "~> 0.13.0"},
-      {:appsignal, "~> 1.0"}
+      {:appsignal, "~> 1.0"},
+      {:jiffy_ex, "~> 1.1"}
     ]
   end
 end

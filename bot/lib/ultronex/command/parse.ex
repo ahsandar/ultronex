@@ -63,17 +63,19 @@ defmodule Ultronex.Command.Parse do
   end
 
   def get_attachment(url) do
-    {:ok, response} = get_request(url)
+    response = get_request(url)
 
-    if response.status == 200 do
-      TermStorage.ets_incr(:stats, :total_attachments_downloaded)
-      response.body
-    else
-      raise("Download failed")
+    case response do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        TermStorage.ets_incr(:stats, :total_attachments_downloaded)
+        body
+
+      _ ->
+        raise("Download failed -> status_code : #{response.status_code}")
     end
   end
 
   def get_request(url) do
-    Tesla.get(Utility.tesla_get_authorized_client(), url)
+    HTTPoison.get(url, Utility.header_get_authorized_client())
   end
 end
