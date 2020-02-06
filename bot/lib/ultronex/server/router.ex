@@ -7,7 +7,6 @@ defmodule Ultronex.Server.Router do
 
   use Plug.ErrorHandler
   use Appsignal.Plug
-  use Honeybadger.Plug
   use NewRelic.Transaction
 
   require Logger
@@ -28,6 +27,7 @@ defmodule Ultronex.Server.Router do
   forward("/ultronex/track", to: Ultronex.Server.Controller.Track)
   forward("/ultronex/stats", to: Ultronex.Server.Controller.Stats)
   forward("/ultronex/slack", to: Ultronex.Server.Controller.Slack)
+  forward("/ultronex/external", to: Ultronex.Server.Controller.External)
 
   match _ do
     Appsignal.Transaction.set_action("GET /")

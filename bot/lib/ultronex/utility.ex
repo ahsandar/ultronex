@@ -57,9 +57,20 @@ defmodule Ultronex.Utility do
     Enum.random(0..input)
   end
 
+  def log_count(table, key, term) do
+    case :ets.match_object(table, {key, term, :_}) do
+      [] ->
+        :ets.insert(table, {key, term, 1})
+
+      [{k, t, count}] ->
+        :ets.delete_object(table, {k, t, count})
+        :ets.insert(table, {k, t, count + 1})
+    end
+  end
+
   def send_error_to_monitor(msg, extra) do
     Logger.error("#{msg} : #{extra}")
-    spawn(Honeybadger, :notify, [msg, %{extra: extra}])
+    spawn(Sentry, :capture_exception, [msg, extra: %{extra: extra}])
   end
 
   def get_module_atom(module) do

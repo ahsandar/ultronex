@@ -9,6 +9,7 @@ defmodule Ultronex.Realtime.TermStorage do
   def initialize do
     ets_initialize()
     initialize_stats()
+    ets_initialize(:external)
   end
 
   def initialize_stats do
