@@ -48,7 +48,8 @@ defmodule Ultronex.Server.Controller.Slack do
 
     %{
       status: "triggered",
-      msg: %{"channel" => channel, "text" => text, "payload" => payload, "title" => title}
+      msg: %{"channel" => channel, "text" => text, "title" => title},
+      id: UUID.uuid4()
     }
   end
 end

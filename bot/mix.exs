@@ -49,7 +49,8 @@ defmodule UltronEx.MixProject do
       {:jason, "~> 1.1"},
       {:honeybadger, "~> 0.13.0"},
       {:appsignal, "~> 1.0"},
-      {:jiffy_ex, "~> 1.1"}
+      {:jiffy_ex, "~> 1.1"},
+      { :elixir_uuid, "~> 1.2" }
     ]
   end
 end
