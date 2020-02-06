@@ -26,7 +26,6 @@ defmodule UltronEx.MixProject do
         :plug_cowboy,
         :eex,
         :logger_file_backend,
-        :honeybadger,
         :appsignal
       ],
       mod: {UltronexApp, []}
@@ -47,10 +46,9 @@ defmodule UltronEx.MixProject do
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:sentry, "~> 7.0"},
       {:jason, "~> 1.1"},
-      {:honeybadger, "~> 0.13.0"},
       {:appsignal, "~> 1.0"},
       {:jiffy_ex, "~> 1.1"},
-      { :elixir_uuid, "~> 1.2" }
+      {:elixir_uuid, "~> 1.2"}
     ]
   end
 end

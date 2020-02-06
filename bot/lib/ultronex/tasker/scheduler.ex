@@ -40,6 +40,7 @@ defmodule Ultronex.Scheduler do
     IO.puts(~s{Scheduler running Snapshot for ETS #{snapshot_time}})
     Ultronex.Realtime.TermStorage.ets_tab2file(:track)
     Ultronex.Realtime.TermStorage.ets_tab2file(:stats)
+    Ultronex.Realtime.TermStorage.ets_tab2file(:external)
     :ets.insert(:stats, {:snapshot, snapshot_time})
     {:noreply, opts}
   end

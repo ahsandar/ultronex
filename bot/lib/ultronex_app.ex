@@ -40,6 +40,7 @@ defmodule UltronexApp do
   def initialize do
     Utility.start_http_poison()
     BotX.heartbeat()
+    {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
     {:ok, _} = Application.ensure_all_started(:appsignal)
   end
 end

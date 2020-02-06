@@ -17,7 +17,21 @@ defmodule Ultronex.Server.Helper.App do
     {422, %{msg: "Unprocessable request body"}}
   end
 
-  def ets_map do
+  def ets_to_map(table, key) do
+    pattern_list = :ets.lookup(table, key)
+
+    %{
+      "#{key}":
+        Enum.map(pattern_list, fn pattern ->
+          term = pattern |> elem(1)
+          count = pattern |> elem(2)
+          {term, count}
+        end)
+        |> Enum.into(%{})
+    }
+  end
+
+  def ets_map() do
     pattern_list = :ets.lookup(:track, "pattern")
 
     Enum.map(pattern_list, fn pattern ->
