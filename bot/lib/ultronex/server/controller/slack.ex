@@ -19,13 +19,12 @@ defmodule Ultronex.Server.Controller.Slack do
 
   plug(:match)
 
-  plug(Plug.Parsers, parsers: [:json], pass: ["application/json"], json_decoder: Jason)
+  plug(Plug.Parsers, parsers: [:json], pass: ["application/json"], json_decoder: {JiffyEx, :decode!, [[return_maps: true]]},)
 
   plug(:dispatch)
 
   post "/" do
     Appsignal.Transaction.set_action("POST /ultronex/slack")
-
     {status, body} =
       case conn.body_params do
         %{
