@@ -11,6 +11,7 @@ defmodule Ultronex.Server.Controller.Slack do
   end
 
   use Plug.ErrorHandler
+  use Sentry.Plug
 
   alias Ultronex.BotX, as: BotX
   alias Ultronex.Server.Helper.App, as: Helper
@@ -22,7 +23,7 @@ defmodule Ultronex.Server.Controller.Slack do
   plug(Plug.Parsers,
     parsers: [:json],
     pass: ["application/json"],
-    json_decoder: {JiffyEx, :decode!, [[return_maps: true]]}
+    json_decoder: Jason
   )
 
   plug(:dispatch)
@@ -43,7 +44,7 @@ defmodule Ultronex.Server.Controller.Slack do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(status, JiffyEx.encode!(body))
+    |> send_resp(status, Jason.encode!(body))
   end
 
   @decorate transaction_event()

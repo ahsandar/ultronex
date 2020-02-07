@@ -64,6 +64,12 @@ defmodule Ultronex.Realtime.TermStorage do
     :ets.lookup(table, key)[key]
   end
 
+  def ets_tabs2file(tables) do
+    Enum.each(tables, fn table ->
+      ets_tab2file(table)
+    end)
+  end
+
   def ets_tab2file(table) do
     Logger.info("Saving.... :ets : #{table} to file")
     :ets.tab2file(table, 'tab/#{table}.tab')

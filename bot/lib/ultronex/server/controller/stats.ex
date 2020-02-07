@@ -10,6 +10,7 @@ defmodule Ultronex.Server.Controller.Stats do
   end
 
   use Plug.ErrorHandler
+  use Sentry.Plug
 
   alias Ultronex.Server.Helper.App, as: Helper
 
@@ -24,7 +25,7 @@ defmodule Ultronex.Server.Controller.Stats do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, JiffyEx.encode!(total()))
+    |> send_resp(200, Jason.encode!(total()))
   end
 
   @decorate transaction_event()

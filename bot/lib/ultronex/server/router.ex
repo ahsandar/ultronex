@@ -6,6 +6,7 @@ defmodule Ultronex.Server.Router do
   end
 
   use Plug.ErrorHandler
+  use Sentry.Plug
   use Appsignal.Plug
   use NewRelic.Transaction
 

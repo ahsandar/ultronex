@@ -18,8 +18,7 @@ defmodule Ultronex.Command.Secret do
   end
 
   def secret_activated(message, slack) do
-    TermStorage.ets_tab2file(:track)
-    TermStorage.ets_tab2file(:stats)
+    TermStorage.ets_tabs2file([:track, :stats, :external])
     msg = " <@#{message.user}>! Activated, you came for help to `UltronEx`"
     Msg.send(msg, message.channel, slack)
   end

@@ -10,6 +10,7 @@ defmodule Ultronex.Server.Controller.Heartbeat do
   end
 
   use Plug.ErrorHandler
+  use Sentry.Plug
 
   plug(:match)
 
@@ -22,7 +23,7 @@ defmodule Ultronex.Server.Controller.Heartbeat do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, JiffyEx.encode!(rythm()))
+    |> send_resp(200, Jason.encode!(rythm()))
   end
 
   def rythm do

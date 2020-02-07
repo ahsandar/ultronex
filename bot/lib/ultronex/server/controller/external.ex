@@ -11,6 +11,7 @@ defmodule Ultronex.Server.Controller.External do
   end
 
   use Plug.ErrorHandler
+  use Sentry.Plug
 
   alias Ultronex.Server.Helper.App, as: Helper
 
@@ -25,7 +26,7 @@ defmodule Ultronex.Server.Controller.External do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, JiffyEx.encode!(error_map()))
+    |> send_resp(200, Jason.encode!(error_map()))
   end
 
   @decorate transaction_event()

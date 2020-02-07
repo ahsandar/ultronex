@@ -13,7 +13,7 @@ defmodule Ultronex.Utility do
   end
 
   def encode_payload(attachment) do
-    attachment |> JiffyEx.encode!()
+    attachment |> Jason.encode!()
   end
 
   def slack_bot_ultron_token do
@@ -70,7 +70,7 @@ defmodule Ultronex.Utility do
 
   def send_error_to_monitor(msg, extra) do
     Logger.error("#{msg} : #{extra}")
-    spawn(Sentry, :capture_exception, [msg, extra: %{extra: extra}])
+    spawn(Sentry, :capture_message, [msg, extra: %{extra: extra}])
   end
 
   def get_module_atom(module) do

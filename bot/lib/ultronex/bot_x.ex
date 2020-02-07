@@ -52,9 +52,10 @@ defmodule Ultronex.BotX do
   def handle_close(reason, _slack, _state) do
     TermStorage.ets_tab2file(:track)
     TermStorage.ets_tab2file(:stats)
+    TermStorage.ets_tab2file(:external)
     extra = reason |> elem(1)
-    Utility.log_count(:external, :errors, "Slack error : #{extra}")
-    Utility.send_error_to_monitor("Slack error", extra)
+    spawn(Utility, :log_count, [:external, :errors, "Slack error : remote closed"])
+    spawn(Utility, :send_error_to_monitor, ["Slack error : remote closed", extra])
   end
 
   def heartbeat do

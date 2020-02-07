@@ -29,7 +29,7 @@ defmodule Ultronex.Command.Gif do
   def get_giphy_url(response) do
     case response do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        giphy_response = JiffyEx.decode!(body, return_maps: true)
+        giphy_response = Jason.decode!(body)
         giphy_response_size = Kernel.length(giphy_response["data"])
 
         selected_gif =

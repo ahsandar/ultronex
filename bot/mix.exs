@@ -45,9 +45,8 @@ defmodule UltronEx.MixProject do
       {:logger_file_backend, "~> 0.0.10"},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:sentry, "~> 7.0"},
-      {:jason, "~> 1.1"},
+      {:jason, "~> 1.1.2"},
       {:appsignal, "~> 1.0"},
-      {:jiffy_ex, "~> 1.1"},
       {:elixir_uuid, "~> 1.2"}
     ]
   end
