@@ -50,12 +50,10 @@ defmodule Ultronex.BotX do
   def handle_info(_, _, state), do: {:ok, state}
 
   def handle_close(reason, _slack, _state) do
-    TermStorage.ets_tab2file(:track)
-    TermStorage.ets_tab2file(:stats)
-    TermStorage.ets_tab2file(:external)
     extra = reason |> elem(1)
-    spawn(Utility, :log_count, [:external, :errors, "Slack error : remote closed"])
-    spawn(Utility, :send_error_to_monitor, ["Slack error : remote closed", extra])
+    Task.async(fn -> Utility.log_count(:external, :errors, "Slack error : remote closed") end)
+    TermStorage.ets_tabs2file([:track, :stats, :external])
+    Task.async(fn -> Utility.send_error_to_monitor("Slack error : remote closed", extra) end)
   end
 
   def heartbeat do
@@ -104,7 +102,7 @@ defmodule Ultronex.BotX do
         ]
       )
 
-    spawn(Ultronex.BotX, :check_slack_response, [response, title])
+    Task.async(fn -> Ultronex.BotX.check_slack_response(response, title) end)
     response
   end
 

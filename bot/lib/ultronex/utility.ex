@@ -70,7 +70,7 @@ defmodule Ultronex.Utility do
 
   def send_error_to_monitor(msg, extra) do
     Logger.error("#{msg} : #{extra}")
-    spawn(Sentry, :capture_message, [msg, extra: %{extra: extra}])
+    Task.async(fn -> Sentry.capture_message(msg, extra: %{extra: extra}) end)
   end
 
   def get_module_atom(module) do

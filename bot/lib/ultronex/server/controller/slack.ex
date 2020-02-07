@@ -49,7 +49,7 @@ defmodule Ultronex.Server.Controller.Slack do
 
   @decorate transaction_event()
   def process_msg(channel, text, payload, title) do
-    spawn(BotX, :relay_msg_to_slack, [text, payload, channel, title])
+    Task.async(fn -> BotX.relay_msg_to_slack(text, payload, channel, title) end)
 
     %{
       status: "triggered",
