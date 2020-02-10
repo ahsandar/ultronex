@@ -29,8 +29,7 @@ defmodule UltronexApp do
       ),
       %{
         id: StorageServer,
-        start:
-          {StorageServer, :start_link, [%{task: "snapshot", args: [], interval: 900_000}]}
+        start: {StorageServer, :start_link, [%{task: "snapshot", args: [], interval: 900_000}]}
       }
     ]
 

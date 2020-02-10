@@ -3,6 +3,10 @@ require Logger
 defmodule Ultronex.StorageServer do
   use GenServer
 
+  @moduledoc """
+  Documentation for Ultronex.StorageServer
+  """
+
   alias Ultronex.Realtime.TermStorage, as: TermStorage
   alias Ultronex.Utility, as: Utility
 

@@ -55,8 +55,11 @@ defmodule Ultronex.Realtime.TermStorage do
     :ets.update_counter(table, key, {2, 1})
   rescue
     e in ArgumentError ->
-      IO.puts("Exception: ets_incr called with table: #{inspect(table)} and key: #{inspect(key)}")
-      IO.inspect(:ets.tab2list(:stats))
+      Logger.error(msg)(
+        "Exception: ets_incr called with table: #{inspect(table)} and key: #{inspect(key)}"
+      )
+
+      Logger.error(Kernel.inspect(:ets.tab2list(:stats)))
       Utility.send_error_to_monitor("Ultronex ETS error #{table}: #{key}", e.message)
   end
 
