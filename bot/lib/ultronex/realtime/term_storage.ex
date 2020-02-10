@@ -17,7 +17,7 @@ defmodule Ultronex.Realtime.TermStorage do
 
     case output do
       {:error, _} ->
-        Ultronex.BotX.ets_initialize()
+        stats_ets_initialize()
 
       _ ->
         Logger.debug(":ets : stats loaded from file")
@@ -73,5 +73,15 @@ defmodule Ultronex.Realtime.TermStorage do
   def ets_tab2file(table) do
     Logger.info("Saving.... :ets : #{table} to file")
     :ets.tab2file(table, 'tab/#{table}.tab')
+  end
+
+  def stats_ets_initialize() do
+    Logger.info('Initializing :ets : :stats')
+    :ets.insert(:stats, {:uptime, DateTime.utc_now() |> DateTime.to_string()})
+    :ets.insert(:stats, {:total_msg_count, 0})
+    :ets.insert(:stats, {:replied_msg_count, 0})
+    :ets.insert(:stats, {:forwarded_msg_count, 0})
+    :ets.insert(:stats, {:total_attachments_downloaded, 0})
+    :ets.insert(:stats, {:total_messages_slacked, 0})
   end
 end

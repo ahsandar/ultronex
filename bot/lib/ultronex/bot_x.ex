@@ -11,24 +11,8 @@ defmodule Ultronex.BotX do
   alias Ultronex.Realtime.TermStorage, as: TermStorage
   alias Ultronex.Utility, as: Utility
 
-  def initialize_term_storage do
-    Logger.info("Creating Term Storage ...")
-    TermStorage.initialize()
-  end
-
-  def ets_initialize(table \\ :stats) do
-    Logger.info('Initializing :ets : #{table}')
-    :ets.insert(table, {:uptime, DateTime.utc_now() |> DateTime.to_string()})
-    :ets.insert(table, {:total_msg_count, 0})
-    :ets.insert(table, {:replied_msg_count, 0})
-    :ets.insert(table, {:forwarded_msg_count, 0})
-    :ets.insert(table, {:total_attachments_downloaded, 0})
-    :ets.insert(table, {:total_messages_slacked, 0})
-  end
-
   def handle_connect(slack, state) do
     Logger.info("Connected as #{slack.me.name}")
-    initialize_term_storage()
     {:ok, state}
   end
 
@@ -51,8 +35,7 @@ defmodule Ultronex.BotX do
 
   def handle_close(reason, _slack, _state) do
     extra = reason |> elem(1)
-    Task.async(fn -> Utility.log_count(:external, :errors, "Slack error : remote closed") end)
-    TermStorage.ets_tabs2file([:track, :stats, :external])
+    Utility.log_count(:external, :errors, "Slack error : remote closed")
     Task.async(fn -> Utility.send_error_to_monitor("Slack error : remote closed", extra) end)
   end
 

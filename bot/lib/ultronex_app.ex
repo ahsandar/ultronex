@@ -10,6 +10,7 @@ defmodule UltronexApp do
   alias Ultronex.BotX, as: BotX
   alias Ultronex.Server.Router, as: Router
   alias Ultronex.Utility, as: Utility
+  alias Ultronex.StorageServer, as: StorageServer
 
   def start(_type, _args) do
     initialize()
@@ -27,9 +28,9 @@ defmodule UltronexApp do
         options: Utility.http_options()
       ),
       %{
-        id: Ultronex.Scheduler,
+        id: StorageServer,
         start:
-          {Ultronex.Scheduler, :start_link, [%{task: "snapshot", args: [], interval: 900_000}]}
+          {StorageServer, :start_link, [%{task: "snapshot", args: [], interval: 900_000}]}
       }
     ]
 

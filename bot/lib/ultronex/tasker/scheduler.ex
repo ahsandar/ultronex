@@ -1,3 +1,5 @@
+require Logger
+
 defmodule Ultronex.Scheduler do
   @moduledoc """
   https://gist.github.com/danielberkompas/7212ef0ba261e4a19a0b86ec1e109282
@@ -19,8 +21,6 @@ defmodule Ultronex.Scheduler do
 
   use GenServer
 
-  require Logger
-
   def init(init_arg) do
     {:ok, init_arg}
   end
@@ -36,10 +36,7 @@ defmodule Ultronex.Scheduler do
   end
 
   def handle_cast(:perform, opts) do
-    snapshot_time = DateTime.utc_now() |> DateTime.to_string()
-    IO.puts(~s{Scheduler running Snapshot for ETS #{snapshot_time}})
-    Ultronex.Realtime.TermStorage.ets_tabs2file([:track, :stats, :external])
-    :ets.insert(:stats, {:snapshot, snapshot_time})
+    # implement task to run
     {:noreply, opts}
   end
 end
