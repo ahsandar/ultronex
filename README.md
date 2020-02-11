@@ -4,7 +4,7 @@ On Github its a `mirror` from private Gitlab repo
 
 Its my first attempt at writing `elixir`, the code might not very elixirish. This is a rewrite of a slack bot I did few years ago in ruby. [Blog post](https://medium.com/@hsan_nabi_dar/ruby-vs-elixir-performance-ultron-is-dead-long-live-ultronex-f24e40a4c4d4) showcasing the results `elixir`  outperforming `ruby` by 100%
 
-![Image](/priv/ultronex.jpg)
+![Image](/bot/priv/ultronex.jpg)
 
 ```
 command(s)
@@ -25,24 +25,39 @@ command(s)
 **TODO: make it more elixir-ish**
 
 ## Requirements 
-* `Docker`
-* `Elixir 1.9.2`
+* `Docker` & `Docker Compose`
+* `Elixir 1.9.4`
 * `Erlang/OTP 22`
 
 ### SECRETS AND KEYS
 * Set values as `ENV` variables and in `env.list` file for docker or set those as `ENV` variables if running without docker.
 
 ```
-ENV=<environment>
-SLACK_BOT_ULTRON=x<SLACK BOT ID>
-SLACK_CHANNEL_LIST=<CHANNEL ID>
-ULTRON_BOT_ID=<ULTRON SLACK ID>
-GIPHY_API_KEY=<GIPHY APP API KEY> 
-HTTP_SCHEME=<http or https>
-BASIC_AUTH_USERNAME=<username>
-BASIC_AUTH_PASSWORD=<password>
-BASIC_AUTH_REALM=<realm>
-SECRET_WEAPON=<your secret command>
+#common
+export BASIC_AUTH_USERNAME=<set value>
+export BASIC_AUTH_PASSWORD=<set value>
+export BASIC_AUTH_REALM=<set value>
+#scope
+export ENABLE_BASIC_AUTH=<set value>
+#haproxy
+export HAPROXY_STATS_URI=<set value>
+export HAPROXY_STATS_REFRESH=<set value>
+export HAPROXY_HTTP_SCHEME=<set value>
+#grafana
+export GF_SECURITY_ADMIN_PASSWORD=<set value>
+#bot 
+export ENVIRONMENT=<set value>
+export SLACK_BOT_ULTRON=<set value>
+export SLACK_CHANNEL_LIST=<set value>
+export ULTRONEX_BOT_ID=<set value>
+export IRONMAN_USER_ID=<set value>
+export GIPHY_API_KEY=<set value>
+export NEW_RELIC_APP_NAME=<set value>
+export NEW_RELIC_LICENSE_KEY=<set value>
+export HTTP_SCHEME=<set value>
+export SECRET_WEAPON=<set value>
+export SENTRY_DSN=<set value>
+export HONEYBADGER_API_KEY=<set value>
 ```
 
 `CAUTION: Running msg forwarder in memory`
@@ -114,16 +129,27 @@ Request: curl --request POST \
   --header 'Content-Type: application/json' \
   --header 'Host: localhost:8080' 
   --header 'cache-control: no-cache' \
-  --data '{"msg": {\n	"channel": "U08MG2700",\n	"text": "test",\n	"payload": "testing"\n	\n}\n	\n}'
+  --data '{"msg": {\n	"channel": "U08MG2700",\n	"text": "test",\n	"payload": "testing",\n "title": "Hola"\n	\n}\n	\n}'
 
 Response: {
-    "status": "triggered",
+    "id": "e21f9216-43b4-45d9-978b-de94da273654",
     "msg": {
+        "channel": "U08MG27P0",
         "text": "test",
-        "payload": "testing",
-        "channel": "U08MG2700"
-    }
+        "title": "Hola"
+    },
+    "status": "triggered"
 }
+
+status: 200
+```
+
+```
+Password protected endpoint
+
+Request: curl -v -H"Authorization: Basic username:password" http://localhost:8080/ultronex/external
+
+Response: {"errors":{"Slack error : remote closed":12}}
 
 status: 200
 ```
@@ -132,5 +158,14 @@ status: 200
 ```
 Request: curl -v http://localhost:8080/ultronex/unknown
 ```
-![Image](/priv/404.png)
+![Image](/bot/priv/404.png)
 
+# WeaveScope
+`http://localhost:8040`
+
+![Image](/bot/priv/weavescope.png)
+
+# HAProxy
+`http://localhost:13000`
+
+![Image](/bot/priv/haproxy.png)
