@@ -13,7 +13,7 @@ defmodule Ultronex.Server.Controller.Slack do
   use Plug.ErrorHandler
   use Sentry.Plug
 
-  alias Ultronex.BotX, as: BotX
+  alias Ultronex.Slack.Api, as: SlackApi
   alias Ultronex.Server.Helper.App, as: Helper
 
   plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
@@ -49,7 +49,7 @@ defmodule Ultronex.Server.Controller.Slack do
 
   @decorate transaction_event()
   def process_msg(channel, text, payload, title) do
-    Task.async(fn -> BotX.relay_msg_to_slack(text, payload, channel, title) end)
+    Task.async(fn -> SlackApi.relay_msg_to_slack(text, payload, channel, title) end)
 
     %{
       status: "triggered",
