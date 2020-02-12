@@ -3,7 +3,8 @@ defmodule Ultronex.Realtime.Msg do
   Documentation for Ultronex.Realtime.Msg
   """
 
-  alias Ultronex.BotX, as: BotX
+  alias Ultronex.Slack.Bot, as: SlackBot
+  alias Ultronex.Slack.Api, as: SlackApi
 
   def parse(msg_text) do
     parsed_msg =
@@ -29,10 +30,10 @@ defmodule Ultronex.Realtime.Msg do
   end
 
   def send(msg, slack_channel, slack_state) do
-    BotX.send_msg_to_slack(msg, slack_channel, slack_state)
+    SlackBot.send_msg_to_slack(msg, slack_channel, slack_state)
   end
 
   def post(msg, payload, channel) do
-    BotX.post_msg_to_slack(msg, payload, channel)
+    SlackApi.post_msg_to_slack(msg, payload, channel)
   end
 end

@@ -40,7 +40,7 @@ defmodule Ultronex.StorageServer do
 
   def terminate(reason, _state) do
     extra = reason |> elem(1)
-    msg = "Storage Server crashed : #{extra}"
+    msg = "Storage Server terminate : #{extra}"
     Logger.error(msg)
     Utility.log_count(:external, :errors, msg)
     TermStorage.ets_tabs2file([:track, :stats, :external])
