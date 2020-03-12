@@ -8,7 +8,6 @@ defmodule Ultronex.Server.Router do
   use Plug.ErrorHandler
   use Sentry.Plug
   use Appsignal.Plug
-  use NewRelic.Transaction
 
   require Logger
 

@@ -36,7 +36,6 @@ defmodule UltronEx.MixProject do
   defp deps do
     [
       {:slack, "~> 0.20.0"},
-      {:new_relic_agent, "~> 1.0"},
       {:cowboy, "~> 2.7.0"},
       {:plug, "~> 1.8.3"},
       {:plug_cowboy, "~> 2.1.0"},
@@ -46,7 +45,7 @@ defmodule UltronEx.MixProject do
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:sentry, "~> 7.0"},
       {:jason, "~> 1.1.2"},
-      {:appsignal, "~> 1.0"},
+      {:appsignal, "~> 1.11.8"},
       {:elixir_uuid, "~> 1.2"}
     ]
   end
