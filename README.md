@@ -28,7 +28,7 @@ command(s)
 
 ## Requirements 
 * `Docker` & `Docker Compose`
-* `Elixir 1.9.4`
+* `Elixir 1.10.2`
 * `Erlang/OTP 22`
 
 ### SECRETS AND KEYS
