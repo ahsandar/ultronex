@@ -64,10 +64,18 @@ defmodule Ultronex.Server.Helper.App do
 
   def pretty_print_slack_msg(uuid, title, text, payload) do
     success_danger = if String.contains?(text, ":x:"), do: "danger", else: "success"
+
     ~s(
     <div class="card border-#{success_danger} mb-3">
       <div class="card-header bg-#{success_danger} text-white">
-          <b>#{title}</b> [#{uuid}]
+          <div class="d-flex justify-content-between">
+            <div>
+              <span class="font-weight-bold">#{title}</span> <span class="font-italic">[#{uuid}]</span> 
+            </div>
+            <div>
+              <span class="text-right">#{DateTime.utc_now() |> DateTime.to_string()}</span>
+            </div>
+           </div>
       </div>
 
       <div class="card-body"> 
@@ -76,8 +84,10 @@ defmodule Ultronex.Server.Helper.App do
         </div>
         <br/>
         <div class="form-group purple-border">
-          <label for="msg-payload-#{uuid}">Payload</label>
-          <textarea id="msg-payload-#{uuid}" class="form-control #{if success_danger == "success", do: "is-valid", else: "is-invalid"}" readonly>#{payload}</textarea>
+          <label for="msg-payload-#{uuid}"><p class="badge badge-#{success_danger} text-uppercase">Payload</p></label>
+          <textarea id="msg-payload-#{uuid}" class="form-control #{
+      if success_danger == "success", do: "is-valid", else: "is-invalid"
+    }" rows="5" readonly>#{payload}</textarea>
         </div>
       </div>
     </div>
@@ -86,11 +96,10 @@ defmodule Ultronex.Server.Helper.App do
 
   def slack_to_bootstrap_formatting(text) do
     text
-    |> String.replace(" :", "<br/>:")
     |> String.replace(":heavy_check_mark:", ~s(<span class="badge badge-success">Valid</span>))
     |> String.replace(":x:", ~s(<span class="badge badge-danger">Invalid</span>))
     |> String.replace("_*", "<i><b>")
     |> String.replace("* ", "</b> ")
-    |> String.replace("_", "</i>")
+    |> String.replace("_", "</i><br/>")
   end
 end

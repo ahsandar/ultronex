@@ -1,4 +1,6 @@
 defmodule Ultronex.Server.Websocket.SocketHandler do
+  use Appsignal.Instrumentation.Decorators
+
   @behaviour :cowboy_websocket
 
   def init(request, _state) do
@@ -13,6 +15,7 @@ defmodule Ultronex.Server.Websocket.SocketHandler do
     {:ok, state}
   end
 
+  @decorate transaction()
   def websocket_handle({:text, json}, state) do
     payload = Jason.decode!(json)
     message = payload["data"]["message"]
@@ -20,10 +23,12 @@ defmodule Ultronex.Server.Websocket.SocketHandler do
     {:reply, {:text, message}, state}
   end
 
+  @decorate transaction()
   def websocket_info(info, state) do
     {:reply, {:text, info}, state}
   end
 
+  @decorate transaction()
   def websocket_send_msg(message, state) do
     Registry.UltronexApp
     |> Registry.dispatch(state.registry_key, fn entries ->

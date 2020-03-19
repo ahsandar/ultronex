@@ -8,7 +8,7 @@
         const divTag = document.createElement("div")
         divTag.innerHTML = event.data
 
-        document.getElementById("main").append(divTag)
+        document.getElementById("main").prepend(divTag)
       })
 
       this.socket.addEventListener("close", () => {
