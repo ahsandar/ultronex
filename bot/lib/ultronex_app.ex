@@ -30,7 +30,11 @@ defmodule UltronexApp do
       %{
         id: StorageServer,
         start: {StorageServer, :start_link, [%{task: "snapshot", args: [], interval: 900_000}]}
-      }
+      },
+      Registry.child_spec(
+        keys: :duplicate,
+        name: Registry.UltronexApp
+      )
     ]
 
     opts = [strategy: :one_for_one, name: UltronexApp]

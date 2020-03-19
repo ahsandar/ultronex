@@ -15,6 +15,7 @@ defmodule Ultronex.Server.Controller.Slack do
 
   alias Ultronex.Slack.Api, as: SlackApi
   alias Ultronex.Server.Helper.App, as: Helper
+  alias Ultronex.Server.Websocket.SocketHandler, as: SocketHandler
 
   plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
 
@@ -49,12 +50,14 @@ defmodule Ultronex.Server.Controller.Slack do
 
   @decorate transaction_event()
   def process_msg(channel, text, payload, title) do
+    uuid_v4 = UUID.uuid4()
     Task.async(fn -> SlackApi.relay_msg_to_slack(text, payload, channel, title) end)
+    Task.async(fn -> SocketHandler.websocket_send_msg("#{uuid_v4}\n#{text}", %{registry_key: "/ultronex/ws/slack"}) end)
 
     %{
       status: "triggered",
       msg: %{"channel" => channel, "text" => text, "title" => title},
-      id: UUID.uuid4()
+      id: uuid_v4
     }
   end
 end
