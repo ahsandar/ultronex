@@ -52,12 +52,23 @@ defmodule Ultronex.Server.Controller.Slack do
   def process_msg(channel, text, payload, title) do
     uuid_v4 = UUID.uuid4()
     Task.async(fn -> SlackApi.relay_msg_to_slack(text, payload, channel, title) end)
-    Task.async(fn -> SocketHandler.websocket_send_msg("#{uuid_v4}\n#{text}", %{registry_key: "/ultronex/ws/slack"}) end)
+    Task.async(fn -> format_msg_for_stream(uuid_v4, title, text, payload) end)
 
     %{
       status: "triggered",
       msg: %{"channel" => channel, "text" => text, "title" => title},
       id: uuid_v4
     }
+  end
+
+  def format_msg_for_stream(
+        uuid,
+        title,
+        text,
+        payload,
+        registry_key \\ %{registry_key: "/ultronex/ws/slack"}
+      ) do
+    msg = Helper.pretty_print_slack_msg(uuid, title, text, payload)
+    SocketHandler.websocket_send_msg(msg, registry_key)
   end
 end

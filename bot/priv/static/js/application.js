@@ -1,13 +1,14 @@
 (() => {
   class myWebsocketHandler {
     setupSocket() {
+      // this.socket = new WebSocket("ws://localhost:8080/ultronex/ws/slack")
       this.socket = new WebSocket("wss://ultronex.mooo.com/ultronex/ws/slack")
 
       this.socket.addEventListener("message", (event) => {
-        const pTag = document.createElement("p")
-        pTag.innerHTML = event.data
+        const divTag = document.createElement("div")
+        divTag.innerHTML = event.data
 
-        document.getElementById("main").append(pTag)
+        document.getElementById("main").append(divTag)
       })
 
       this.socket.addEventListener("close", () => {

@@ -12,8 +12,6 @@ defmodule Ultronex.Server.Controller.Stream do
   use Plug.ErrorHandler
   use Sentry.Plug
 
-  alias Ultronex.Server.Helper.App, as: Helper
-
   plug(BasicAuth, use_config: {:ultronex, :basic_auth_config})
 
   plug(:match)
