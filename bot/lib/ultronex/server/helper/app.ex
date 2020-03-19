@@ -66,11 +66,11 @@ defmodule Ultronex.Server.Helper.App do
     success_danger = if String.contains?(text, ":x:"), do: "danger", else: "success"
 
     ~s(
-    <div class="card border-#{success_danger} mb-3">
+    <div class="card border-#{success_danger} mb-3 mr-3 ml-3">
       <div class="card-header bg-#{success_danger} text-white">
           <div class="d-flex justify-content-between">
             <div>
-              <span class="font-weight-bold">#{title}</span> <span class="font-italic">[#{uuid}]</span> 
+              <span class="font-weight-bold">#{title}</span>
             </div>
             <div>
               <span class="text-right">#{DateTime.utc_now() |> DateTime.to_string()}</span>
@@ -78,7 +78,8 @@ defmodule Ultronex.Server.Helper.App do
            </div>
       </div>
 
-      <div class="card-body"> 
+      <div class="card-body">
+       <span class="font-italic badge badge-secondary">#{uuid}</span>  
         <div  id="msg-body-#{uuid}" >
           #{slack_to_bootstrap_formatting(text)}
         </div>
