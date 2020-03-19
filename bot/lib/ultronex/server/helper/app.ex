@@ -102,5 +102,7 @@ defmodule Ultronex.Server.Helper.App do
     |> String.replace("_*", "<i><b>")
     |> String.replace("* ", "</b> ")
     |> String.replace("_", "</i><br/>")
+    |> String.replace(" *", "<b>")
+    |> String.replace("*", "</b><br/>")
   end
 end
