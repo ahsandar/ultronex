@@ -17,7 +17,11 @@ defmodule Ultronex.Server.Router do
 
   plug(Plug.Logger, log: :debug)
 
-  plug(Plug.Static, at: "/", from: :ultronex, only_matching: ["favicon", "stylesheets"])
+  plug(Plug.Static,
+    at: "/",
+    from: :ultronex,
+    only_matching: ["favicon", "stylesheets", "js", "html"]
+  )
 
   plug(:match)
 
@@ -27,6 +31,7 @@ defmodule Ultronex.Server.Router do
   forward("/ultronex/track", to: Ultronex.Server.Controller.Track)
   forward("/ultronex/stats", to: Ultronex.Server.Controller.Stats)
   forward("/ultronex/slack", to: Ultronex.Server.Controller.Slack)
+  forward("/ultronex/stream", to: Ultronex.Server.Controller.Stream)
   forward("/ultronex/external", to: Ultronex.Server.Controller.External)
 
   match _ do

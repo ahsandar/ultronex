@@ -37,11 +37,15 @@ defmodule Ultronex.Utility do
           keyfile: "/src/ultronex/cert/privkey.pem",
           cacertfile: "/src/ultronex/cert/chain.pem",
           reuse_sessions: true,
-          secure_renegotiate: true
+          secure_renegotiate: true,
+          dispatch: plug_cowboy_dispatch()
         ]
 
       _ ->
-        [port: 8443]
+        [
+          port: 8443,
+          dispatch: plug_cowboy_dispatch()
+        ]
     end
   end
 
@@ -93,5 +97,15 @@ defmodule Ultronex.Utility do
 
   def sanitize_quotes(msg) do
     String.replace(msg, ~r/“|”/, ~s("))
+  end
+
+  defp plug_cowboy_dispatch do
+    [
+      {:_,
+       [
+         {"/ultronex/ws/slack", Ultronex.Server.Websocket.SocketHandler, []},
+         {:_, Plug.Cowboy.Handler, {Ultronex.Server.Router, []}}
+       ]}
+    ]
   end
 end
